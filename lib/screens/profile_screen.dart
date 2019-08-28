@@ -275,11 +275,7 @@ class ProfileScreen extends StatelessWidget {
                               ],
                             ),
                           ),
-                          Container(
-                            alignment: Alignment.center,
-                            width: 42,
-                            child: VerticalSeparator(),
-                          ),
+                          VerticalSeparator(),
                           Container(
                             width: 100,
                             child: Column(
@@ -303,11 +299,7 @@ class ProfileScreen extends StatelessWidget {
                               ],
                             ),
                           ),
-                          Container(
-                            alignment: Alignment.center,
-                            width: 42,
-                            child: VerticalSeparator(),
-                          ),
+                          VerticalSeparator(),
                           Container(
                             width: 100,
                             child: Column(
@@ -399,10 +391,7 @@ class ProfileScreen extends StatelessWidget {
                               ),
                             ],
                           ),
-                          Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 16),
-                            child: VerticalSeparator(height: 140),
-                          ),
+                          VerticalSeparator(height: 140),
                           Expanded(
                             child: Column(
                               children: [
@@ -591,9 +580,13 @@ class VerticalSeparator extends StatelessWidget {
 
   Widget build(BuildContext context) {
     return Container(
-      color: Color(0xFF9374D4),
-      height: height,
-      width: 2,
+      alignment: Alignment.center,
+      width: 42,
+      child: Container(
+        color: Color(0xFF9374D4),
+        height: height,
+        width: 2,
+      ),
     );
   }
 }
