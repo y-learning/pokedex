@@ -7,7 +7,6 @@ class ProfileScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: true,
-        elevation: 0,
         backgroundColor: Color(0xFF9374D4),
         title: Text(
           'Pokédex',
