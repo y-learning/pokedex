@@ -88,7 +88,7 @@ class ProfileScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           Container(
                             decoration: BoxDecoration(
@@ -126,69 +126,78 @@ class ProfileScreen extends StatelessWidget {
                       ),
                       SizedBox(height: 24),
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          Column(
-                            children: [
-                              Text(
-                                'Shadow',
-                                style: TextStyle(
-                                  color: Color(0xFF6647B8),
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.w600,
+                          Container(
+                            width: 100,
+                            child: Column(
+                              children: [
+                                Text(
+                                  'Shadow',
+                                  style: TextStyle(
+                                    color: Color(0xFF6647B8),
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.w600,
+                                  ),
                                 ),
-                              ),
-                              SizedBox(height: 4),
-                              Text(
-                                'Species',
-                                style: TextStyle(
-                                  color: Colors.grey[500],
-                                  fontWeight: FontWeight.w600,
+                                SizedBox(height: 4),
+                                Text(
+                                  'Species',
+                                  style: TextStyle(
+                                    color: Colors.grey[500],
+                                    fontWeight: FontWeight.w600,
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                           VerticalSeparator(),
-                          Column(
-                            children: [
-                              Text(
-                                '4\' 11\"',
-                                style: TextStyle(
-                                  color: Color(0xFF6647B8),
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.w600,
+                          Container(
+                            width: 100,
+                            child: Column(
+                              children: [
+                                Text(
+                                  '4\' 11\"',
+                                  style: TextStyle(
+                                    color: Color(0xFF6647B8),
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.w600,
+                                  ),
                                 ),
-                              ),
-                              SizedBox(height: 4),
-                              Text(
-                                'Height',
-                                style: TextStyle(
-                                  color: Colors.grey[500],
-                                  fontWeight: FontWeight.w600,
+                                SizedBox(height: 4),
+                                Text(
+                                  'Height',
+                                  style: TextStyle(
+                                    color: Colors.grey[500],
+                                    fontWeight: FontWeight.w600,
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                           VerticalSeparator(),
-                          Column(
-                            children: [
-                              Text(
-                                '89.3 lbs',
-                                style: TextStyle(
-                                  color: Color(0xFF6647B8),
-                                  fontSize: 24,
-                                  fontWeight: FontWeight.w600,
+                          Container(
+                            width: 100,
+                            child: Column(
+                              children: [
+                                Text(
+                                  '89.3 lbs',
+                                  style: TextStyle(
+                                    color: Color(0xFF6647B8),
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.w600,
+                                  ),
                                 ),
-                              ),
-                              SizedBox(height: 4),
-                              Text(
-                                'Weight',
-                                style: TextStyle(
-                                  color: Colors.grey[500],
-                                  fontWeight: FontWeight.w600,
+                                SizedBox(height: 4),
+                                Text(
+                                  'Weight',
+                                  style: TextStyle(
+                                    color: Colors.grey[500],
+                                    fontWeight: FontWeight.w600,
+                                  ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ],
                       ),
