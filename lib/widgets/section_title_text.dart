@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SectionTitleText extends StatelessWidget {
   final String data;
@@ -11,7 +12,7 @@ class SectionTitleText extends StatelessWidget {
       data,
       style: TextStyle(
         color: textColor,
-        fontSize: 24,
+        fontSize: ScreenUtil.getInstance().setSp(39),
         fontWeight: FontWeight.w800,
       ),
       textAlign: TextAlign.center,

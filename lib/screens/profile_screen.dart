@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pokedex/widgets/vertical_separator.dart';
 import 'package:pokedex/widgets/arc_dlipper.dart';
 import 'package:pokedex/widgets/base_stat_text.dart';
@@ -10,10 +11,15 @@ import 'package:pokedex/widgets/evolution_image.dart';
 import 'package:pokedex/widgets/glow_free_listView.dart';
 import 'package:pokedex/widgets/section_title_text.dart';
 import 'package:pokedex/widgets/type_label.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
+    ScreenUtil.instance = ScreenUtil(
+      width: 768,
+      height: 1024,
+      allowFontScaling: true,
+    )..init(context);
+
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -74,7 +80,7 @@ class ProfileScreen extends StatelessWidget {
                           'Gengar',
                           style: TextStyle(
                             color: Colors.white,
-                            fontSize: 40,
+                            fontSize: ScreenUtil.getInstance().setSp(62),
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -82,7 +88,7 @@ class ProfileScreen extends StatelessWidget {
                           '#094',
                           style: TextStyle(
                             color: Colors.white,
-                            fontSize: 18,
+                            fontSize: ScreenUtil.getInstance().setSp(29),
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -94,7 +100,11 @@ class ProfileScreen extends StatelessWidget {
               Expanded(
                 flex: 3,
                 child: Padding(
-                  padding: EdgeInsets.only(top: 90, right: 24, left: 24),
+                  padding: EdgeInsets.only(
+                    top: ScreenUtil.getInstance().setHeight(104),
+                    right: ScreenUtil.getInstance().setWidth(32),
+                    left: ScreenUtil.getInstance().setWidth(32),
+                  ),
                   child: GlowFreeListView(
                     children: [
                       Row(
@@ -115,11 +125,15 @@ class ProfileScreen extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          const DataBox('Shadow', subtitle: 'Species'),
+                          const DataBox(
+                            'Fang Scorpion',
+                            subtitle: 'Species',
+                            titleMaxLines: 2,
+                          ),
                           const VerticalSeparator(),
                           const DataBox('4\' 11\"', subtitle: 'Height'),
                           const VerticalSeparator(),
-                          const DataBox('89.3 lbs', subtitle: 'Weight'),
+                          const DataBox('8956.3 lbs', subtitle: 'Weight'),
                         ],
                       ),
                       SizedBox(height: 24),
@@ -247,7 +261,7 @@ class ProfileScreen extends StatelessWidget {
           Container(
             width: double.infinity,
             margin: EdgeInsets.only(
-              top: MediaQuery.of(context).size.height * .06,
+              top: MediaQuery.of(context).size.height * .05,
             ),
             child: Image(
               height: MediaQuery.of(context).size.height * .24,
