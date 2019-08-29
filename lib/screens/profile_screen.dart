@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:pokedex/screens/vertical_separator.dart';
+import 'package:pokedex/widgets/vertical_separator.dart';
 import 'package:pokedex/widgets/arc_dlipper.dart';
 import 'package:pokedex/widgets/base_stat_text.dart';
 import 'package:pokedex/widgets/base_stats_slider.dart';
@@ -48,7 +48,7 @@ class ProfileScreen extends StatelessWidget {
             children: [
               Expanded(
                 child: ClipPath(
-                  clipper: ArcClipper(),
+                  clipper: const ArcClipper(),
                   child: Container(
                     padding: EdgeInsets.symmetric(horizontal: 16),
                     decoration: BoxDecoration(
@@ -99,11 +99,11 @@ class ProfileScreen extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          TypeLabel(
+                          const TypeLabel(
                             'Ghost',
                             color: Color(0xFF6647B8),
                           ),
-                          TypeLabel(
+                          const TypeLabel(
                             'Poison',
                             color: Color(0xFF9F60E1),
                           ),
@@ -113,15 +113,15 @@ class ProfileScreen extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          DataBox('Shadow', subtitle: 'Species'),
-                          VerticalSeparator(),
-                          DataBox('4\' 11\"', subtitle: 'Height'),
-                          VerticalSeparator(),
-                          DataBox('89.3 lbs', subtitle: 'Weight'),
+                          const DataBox('Shadow', subtitle: 'Species'),
+                          const VerticalSeparator(),
+                          const DataBox('4\' 11\"', subtitle: 'Height'),
+                          const VerticalSeparator(),
+                          const DataBox('89.3 lbs', subtitle: 'Weight'),
                         ],
                       ),
                       SizedBox(height: 24),
-                      SectionTitleText(
+                      const SectionTitleText(
                         'Evolution',
                         textColor: Color(0xFF6647B8),
                       ),
@@ -130,15 +130,15 @@ class ProfileScreen extends StatelessWidget {
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          EvolutionImage('images/gastly.gif'),
-                          EvolutionConditionBox(
+                          const EvolutionImage('images/gastly.gif'),
+                          const EvolutionConditionBox(
                             'images/evolution_icons/l25.png',
                           ),
-                          EvolutionImage('images/haunter.gif'),
-                          EvolutionConditionBox(
+                          const EvolutionImage('images/haunter.gif'),
+                          const EvolutionConditionBox(
                             'images/evolution_icons/trade.png',
                           ),
-                          EvolutionImage('images/gengar.gif'),
+                          const EvolutionImage('images/gengar.gif'),
                         ],
                       ),
                       Row(
@@ -146,14 +146,14 @@ class ProfileScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           DataBox('Gastly', subtitle: '#092'),
-                          VerticalSeparator(),
+                          const VerticalSeparator(),
                           DataBox('Haunter', subtitle: '#093'),
-                          VerticalSeparator(),
+                          const VerticalSeparator(),
                           DataBox('Gengar', subtitle: '#094'),
                         ],
                       ),
                       SizedBox(height: 24),
-                      SectionTitleText(
+                      const SectionTitleText(
                         'Base Stats',
                         textColor: Color(0xFF6647B8),
                       ),
@@ -164,59 +164,71 @@ class ProfileScreen extends StatelessWidget {
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
-                              BaseStatText(stat: 'HP'),
-                              BaseStatText(stat: 'ATK'),
-                              BaseStatText(stat: 'DEF'),
-                              BaseStatText(stat: 'SATK'),
-                              BaseStatText(stat: 'SDEF'),
-                              BaseStatText(stat: 'SPD'),
+                              const BaseStatText(stat: 'HP'),
+                              const BaseStatText(stat: 'ATK'),
+                              const BaseStatText(stat: 'DEF'),
+                              const BaseStatText(stat: 'SATK'),
+                              const BaseStatText(stat: 'SDEF'),
+                              const BaseStatText(stat: 'SPD'),
                             ],
                           ),
-                          VerticalSeparator(height: 140),
+                          const VerticalSeparator(height: 140),
                           Expanded(
                             child: Column(
                               children: [
                                 Row(
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
-                                    BaseStatText(stat: '60', width: 31),
+                                    const BaseStatText(stat: '60', width: 31),
                                     SizedBox(width: 16),
-                                    Expanded(child: BaseStatSlider(value: 60)),
+                                    Expanded(
+                                      child: const BaseStatSlider(value: 60),
+                                    ),
                                   ],
                                 ),
                                 Row(
                                   children: [
-                                    BaseStatText(stat: '65', width: 31),
+                                    const BaseStatText(stat: '65', width: 31),
                                     SizedBox(width: 16),
-                                    Expanded(child: BaseStatSlider(value: 65)),
+                                    Expanded(
+                                      child: const BaseStatSlider(value: 65),
+                                    ),
                                   ],
                                 ),
                                 Row(
                                   children: [
-                                    BaseStatText(stat: '60', width: 31),
+                                    const BaseStatText(stat: '60', width: 31),
                                     SizedBox(width: 16),
-                                    Expanded(child: BaseStatSlider(value: 60)),
+                                    Expanded(
+                                      child: const BaseStatSlider(value: 60),
+                                    ),
                                   ],
                                 ),
                                 Row(
                                   children: [
-                                    BaseStatText(stat: '130', width: 31),
+                                    const BaseStatText(stat: '130', width: 31),
                                     SizedBox(width: 16),
-                                    Expanded(child: BaseStatSlider(value: 130)),
+                                    Expanded(
+                                      child: const BaseStatSlider(value: 130),
+                                    ),
                                   ],
                                 ),
                                 Row(
                                   children: [
-                                    BaseStatText(stat: '75', width: 31),
+                                    const BaseStatText(stat: '75', width: 31),
                                     SizedBox(width: 16),
-                                    Expanded(child: BaseStatSlider(value: 75)),
+                                    Expanded(
+                                      child: const BaseStatSlider(value: 75),
+                                    ),
                                   ],
                                 ),
                                 Row(
                                   children: [
-                                    BaseStatText(stat: '110', width: 31),
+                                    const BaseStatText(stat: '110', width: 31),
                                     SizedBox(width: 16),
-                                    Expanded(child: BaseStatSlider(value: 110)),
+                                    Expanded(
+                                      child: const BaseStatSlider(value: 110),
+                                    ),
                                   ],
                                 ),
                               ],

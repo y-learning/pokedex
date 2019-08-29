@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 class VerticalSeparator extends StatelessWidget {
   final double height;
 
-  VerticalSeparator({this.height = 60});
+  const VerticalSeparator({this.height = 60});
 
   Widget build(BuildContext context) {
     return Container(
