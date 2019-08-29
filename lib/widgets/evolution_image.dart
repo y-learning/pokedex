@@ -10,8 +10,8 @@ class EvolutionImage extends StatelessWidget {
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 4),
         child: Image(
-          height: 100,
-          width: 100,
+          height: 96,
+          width: 96,
           image: AssetImage(assetName),
         ),
       ),

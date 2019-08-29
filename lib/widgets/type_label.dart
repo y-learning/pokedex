@@ -12,27 +12,27 @@ class TypeLabel extends StatelessWidget {
     this.color,
     this.fontSize = 20,
     this.height = 32,
-    this.width = 170,
+    this.width = 180,
   });
 
   Widget build(BuildContext context) {
-    return Flexible(
+    return Expanded(
       child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 8),
-        decoration: BoxDecoration(
-          color: color,
-          borderRadius: BorderRadius.circular(30),
-        ),
+        alignment: Alignment.center,
         width: width,
         height: height,
+        decoration: BoxDecoration(
+          color: color,
+          borderRadius: BorderRadius.circular(100),
+        ),
         child: Text(
           type,
           style: TextStyle(
-              color: Colors.white,
-              fontSize: fontSize,
-              fontWeight: FontWeight.bold),
+            color: Colors.white,
+            fontSize: fontSize,
+            fontWeight: FontWeight.bold,
+          ),
         ),
-        alignment: Alignment.center,
       ),
     );
   }

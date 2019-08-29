@@ -16,6 +16,7 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 0,
         automaticallyImplyLeading: true,
         backgroundColor: Color(0xFF9374D4),
         title: Text(
@@ -93,7 +94,7 @@ class ProfileScreen extends StatelessWidget {
               Expanded(
                 flex: 3,
                 child: Padding(
-                  padding: EdgeInsets.only(top: 90, right: 28, left: 28),
+                  padding: EdgeInsets.only(top: 90, right: 24, left: 24),
                   child: GlowFreeListView(
                     children: [
                       Row(
@@ -103,6 +104,7 @@ class ProfileScreen extends StatelessWidget {
                             'Ghost',
                             color: Color(0xFF6647B8),
                           ),
+                          SizedBox(width: 40),
                           const TypeLabel(
                             'Poison',
                             color: Color(0xFF9F60E1),
@@ -147,7 +149,7 @@ class ProfileScreen extends StatelessWidget {
                         children: [
                           DataBox('Gastly', subtitle: '#092'),
                           const VerticalSeparator(),
-                          DataBox('Haunter', subtitle: '#093'),
+                          DataBox('Fletchinder', subtitle: '#093'),
                           const VerticalSeparator(),
                           DataBox('Gengar', subtitle: '#094'),
                         ],
@@ -245,11 +247,11 @@ class ProfileScreen extends StatelessWidget {
           Container(
             width: double.infinity,
             margin: EdgeInsets.only(
-              top: MediaQuery.of(context).size.height * .07,
+              top: MediaQuery.of(context).size.height * .06,
             ),
             child: Image(
-              height: MediaQuery.of(context).size.height * .22,
-              width: MediaQuery.of(context).size.height * .22,
+              height: MediaQuery.of(context).size.height * .24,
+              width: MediaQuery.of(context).size.height * .24,
               image: AssetImage('images/gengar.gif'),
             ),
           )

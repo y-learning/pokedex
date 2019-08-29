@@ -7,31 +7,30 @@ class DataBox extends StatelessWidget {
   const DataBox(this.title, {this.subtitle});
 
   Widget build(BuildContext context) {
-    return Flexible(
+    return Expanded(
       child: Container(
         width: 100,
         child: Column(
           children: [
             Text(
               title,
+              textAlign: TextAlign.center,
               style: TextStyle(
                 color: Color(0xFF6647B8),
-                fontSize: 24,
+                fontSize: 20,
                 fontWeight: FontWeight.w600,
               ),
-              textAlign: TextAlign.center,
-              maxLines: 1,
             ),
             SizedBox(height: 4),
             Text(
               subtitle,
-              style: TextStyle(
-                color: Colors.grey[500],
-                fontSize: 13,
-                fontWeight: FontWeight.w600,
-              ),
               textAlign: TextAlign.center,
               maxLines: 1,
+              style: TextStyle(
+                color: Colors.grey[500],
+                fontSize: 12,
+                fontWeight: FontWeight.w600,
+              ),
             ),
           ],
         ),
