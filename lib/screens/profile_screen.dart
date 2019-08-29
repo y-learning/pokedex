@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pokedex/widgets/vertical_separator.dart';
 import 'package:pokedex/widgets/arc_dlipper.dart';
@@ -11,6 +10,7 @@ import 'package:pokedex/widgets/evolution_image.dart';
 import 'package:pokedex/widgets/glow_free_listView.dart';
 import 'package:pokedex/widgets/section_title_text.dart';
 import 'package:pokedex/widgets/type_label.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {

@@ -1,6 +1,6 @@
 import 'dart:ui';
 
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class ArcClipper extends CustomClipper<Path> {
   Path getClip(Size size) {
