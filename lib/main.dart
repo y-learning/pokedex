@@ -11,21 +11,7 @@ class App extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: OrientationBuilder(
         builder: (BuildContext context, Orientation orientation) {
-          var width = 0.0;
-          var height = 0.0;
-          if (_isPortrait(orientation)) {
-            width = 768;
-            height = 1024;
-          } else {
-            height = 768;
-            width = 1024;
-          }
-
-          ScreenUtil.instance = ScreenUtil(
-            width: width,
-            height: height,
-            allowFontScaling: true,
-          )..init(context);
+          _setScreenUtil(orientation, context);
 
           return ProfileScreen();
         },
@@ -33,6 +19,19 @@ class App extends StatelessWidget {
     );
   }
 
-  bool _isPortrait(Orientation orientation) =>
-      orientation == Orientation.portrait;
+  void _setScreenUtil(Orientation orientation, BuildContext context) {
+    var width = 768.0;
+    var height = 1024.0;
+
+    if (orientation == Orientation.landscape) {
+      width = 1024.0;
+      height = 768.0;
+    }
+
+    ScreenUtil.instance = ScreenUtil(
+      width: width,
+      height: height,
+      allowFontScaling: true,
+    )..init(context);
+  }
 }
