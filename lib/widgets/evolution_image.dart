@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class EvolutionImage extends StatelessWidget {
   final String assetName;
@@ -10,8 +11,7 @@ class EvolutionImage extends StatelessWidget {
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 4),
         child: Image(
-          height: 96,
-          width: 96,
+          width: ScreenUtil.getInstance().setWidth(112),
           image: AssetImage(assetName),
         ),
       ),
