@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pokedex/widgets/vertical_separator.dart';
 import 'package:pokedex/widgets/arc_dlipper.dart';
-import 'package:pokedex/widgets/base_stat_text.dart';
+import 'package:pokedex/widgets/base_stat_row.dart';
 import 'package:pokedex/widgets/base_stats_slider.dart';
 import 'package:pokedex/widgets/data_box.dart';
 import 'package:pokedex/widgets/evolution_condition_box.dart';
@@ -174,97 +174,14 @@ class ProfileScreen extends StatelessWidget {
                         textColor: Color(0xFF6647B8),
                       ),
                       SizedBox(height: 6),
-                      Row(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Container(
-                            padding: EdgeInsets.only(
-                              right: 14,
-                              top: 8,
-                              bottom: 8,
-                            ),
-                            margin: EdgeInsets.only(right: 14),
-                            decoration: BoxDecoration(
-                              border: Border(
-                                right: BorderSide(
-                                  color: Color(0xFF9374D4),
-                                  width: 2,
-                                ),
-                              ),
-                            ),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                const BaseStatText(stat: 'HP'),
-                                const BaseStatText(stat: 'ATK'),
-                                const BaseStatText(stat: 'DEF'),
-                                const BaseStatText(stat: 'SATK'),
-                                const BaseStatText(stat: 'SDEF'),
-                                const BaseStatText(stat: 'SPD'),
-                              ],
-                            ),
-                          ),
-                          Expanded(
-                            child: Column(
-                              children: [
-                                Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    const BaseStatText(stat: '60', width: 31),
-                                    SizedBox(width: 16),
-                                    Expanded(
-                                      child: const BaseStatSlider(value: 60),
-                                    ),
-                                  ],
-                                ),
-                                Row(
-                                  children: [
-                                    const BaseStatText(stat: '65', width: 31),
-                                    SizedBox(width: 16),
-                                    Expanded(
-                                      child: const BaseStatSlider(value: 65),
-                                    ),
-                                  ],
-                                ),
-                                Row(
-                                  children: [
-                                    const BaseStatText(stat: '60', width: 31),
-                                    SizedBox(width: 16),
-                                    Expanded(
-                                      child: const BaseStatSlider(value: 60),
-                                    ),
-                                  ],
-                                ),
-                                Row(
-                                  children: [
-                                    const BaseStatText(stat: '130', width: 31),
-                                    SizedBox(width: 16),
-                                    Expanded(
-                                      child: const BaseStatSlider(value: 130),
-                                    ),
-                                  ],
-                                ),
-                                Row(
-                                  children: [
-                                    const BaseStatText(stat: '75', width: 31),
-                                    SizedBox(width: 16),
-                                    Expanded(
-                                      child: const BaseStatSlider(value: 75),
-                                    ),
-                                  ],
-                                ),
-                                Row(
-                                  children: [
-                                    const BaseStatText(stat: '110', width: 31),
-                                    SizedBox(width: 16),
-                                    Expanded(
-                                      child: const BaseStatSlider(value: 110),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
+                      Column(
+                        children: const [
+                          StatRow(statLabel: 'HP', stat: 60),
+                          StatRow(statLabel: 'ATK', stat: 65),
+                          StatRow(statLabel: 'DEF', stat: 60),
+                          StatRow(statLabel: 'SATK', stat: 130),
+                          StatRow(statLabel: 'SDEF', stat: 75),
+                          StatRow(statLabel: 'SPD', stat: 110),
                         ],
                       )
                     ],
