@@ -13,12 +13,6 @@ import 'package:pokedex/widgets/type_label.dart';
 
 class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
-    ScreenUtil.instance = ScreenUtil(
-      width: 768,
-      height: 1024,
-      allowFontScaling: true,
-    )..init(context);
-
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
