@@ -1,30 +1,34 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:pokedex/viewmodels/stat_slider_view_model_test.dart';
 
 class BaseStatSlider extends StatelessWidget {
-  final double value;
-  final Function(double v) onChanged;
+  final double stat;
 
-  const BaseStatSlider({this.value, this.onChanged});
+  const BaseStatSlider({@required this.stat});
 
   Widget build(BuildContext context) {
-    return SliderTheme(
-      data: SliderTheme.of(context).copyWith(
-        trackHeight: ScreenUtil.getInstance().setHeight(9),
-        disabledActiveTrackColor: Color(0xFF6647B8),
-        disabledInactiveTrackColor: Colors.grey,
-        activeTrackColor: Color(0xFF6647B8),
-        inactiveTrackColor: Colors.grey,
-        thumbColor: Colors.white,
-        thumbShape: RoundSliderThumbShape(enabledThumbRadius: 0.0),
-        overlayShape: RoundSliderOverlayShape(overlayRadius: 0.0),
-        overlayColor: Color(0x29EA1556),
+    return Container(
+      alignment: Alignment.centerLeft,
+      height: ScreenUtil.getInstance().setHeight(9),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        color: Colors.grey,
       ),
-      child: Slider(
-        value: value,
-        max: 200,
-        min: 0.0,
-        onChanged: null,
+      child: LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
+          return Container(
+            width: StatSliderViewModel.calculateActiveSliderWidth(
+              stat,
+              constraints.maxWidth,
+            ),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              color: Color(0xFF6647B8),
+            ),
+          );
+        },
       ),
     );
   }
