@@ -177,18 +177,33 @@ class ProfileScreen extends StatelessWidget {
                       Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              const BaseStatText(stat: 'HP'),
-                              const BaseStatText(stat: 'ATK'),
-                              const BaseStatText(stat: 'DEF'),
-                              const BaseStatText(stat: 'SATK'),
-                              const BaseStatText(stat: 'SDEF'),
-                              const BaseStatText(stat: 'SPD'),
-                            ],
+                          Container(
+                            padding: EdgeInsets.only(
+                              right: 14,
+                              top: 8,
+                              bottom: 8,
+                            ),
+                            margin: EdgeInsets.only(right: 14),
+                            decoration: BoxDecoration(
+                              border: Border(
+                                right: BorderSide(
+                                  color: Color(0xFF9374D4),
+                                  width: 2,
+                                ),
+                              ),
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                const BaseStatText(stat: 'HP'),
+                                const BaseStatText(stat: 'ATK'),
+                                const BaseStatText(stat: 'DEF'),
+                                const BaseStatText(stat: 'SATK'),
+                                const BaseStatText(stat: 'SDEF'),
+                                const BaseStatText(stat: 'SPD'),
+                              ],
+                            ),
                           ),
-                          const VerticalSeparator(height: 140),
                           Expanded(
                             child: Column(
                               children: [
