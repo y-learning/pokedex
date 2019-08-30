@@ -16,6 +16,7 @@ class StatRow extends StatelessWidget {
           stat: statLabel,
           width: ScreenUtil.getInstance().setWidth(90),
           margin: EdgeInsets.only(right: ScreenUtil.getInstance().setWidth(24)),
+          fontWeight: FontWeight.w700,
           padding: EdgeInsets.only(
             right: ScreenUtil.getInstance().setWidth(24),
             top: ScreenUtil.getInstance().setWidth(8),
@@ -30,6 +31,7 @@ class StatRow extends StatelessWidget {
         BaseStatText(
           stat: '${stat.floor()}',
           width: ScreenUtil.getInstance().setWidth(66),
+          fontWeight: FontWeight.w600,
           padding: EdgeInsets.only(
             right: ScreenUtil.getInstance().setWidth(24),
           ),
@@ -46,6 +48,7 @@ class BaseStatText extends StatelessWidget {
   final EdgeInsetsGeometry padding;
   final EdgeInsetsGeometry margin;
   final Decoration decoration;
+  final FontWeight fontWeight;
 
   const BaseStatText({
     @required this.stat,
@@ -53,6 +56,7 @@ class BaseStatText extends StatelessWidget {
     this.padding,
     this.margin,
     this.decoration,
+    this.fontWeight,
   });
 
   Widget build(BuildContext context) {
@@ -66,7 +70,7 @@ class BaseStatText extends StatelessWidget {
         style: TextStyle(
           color: Color(0xFF6647B8),
           fontSize: ScreenUtil.getInstance().setSp(24),
-          fontWeight: FontWeight.w600,
+          fontWeight: fontWeight,
         ),
         textAlign: TextAlign.end,
       ),

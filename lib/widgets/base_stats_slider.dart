@@ -10,7 +10,7 @@ class BaseStatSlider extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliderTheme(
       data: SliderTheme.of(context).copyWith(
-        trackHeight: ScreenUtil.getInstance().setHeight(12),
+        trackHeight: ScreenUtil.getInstance().setHeight(9),
         disabledActiveTrackColor: Color(0xFF6647B8),
         disabledInactiveTrackColor: Colors.grey,
         activeTrackColor: Color(0xFF6647B8),
