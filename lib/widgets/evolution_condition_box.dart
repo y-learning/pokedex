@@ -8,7 +8,7 @@ class EvolutionConditionBox extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: Image(
-        width: 28,
+        width: 30,
         image: AssetImage(assetName),
       ),
     );

@@ -4,7 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pokedex/widgets/vertical_separator.dart';
 import 'package:pokedex/widgets/arc_dlipper.dart';
 import 'package:pokedex/widgets/base_stat_row.dart';
-import 'package:pokedex/widgets/base_stats_slider.dart';
 import 'package:pokedex/widgets/data_box.dart';
 import 'package:pokedex/widgets/evolution_condition_box.dart';
 import 'package:pokedex/widgets/evolution_image.dart';
