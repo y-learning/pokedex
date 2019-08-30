@@ -6,8 +6,14 @@ class DataBox extends StatelessWidget {
   final String title;
   final String subtitle;
   final int titleMaxLines;
+  final Color color;
 
-  const DataBox(this.title, {this.subtitle, this.titleMaxLines = 1});
+  const DataBox(
+    this.title, {
+    this.subtitle,
+    this.titleMaxLines = 1,
+    this.color,
+  });
 
   Widget build(BuildContext context) {
     return Expanded(
@@ -19,7 +25,7 @@ class DataBox extends StatelessWidget {
               title,
               textAlign: TextAlign.center,
               style: TextStyle(
-                color: Color(0xFF6647B8),
+                color: color,
                 fontSize: ScreenUtil.getInstance().setSp(32),
                 fontWeight: FontWeight.w600,
               ),

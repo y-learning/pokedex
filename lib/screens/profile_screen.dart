@@ -11,13 +11,15 @@ import 'package:pokedex/widgets/glow_free_listView.dart';
 import 'package:pokedex/widgets/section_title_text.dart';
 import 'package:pokedex/widgets/type_label.dart';
 
+import '../constants.dart';
+
 class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
         automaticallyImplyLeading: true,
-        backgroundColor: Color(0xFF9374D4),
+        backgroundColor: kGhostLightColor,
         title: Text(
           'Pokédex',
           style: TextStyle(
@@ -56,12 +58,7 @@ class ProfileScreen extends StatelessWidget {
                         begin: Alignment.bottomCenter,
                         end: Alignment.topCenter,
                         stops: [0.1, 0.4, 0.6, 0.9],
-                        colors: [
-                          Color(0xFF684AB9),
-                          Color(0xFF7757C3),
-                          Color(0xFF8364CA),
-                          Color(0xFF9374D4),
-                        ],
+                        colors: kGhostGradient,
                       ),
                     ),
                     child: Row(
@@ -102,79 +99,130 @@ class ProfileScreen extends StatelessWidget {
                     children: [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          const TypeLabel(
+                        children: const [
+                          TypeLabel(
                             'Ghost',
-                            color: Color(0xFF6647B8),
+                            color: kGhostTypeColor,
                           ),
                           SizedBox(width: 40),
-                          const TypeLabel(
+                          TypeLabel(
                             'Poison',
-                            color: Color(0xFF9F60E1),
+                            color: kPoisonTypeColor,
                           ),
                         ],
                       ),
                       SizedBox(height: 24),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          const DataBox(
-                            'Fang Scorpion',
+                        children: const [
+                          DataBox(
+                            'Shadow',
                             subtitle: 'Species',
                             titleMaxLines: 2,
+                            color: kGhostTypeColor,
                           ),
-                          const VerticalSeparator(),
-                          const DataBox('4\' 11\"', subtitle: 'Height'),
-                          const VerticalSeparator(),
-                          const DataBox('8956.3 lbs', subtitle: 'Weight'),
+                          VerticalSeparator(),
+                          DataBox(
+                            '4\' 11\"',
+                            subtitle: 'Height',
+                            color: kGhostTypeColor,
+                          ),
+                          VerticalSeparator(),
+                          DataBox(
+                            '8956.3 lbs',
+                            subtitle: 'Weight',
+                            color: kGhostTypeColor,
+                          ),
                         ],
                       ),
                       SizedBox(height: 24),
                       const SectionTitleText(
                         'Evolution',
-                        textColor: Color(0xFF6647B8),
+                        textColor: kGhostTypeColor,
                       ),
                       SizedBox(height: 6),
                       Row(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          const EvolutionImage('images/gastly.gif'),
-                          const EvolutionConditionBox(
+                        children: const [
+                          EvolutionImage('images/gastly.gif'),
+                          EvolutionConditionBox(
                             'images/evolution_icons/l25.png',
                           ),
-                          const EvolutionImage('images/haunter.gif'),
-                          const EvolutionConditionBox(
+                          EvolutionImage('images/haunter.gif'),
+                          EvolutionConditionBox(
                             'images/evolution_icons/trade.png',
                           ),
-                          const EvolutionImage('images/gengar.gif'),
+                          EvolutionImage('images/gengar.gif'),
                         ],
                       ),
                       Row(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          DataBox('Gastly', subtitle: '#092'),
-                          const VerticalSeparator(),
-                          DataBox('Fletchinder', subtitle: '#093'),
-                          const VerticalSeparator(),
-                          DataBox('Gengar', subtitle: '#094'),
+                        children: const [
+                          DataBox(
+                            'Gastly',
+                            subtitle: '#092',
+                            color: kGhostTypeColor,
+                          ),
+                          VerticalSeparator(),
+                          DataBox(
+                            'Haunter',
+                            subtitle: '#093',
+                            color: kGhostTypeColor,
+                          ),
+                          VerticalSeparator(),
+                          DataBox(
+                            'Gengar',
+                            subtitle: '#094',
+                            color: kGhostTypeColor,
+                          ),
                         ],
                       ),
                       SizedBox(height: 24),
                       const SectionTitleText(
                         'Base Stats',
-                        textColor: Color(0xFF6647B8),
+                        textColor: kGhostTypeColor,
                       ),
                       SizedBox(height: 6),
                       Column(
                         children: const [
-                          StatRow(statLabel: 'HP', stat: 60),
-                          StatRow(statLabel: 'ATK', stat: 65),
-                          StatRow(statLabel: 'DEF', stat: 60),
-                          StatRow(statLabel: 'SATK', stat: 130),
-                          StatRow(statLabel: 'SDEF', stat: 75),
-                          StatRow(statLabel: 'SPD', stat: 110),
+                          StatRow(
+                            statLabel: 'HP',
+                            stat: 60,
+                            textColor: kGhostTypeColor,
+                            separatorColor: kGhostLightColor,
+                          ),
+                          StatRow(
+                            statLabel: 'ATK',
+                            stat: 65,
+                            textColor: kGhostTypeColor,
+                            separatorColor: kGhostLightColor,
+                          ),
+                          StatRow(
+                            statLabel: 'DEF',
+                            stat: 60,
+                            textColor: kGhostTypeColor,
+                            separatorColor: kGhostLightColor,
+                          ),
+                          StatRow(
+                            statLabel: 'SATK',
+                            stat: 130,
+                            textColor: kGhostTypeColor,
+                            separatorColor: kGhostLightColor,
+                          ),
+                          StatRow(
+                            statLabel: 'SDEF',
+                            stat: 75,
+                            textColor: kGhostTypeColor,
+                            separatorColor: kGhostLightColor,
+                          ),
+                          StatRow(
+                            statLabel: 'SPD',
+                            stat: 110,
+                            textColor: kGhostTypeColor,
+                            separatorColor: kGhostLightColor,
+                          ),
                         ],
                       )
                     ],

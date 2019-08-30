@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pokedex/viewmodels/stat_slider_view_model_test.dart';
 
+import '../constants.dart';
+
 class BaseStatSlider extends StatelessWidget {
   final double stat;
 
@@ -25,7 +27,7 @@ class BaseStatSlider extends StatelessWidget {
             ),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
-              color: Color(0xFF6647B8),
+              color: kGhostTypeColor,
             ),
           );
         },

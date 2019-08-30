@@ -6,8 +6,15 @@ import 'base_stats_slider.dart';
 class StatRow extends StatelessWidget {
   final String statLabel;
   final double stat;
+  final Color textColor;
+  final Color separatorColor;
 
-  const StatRow({@required this.stat, @required this.statLabel});
+  const StatRow({
+    @required this.stat,
+    @required this.statLabel,
+    this.textColor,
+    this.separatorColor,
+  });
 
   Widget build(BuildContext context) {
     return Row(
@@ -17,6 +24,7 @@ class StatRow extends StatelessWidget {
           width: ScreenUtil.getInstance().setWidth(90),
           margin: EdgeInsets.only(right: ScreenUtil.getInstance().setWidth(24)),
           fontWeight: FontWeight.w700,
+          color: textColor,
           padding: EdgeInsets.only(
             right: ScreenUtil.getInstance().setWidth(24),
             top: ScreenUtil.getInstance().setWidth(8),
@@ -24,7 +32,7 @@ class StatRow extends StatelessWidget {
           ),
           decoration: BoxDecoration(
             border: Border(
-              right: BorderSide(color: Color(0xFF9374D4), width: 2),
+              right: BorderSide(color: separatorColor, width: 2),
             ),
           ),
         ),
@@ -32,6 +40,7 @@ class StatRow extends StatelessWidget {
           stat: '${stat.floor()}',
           width: ScreenUtil.getInstance().setWidth(66),
           fontWeight: FontWeight.w600,
+          color: textColor,
           padding: EdgeInsets.only(
             right: ScreenUtil.getInstance().setWidth(24),
           ),
@@ -49,6 +58,7 @@ class BaseStatText extends StatelessWidget {
   final EdgeInsetsGeometry margin;
   final Decoration decoration;
   final FontWeight fontWeight;
+  final Color color;
 
   const BaseStatText({
     @required this.stat,
@@ -57,6 +67,7 @@ class BaseStatText extends StatelessWidget {
     this.margin,
     this.decoration,
     this.fontWeight,
+    this.color,
   });
 
   Widget build(BuildContext context) {
@@ -68,7 +79,7 @@ class BaseStatText extends StatelessWidget {
       child: Text(
         stat,
         style: TextStyle(
-          color: Color(0xFF6647B8),
+          color: color,
           fontSize: ScreenUtil.getInstance().setSp(24),
           fontWeight: fontWeight,
         ),

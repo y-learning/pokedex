@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../constants.dart';
+
 class VerticalSeparator extends StatelessWidget {
   final double height;
 
@@ -10,7 +12,7 @@ class VerticalSeparator extends StatelessWidget {
       alignment: Alignment.center,
       width: 32,
       child: Container(
-        color: Color(0xFF9374D4),
+        color: kGhostLightColor,
         height: height,
         width: 2,
       ),
