@@ -13,7 +13,18 @@ import 'package:pokedex/widgets/type_label.dart';
 
 import '../constants.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
+  _ProfileScreenState createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  String _mainPokemonAsset;
+  bool _isMega;
+
+  _ProfileScreenState() {
+    _setRegularEvolution();
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -110,6 +121,20 @@ class ProfileScreen extends StatelessWidget {
                             color: kPoisonTypeColor,
                           ),
                         ],
+                      ),
+                      Tooltip(
+                        message: 'Mega Evolution',
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(100),
+                          color: kGhostLightColor,
+                        ),
+                        child: IconButton(
+                          splashColor: kGhostLightColor,
+                          icon: Image(
+                            image: AssetImage('images/megastone_gengarite.png'),
+                          ),
+                          onPressed: _toggleMegaEvolution,
+                        ),
                       ),
                       SizedBox(height: 24),
                       Row(
@@ -243,11 +268,24 @@ class ProfileScreen extends StatelessWidget {
             child: Image(
               height: MediaQuery.of(context).size.height * .24,
               width: MediaQuery.of(context).size.height * .24,
-              image: AssetImage('images/gengar.gif'),
+              image: AssetImage(_mainPokemonAsset),
             ),
           )
         ],
       ),
     );
+  }
+
+  void _toggleMegaEvolution() =>
+      setState(() => _isMega ? _setRegularEvolution() : _setMegaEvolution());
+
+  void _setRegularEvolution() {
+    _mainPokemonAsset = 'images/gengar.gif';
+    _isMega = false;
+  }
+
+  void _setMegaEvolution() {
+    _mainPokemonAsset = 'images/mega_gengar.gif';
+    _isMega = true;
   }
 }
