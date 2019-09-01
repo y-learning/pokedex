@@ -147,11 +147,15 @@ class ProfileScreen extends StatelessWidget {
                         children: const [
                           EvolutionImage('images/gastly.gif'),
                           EvolutionConditionBox(
-                            'images/evolution_icons/l25.png',
+                            assetName: 'images/evolution_icons/l25.png',
+                            hoverMessage: 'Level',
+                            hoverColor: kGhostLightColor,
                           ),
                           EvolutionImage('images/haunter.gif'),
                           EvolutionConditionBox(
-                            'images/evolution_icons/trade.png',
+                            assetName: 'images/evolution_icons/trade.png',
+                            hoverMessage: 'Trade',
+                            hoverColor: kGhostLightColor,
                           ),
                           EvolutionImage('images/gengar.gif'),
                         ],
