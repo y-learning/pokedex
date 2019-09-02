@@ -36,7 +36,7 @@ class TypeLabel extends StatelessWidget {
           children: [
             SvgPicture.asset(
               typeAsset,
-              width: 24,
+              width: ScreenUtil.getInstance().setWidth(32),
             ),
             Expanded(
               child: AutoSizeText(
