@@ -17,7 +17,6 @@ class TypeLabel extends StatelessWidget {
   Widget build(BuildContext context) {
     return Expanded(
       child: Container(
-        alignment: Alignment.center,
         padding: EdgeInsets.symmetric(
           vertical: ScreenUtil.getInstance().setHeight(12),
           horizontal: ScreenUtil.getInstance().setWidth(34),
