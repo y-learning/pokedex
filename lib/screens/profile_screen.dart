@@ -10,6 +10,7 @@ import 'package:pokedex/widgets/evolution_image.dart';
 import 'package:pokedex/widgets/glow_free_listView.dart';
 import 'package:pokedex/widgets/section_title_text.dart';
 import 'package:pokedex/widgets/type_label.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../constants.dart';
 
@@ -141,22 +142,79 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: const [
                           DataBox(
-                            'Shadow',
+                            widgets: [
+                              DataBoxTitle(
+                                'Shadow',
+                                titleMaxLines: 2,
+                                color: kGhostTypeColor,
+                              )
+                            ],
                             subtitle: 'Species',
-                            titleMaxLines: 2,
-                            color: kGhostTypeColor,
                           ),
                           VerticalSeparator(),
                           DataBox(
-                            '4\' 11\"',
+                            widgets: [
+                              DataBoxTitle(
+                                '4\' 11\"',
+                                color: kGhostTypeColor,
+                              )
+                            ],
                             subtitle: 'Height',
-                            color: kGhostTypeColor,
                           ),
                           VerticalSeparator(),
                           DataBox(
-                            '8956.3 lbs',
+                            widgets: [
+                              DataBoxTitle(
+                                '8956.3 lbs',
+                                color: kGhostTypeColor,
+                              )
+                            ],
                             subtitle: 'Weight',
-                            color: kGhostTypeColor,
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 24),
+                      Row(
+                        children: [
+                          DataBox(
+                            widgets: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  DataBoxTitle(
+                                    '50%',
+                                    color: kMaleColor,
+                                  ),
+                                  Icon(
+                                    FontAwesomeIcons.mars,
+                                    color: kMaleColor,
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  DataBoxTitle(
+                                    '50%',
+                                    color: kFemaleColor,
+                                  ),
+                                  Icon(
+                                    FontAwesomeIcons.venus,
+                                    color: kFemaleColor,
+                                  ),
+                                ],
+                              ),
+                            ],
+                            subtitle: 'Gender',
+                          ),
+                          DataBox(
+                            widgets: [
+                              DataBoxTitle(
+                                'Cursed Body',
+                                color: kGhostTypeColor,
+                              ),
+                            ],
+                            subtitle: 'Abilities',
                           ),
                         ],
                       ),
@@ -190,21 +248,33 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: const [
                           DataBox(
-                            'Gastly',
+                            widgets: [
+                              DataBoxTitle(
+                                'Gastly',
+                                color: kGhostTypeColor,
+                              ),
+                            ],
                             subtitle: '#092',
-                            color: kGhostTypeColor,
                           ),
                           VerticalSeparator(),
                           DataBox(
-                            'Haunter',
+                            widgets: [
+                              DataBoxTitle(
+                                'Haunter',
+                                color: kGhostTypeColor,
+                              ),
+                            ],
                             subtitle: '#093',
-                            color: kGhostTypeColor,
                           ),
                           VerticalSeparator(),
                           DataBox(
-                            'Gengar',
+                            widgets: [
+                              DataBoxTitle(
+                                'Gengar',
+                                color: kGhostTypeColor,
+                              ),
+                            ],
                             subtitle: '#094',
-                            color: kGhostTypeColor,
                           ),
                         ],
                       ),

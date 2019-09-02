@@ -10,3 +10,6 @@ const kGhostGradient = [
   Color(0xFF8364CA),
   kGhostLightColor,
 ];
+
+const kMaleColor = Color(0xFF008FFF);
+const kFemaleColor = Color(0xFFFF0159);
