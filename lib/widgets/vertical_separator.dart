@@ -12,7 +12,7 @@ class VerticalSeparator extends StatelessWidget {
       alignment: Alignment.center,
       width: 32,
       child: Container(
-        color: kGhostLightColor,
+        color: kGhostTypeColor4,
         height: height,
         width: 2,
       ),

@@ -31,7 +31,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       appBar: AppBar(
         elevation: 0,
         automaticallyImplyLeading: true,
-        backgroundColor: kGhostLightColor,
+        backgroundColor: kGhostTypeColor4,
         title: Text(
           'Pokédex',
           style: TextStyle(
@@ -70,7 +70,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         begin: Alignment.bottomCenter,
                         end: Alignment.topCenter,
                         stops: [0.1, 0.4, 0.6, 0.9],
-                        colors: kGhostGradient,
+                        colors: kGhostRgbGradient,
                       ),
                     ),
                     child: Row(
@@ -113,13 +113,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: const [
                           TypeLabel(
-                            'Ghost',
-                            color: kGhostTypeColor,
+                            'GHOST',
+                            color: kGhostTypeColor1,
+                            typeAsset: 'images/types/ghost.svg',
                           ),
                           SizedBox(width: 40),
                           TypeLabel(
-                            'Poison',
-                            color: kPoisonTypeColor,
+                            'POISON',
+                            color: kPoisonTypeColor1,
+                            typeAsset: 'images/types/poison.svg',
                           ),
                         ],
                       ),
@@ -127,10 +129,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         message: 'Mega Evolution',
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(100),
-                          color: kGhostLightColor,
+                          color: kGhostTypeColor4,
                         ),
                         child: IconButton(
-                          splashColor: kGhostLightColor,
+                          splashColor: kGhostTypeColor4,
                           icon: Image(
                             image: AssetImage('images/megastone_gengarite.png'),
                           ),
@@ -146,7 +148,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               DataBoxTitle(
                                 'Shadow',
                                 titleMaxLines: 2,
-                                color: kGhostTypeColor,
+                                color: kGhostTypeColor1,
                               )
                             ],
                             subtitle: 'Species',
@@ -156,7 +158,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             widgets: [
                               DataBoxTitle(
                                 '4\' 11\"',
-                                color: kGhostTypeColor,
+                                color: kGhostTypeColor1,
                               )
                             ],
                             subtitle: 'Height',
@@ -166,7 +168,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             widgets: [
                               DataBoxTitle(
                                 '8956.3 lbs',
-                                color: kGhostTypeColor,
+                                color: kGhostTypeColor1,
                               )
                             ],
                             subtitle: 'Weight',
@@ -211,7 +213,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             widgets: [
                               DataBoxTitle(
                                 'Cursed Body',
-                                color: kGhostTypeColor,
+                                color: kGhostTypeColor1,
                               ),
                             ],
                             subtitle: 'Abilities',
@@ -221,7 +223,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       SizedBox(height: 24),
                       const SectionTitleText(
                         'Evolution',
-                        textColor: kGhostTypeColor,
+                        textColor: kGhostTypeColor1,
                       ),
                       SizedBox(height: 6),
                       Row(
@@ -232,13 +234,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           EvolutionConditionBox(
                             assetName: 'images/evolution_icons/l25.png',
                             hoverMessage: 'Level',
-                            hoverColor: kGhostLightColor,
+                            hoverColor: kGhostTypeColor4,
                           ),
                           EvolutionImage('images/haunter.gif'),
                           EvolutionConditionBox(
                             assetName: 'images/evolution_icons/trade.png',
                             hoverMessage: 'Trade',
-                            hoverColor: kGhostLightColor,
+                            hoverColor: kGhostTypeColor4,
                           ),
                           EvolutionImage('images/gengar.gif'),
                         ],
@@ -251,7 +253,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             widgets: [
                               DataBoxTitle(
                                 'Gastly',
-                                color: kGhostTypeColor,
+                                color: kGhostTypeColor1,
                               ),
                             ],
                             subtitle: '#092',
@@ -261,7 +263,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             widgets: [
                               DataBoxTitle(
                                 'Haunter',
-                                color: kGhostTypeColor,
+                                color: kGhostTypeColor1,
                               ),
                             ],
                             subtitle: '#093',
@@ -271,7 +273,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             widgets: [
                               DataBoxTitle(
                                 'Gengar',
-                                color: kGhostTypeColor,
+                                color: kGhostTypeColor1,
                               ),
                             ],
                             subtitle: '#094',
@@ -281,7 +283,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       SizedBox(height: 24),
                       const SectionTitleText(
                         'Base Stats',
-                        textColor: kGhostTypeColor,
+                        textColor: kGhostTypeColor1,
                       ),
                       SizedBox(height: 6),
                       Column(
@@ -289,38 +291,38 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           StatRow(
                             statLabel: 'HP',
                             stat: 60,
-                            textColor: kGhostTypeColor,
-                            separatorColor: kGhostLightColor,
+                            textColor: kGhostTypeColor1,
+                            separatorColor: kGhostTypeColor4,
                           ),
                           StatRow(
                             statLabel: 'ATK',
                             stat: 65,
-                            textColor: kGhostTypeColor,
-                            separatorColor: kGhostLightColor,
+                            textColor: kGhostTypeColor1,
+                            separatorColor: kGhostTypeColor4,
                           ),
                           StatRow(
                             statLabel: 'DEF',
                             stat: 60,
-                            textColor: kGhostTypeColor,
-                            separatorColor: kGhostLightColor,
+                            textColor: kGhostTypeColor1,
+                            separatorColor: kGhostTypeColor4,
                           ),
                           StatRow(
                             statLabel: 'SATK',
                             stat: 130,
-                            textColor: kGhostTypeColor,
-                            separatorColor: kGhostLightColor,
+                            textColor: kGhostTypeColor1,
+                            separatorColor: kGhostTypeColor4,
                           ),
                           StatRow(
                             statLabel: 'SDEF',
                             stat: 75,
-                            textColor: kGhostTypeColor,
-                            separatorColor: kGhostLightColor,
+                            textColor: kGhostTypeColor1,
+                            separatorColor: kGhostTypeColor4,
                           ),
                           StatRow(
                             statLabel: 'SPD',
                             stat: 110,
-                            textColor: kGhostTypeColor,
-                            separatorColor: kGhostLightColor,
+                            textColor: kGhostTypeColor1,
+                            separatorColor: kGhostTypeColor4,
                           ),
                         ],
                       )

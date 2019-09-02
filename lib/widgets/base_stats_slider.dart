@@ -27,7 +27,7 @@ class BaseStatSlider extends StatelessWidget {
             ),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
-              color: kGhostTypeColor,
+              color: kGhostTypeColor1,
             ),
           );
         },

@@ -14,6 +14,7 @@ dependencies:
   flutter_screenutil: ^0.6.0
   auto_size_text: ^2.1.0
   font_awesome_flutter: ^8.5.0
+  flutter_svg: ^0.14.0
 
 dev_dependencies:
   flutter_test:
@@ -25,3 +26,4 @@ flutter:
   assets:
     - images/
     - images/evolution_icons/
+    - images/types/
