@@ -152,11 +152,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               typeIcon: 'images/types/ghost.svg',
                               padding: EdgeInsets.symmetric(
                                 vertical:
-                                    ScreenUtil.getInstance().setHeight(12),
+                                    ScreenUtil.getInstance().setHeight(10),
                                 horizontal:
                                     ScreenUtil.getInstance().setWidth(34),
                               ),
-                              typeIconSize: 32,
+                              typeIconSize: 34,
                               titleSize: 32,
                             ),
                           ),
@@ -168,11 +168,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               typeIcon: 'images/types/poison.svg',
                               padding: EdgeInsets.symmetric(
                                 vertical:
-                                    ScreenUtil.getInstance().setHeight(12),
+                                    ScreenUtil.getInstance().setHeight(10),
                                 horizontal:
                                     ScreenUtil.getInstance().setWidth(34),
                               ),
-                              typeIconSize: 32,
+                              typeIconSize: 34,
                               titleSize: 32,
                             ),
                           ),
@@ -516,10 +516,9 @@ class TypeEffectivenessGrid extends StatelessWidget {
         padding: EdgeInsets.all(8),
         shrinkWrap: true,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          childAspectRatio: MediaQuery.of(context).size.width /
-              (MediaQuery.of(context).size.height / 8),
-          crossAxisSpacing: 8,
-          mainAxisSpacing: 8,
+          childAspectRatio: childAspectRatio(context),
+          crossAxisSpacing: ScreenUtil.getInstance().setWidth(26),
+          mainAxisSpacing: ScreenUtil.getInstance().setHeight(26),
           crossAxisCount: 2,
         ),
         itemBuilder: (context, index) => _buildTypeLabel(
@@ -530,6 +529,15 @@ class TypeEffectivenessGrid extends StatelessWidget {
         itemCount: types.length,
       ),
     );
+  }
+
+  double childAspectRatio(BuildContext context) {
+    if (MediaQuery.of(context).orientation == Orientation.portrait)
+      return MediaQuery.of(context).size.width /
+          (MediaQuery.of(context).size.height / 8);
+    else
+      return MediaQuery.of(context).size.height /
+          (MediaQuery.of(context).size.width / 16);
   }
 
   TypeLabel _buildTypeLabel(
@@ -642,7 +650,7 @@ class TypeEffectivenessGrid extends StatelessWidget {
         vertical: ScreenUtil.getInstance().setHeight(2),
         horizontal: ScreenUtil.getInstance().setWidth(24),
       ),
-      typeIconSize: 24,
+      typeIconSize: 32,
       titleSize: 24,
       widget: EffectivenessValue(value: effectivenessValue),
     );

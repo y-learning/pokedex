@@ -7,15 +7,11 @@ class TypeLabel extends StatelessWidget {
   final String type;
   final Color color;
   final String typeIcon;
-
   final double height;
   final double width;
   final Widget widget;
-
   final EdgeInsetsGeometry padding;
-
   final double typeIconSize;
-
   final double titleSize;
 
   const TypeLabel(
@@ -44,10 +40,10 @@ class TypeLabel extends StatelessWidget {
       ),
       child: Row(
         children: [
-          SvgPicture.asset(
-            typeIcon,
+          Container(
             width: ScreenUtil.getInstance().setWidth(typeIconSize),
-            height: ScreenUtil.getInstance().setHeight(typeIconSize),
+            height: ScreenUtil.getInstance().setWidth(typeIconSize),
+            child: SvgPicture.asset(typeIcon),
           ),
           Expanded(
             child: Text(
