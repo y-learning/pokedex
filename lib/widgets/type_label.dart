@@ -6,52 +6,63 @@ import 'package:flutter_svg/flutter_svg.dart';
 class TypeLabel extends StatelessWidget {
   final String type;
   final Color color;
-  final String typeAsset;
+  final String typeIcon;
+
+  final double height;
+  final double width;
+  final Widget widget;
+
+  final EdgeInsetsGeometry padding;
+
+  final double typeIconSize;
+
+  final double titleSize;
 
   const TypeLabel(
     this.type, {
     this.color,
-    this.typeAsset,
+    this.typeIcon,
+    this.height,
+    this.width,
+    this.widget,
+    this.padding,
+    this.typeIconSize,
+    this.titleSize,
   });
 
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Container(
-        padding: EdgeInsets.symmetric(
-          vertical: ScreenUtil.getInstance().setHeight(12),
-          horizontal: ScreenUtil.getInstance().setWidth(34),
-        ),
-        decoration: BoxDecoration(
-          color: color,
-          borderRadius: BorderRadius.circular(100),
-          boxShadow: [
-            BoxShadow(
-              color: color,
-              blurRadius: 6.0, // has the effect of softening the shadow
-              spreadRadius: 1.0, // has the effect of extending the shadow
-            )
-          ],
-        ),
-        child: Row(
-          children: [
-            SvgPicture.asset(
-              typeAsset,
-              width: ScreenUtil.getInstance().setWidth(32),
-            ),
-            Expanded(
-              child: AutoSizeText(
-                type,
-                maxLines: 1,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: ScreenUtil.getInstance().setSp(32),
-                  fontWeight: FontWeight.w400,
-                ),
+    return Container(
+      height: height,
+      width: width,
+      padding: padding,
+      decoration: BoxDecoration(
+        color: color,
+        borderRadius: BorderRadius.circular(100),
+        boxShadow: [
+          BoxShadow(color: color, blurRadius: 6.0, spreadRadius: 1.0),
+        ],
+      ),
+      child: Row(
+        children: [
+          SvgPicture.asset(
+            typeIcon,
+            width: ScreenUtil.getInstance().setWidth(typeIconSize),
+            height: ScreenUtil.getInstance().setHeight(typeIconSize),
+          ),
+          Expanded(
+            child: Text(
+              type,
+              maxLines: 1,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: ScreenUtil.getInstance().setSp(titleSize),
+                fontWeight: FontWeight.w400,
               ),
             ),
-          ],
-        ),
+          ),
+          if (widget != null) widget,
+        ],
       ),
     );
   }
