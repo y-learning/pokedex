@@ -1,4 +1,3 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -13,6 +12,8 @@ class TypeLabel extends StatelessWidget {
   final EdgeInsetsGeometry padding;
   final double typeIconSize;
   final double titleSize;
+  final double shadowBlurRadius;
+  final double shadowSpreadRadius;
 
   const TypeLabel(
     this.type, {
@@ -24,6 +25,8 @@ class TypeLabel extends StatelessWidget {
     this.padding,
     this.typeIconSize,
     this.titleSize,
+    this.shadowBlurRadius = 6.0,
+    this.shadowSpreadRadius = 1.0,
   });
 
   Widget build(BuildContext context) {
@@ -35,7 +38,11 @@ class TypeLabel extends StatelessWidget {
         color: color,
         borderRadius: BorderRadius.circular(100),
         boxShadow: [
-          BoxShadow(color: color, blurRadius: 6.0, spreadRadius: 1.0),
+          BoxShadow(
+            color: color,
+            blurRadius: shadowBlurRadius,
+            spreadRadius: shadowSpreadRadius,
+          ),
         ],
       ),
       child: Row(

@@ -2,7 +2,8 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:pokedex/widgets/effectiveness_value.dart';
+import 'package:pokedex/widgets/effectiveness_text.dart';
+import 'package:pokedex/widgets/type_effectiveness_grid.dart';
 import 'package:pokedex/widgets/vertical_separator.dart';
 import 'package:pokedex/widgets/arc_dlipper.dart';
 import 'package:pokedex/widgets/base_stat_row.dart';
@@ -32,9 +33,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
     PokemonTypes.DARK,
   ];
 
+  List<String> _weaknessesEffectivenessValues = [
+    '2',
+    '2',
+    '2',
+    '2',
+  ];
+
   List<PokemonTypes> _immuneTypes = [
     PokemonTypes.NORMAL,
     PokemonTypes.FIGHT,
+  ];
+
+  List<String> _immuneEffectivenessValues = [
+    '0',
+    '0',
   ];
 
   List<PokemonTypes> _resistants = [
@@ -42,6 +55,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
     PokemonTypes.BUG,
     PokemonTypes.GRASS,
     PokemonTypes.FAIRY,
+  ];
+
+  List<String> _resistantEffectivenessValues = [
+    '1/4',
+    '1/4',
+    '1/2',
+    '1/2',
   ];
 
   List<PokemonTypes> _normalDamageTypes = [
@@ -53,6 +73,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
     PokemonTypes.ELECTRIC,
     PokemonTypes.ICE,
     PokemonTypes.DRAGON,
+  ];
+
+  List<String> _normalEffectivenessValues = [
+    '1',
+    '1',
+    '1',
+    '1',
+    '1',
+    '1',
+    '1',
+    '1',
   ];
 
   _ProfileScreenState() {
@@ -392,12 +423,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           Expanded(
                             child: TypeEffectivenessGrid(
                               types: _weaknesses,
-                              effectivenessValue: '2x',
+                              effectivenessValues:
+                                  _weaknessesEffectivenessValues,
                             ),
                           ),
                         ],
                       ),
-                      SizedBox(height: 8),
+                      SizedBox(height: ScreenUtil.getInstance().setHeight(16)),
                       Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [
@@ -405,23 +437,26 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           Expanded(
                             child: TypeEffectivenessGrid(
                               types: _immuneTypes,
-                              effectivenessValue: '0x',
+                              effectivenessValues: _immuneEffectivenessValues,
                             ),
                           ),
                         ],
                       ),
-                      SizedBox(height: 8),
+                      SizedBox(height: ScreenUtil.getInstance().setHeight(16)),
                       Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [
                           EffectivenessText(text: 'Resistant to'),
                           Expanded(
                             child: TypeEffectivenessGrid(
-                                types: _resistants, effectivenessValue: '1/2x'),
+                              types: _resistants,
+                              effectivenessValues:
+                                  _resistantEffectivenessValues,
+                            ),
                           ),
                         ],
                       ),
-                      SizedBox(height: 8),
+                      SizedBox(height: ScreenUtil.getInstance().setHeight(16)),
                       Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [
@@ -429,7 +464,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           Expanded(
                             child: TypeEffectivenessGrid(
                               types: _normalDamageTypes,
-                              effectivenessValue: '1x',
+                              effectivenessValues: _normalEffectivenessValues,
                             ),
                           ),
                         ],
@@ -468,194 +503,4 @@ class _ProfileScreenState extends State<ProfileScreen> {
     _mainPokemonAsset = 'images/mega_gengar.gif';
     _isMega = true;
   }
-}
-
-class EffectivenessText extends StatelessWidget {
-  final String text;
-
-  EffectivenessText({this.text});
-
-  Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.center,
-      width: ScreenUtil.getInstance().setWidth(112),
-      child: Text(
-        text,
-        maxLines: 3,
-        textAlign: TextAlign.center,
-        style: TextStyle(
-          color: kGhostTypeColor1,
-          fontSize: ScreenUtil.getInstance().setSp(24),
-          fontWeight: FontWeight.w700,
-        ),
-      ),
-    );
-  }
-}
-
-class TypeEffectivenessGrid extends StatelessWidget {
-  final List<PokemonTypes> types;
-  final String effectivenessValue;
-
-  TypeEffectivenessGrid({this.types, this.effectivenessValue});
-
-  Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.only(left: 8),
-      margin: EdgeInsets.only(left: 8),
-      decoration: BoxDecoration(
-        border: Border(
-          left: BorderSide(
-            color: kGhostTypeColor4,
-            width: 2,
-          ),
-        ),
-      ),
-      child: GridView.builder(
-        physics: NeverScrollableScrollPhysics(),
-        padding: EdgeInsets.all(8),
-        shrinkWrap: true,
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          childAspectRatio: childAspectRatio(context),
-          crossAxisSpacing: ScreenUtil.getInstance().setWidth(26),
-          mainAxisSpacing: ScreenUtil.getInstance().setHeight(26),
-          crossAxisCount: 2,
-        ),
-        itemBuilder: (context, index) => _buildTypeLabel(
-          index,
-          types,
-          effectivenessValue,
-        ),
-        itemCount: types.length,
-      ),
-    );
-  }
-
-  double childAspectRatio(BuildContext context) {
-    if (MediaQuery.of(context).orientation == Orientation.portrait)
-      return MediaQuery.of(context).size.width /
-          (MediaQuery.of(context).size.height / 8);
-    else
-      return MediaQuery.of(context).size.height /
-          (MediaQuery.of(context).size.width / 16);
-  }
-
-  TypeLabel _buildTypeLabel(
-    int index,
-    List<PokemonTypes> list,
-    String effectivenessValue,
-  ) {
-    String title;
-    String typeIconAsset;
-    Color typeColor;
-
-    switch (list[index]) {
-      case PokemonTypes.GHOST:
-        title = '${_extractType(PokemonTypes.GHOST)}';
-        typeIconAsset = 'images/types/ghost.svg';
-        typeColor = kGhostTypeColor1;
-        break;
-      case PokemonTypes.GROUND:
-        title = '${_extractType(PokemonTypes.GROUND)}';
-        typeIconAsset = 'images/types/ground.svg';
-        typeColor = kGroundTypeColor1;
-        break;
-      case PokemonTypes.PSYCHIC:
-        title = '${_extractType(PokemonTypes.PSYCHIC)}';
-        typeIconAsset = 'images/types/psychic.svg';
-        typeColor = kPsychicTypeColor1;
-        break;
-      case PokemonTypes.DARK:
-        title = '${_extractType(PokemonTypes.DARK)}';
-        typeIconAsset = 'images/types/dark.svg';
-        typeColor = kDarkTypeColor1;
-        break;
-      case PokemonTypes.BUG:
-        title = '${_extractType(PokemonTypes.BUG)}';
-        typeIconAsset = 'images/types/bug.svg';
-        typeColor = kBugTypeColor1;
-        break;
-      case PokemonTypes.DRAGON:
-        title = '${_extractType(PokemonTypes.DRAGON)}';
-        typeIconAsset = 'images/types/dragon.svg';
-        typeColor = kDragonTypeColor1;
-        break;
-      case PokemonTypes.FAIRY:
-        title = '${_extractType(PokemonTypes.FAIRY)}';
-        typeIconAsset = 'images/types/fairy.svg';
-        typeColor = kFairyTypeColor1;
-        break;
-      case PokemonTypes.FIRE:
-        title = '${_extractType(PokemonTypes.FIRE)}';
-        typeIconAsset = 'images/types/fire.svg';
-        typeColor = kFightTypeColor1;
-        break;
-      case PokemonTypes.NORMAL:
-        title = '${_extractType(PokemonTypes.NORMAL)}';
-        typeIconAsset = 'images/types/normal.svg';
-        typeColor = kNormalTypeColor1;
-        break;
-      case PokemonTypes.STEEL:
-        title = '${_extractType(PokemonTypes.STEEL)}';
-        typeIconAsset = 'images/types/steel.svg';
-        typeColor = kSteelTypeColor1;
-        break;
-      case PokemonTypes.ELECTRIC:
-        title = '${_extractType(PokemonTypes.ELECTRIC)}';
-        typeIconAsset = 'images/types/electric.svg';
-        typeColor = kElectricTypeColor1;
-        break;
-      case PokemonTypes.FIGHT:
-        title = '${_extractType(PokemonTypes.FIGHT)}';
-        typeIconAsset = 'images/types/fight.svg';
-        typeColor = kFightTypeColor1;
-        break;
-      case PokemonTypes.FLYING:
-        title = '${_extractType(PokemonTypes.FLYING)}';
-        typeIconAsset = 'images/types/flying.svg';
-        typeColor = kFlyingTypeColor1;
-        break;
-      case PokemonTypes.GRASS:
-        title = '${_extractType(PokemonTypes.GRASS)}';
-        typeIconAsset = 'images/types/grass.svg';
-        typeColor = kGrassTypeColor1;
-        break;
-      case PokemonTypes.ICE:
-        title = '${_extractType(PokemonTypes.ICE)}';
-        typeIconAsset = 'images/types/ice.svg';
-        typeColor = kIceTypeColor1;
-        break;
-      case PokemonTypes.ROCK:
-        title = '${_extractType(PokemonTypes.ROCK)}';
-        typeIconAsset = 'images/types/rock.svg';
-        typeColor = kRockTypeColor1;
-        break;
-      case PokemonTypes.WATER:
-        title = '${_extractType(PokemonTypes.WATER)}';
-        typeIconAsset = 'images/types/water.svg';
-        typeColor = kWaterTypeColor1;
-        break;
-      case PokemonTypes.POISON:
-        title = '${_extractType(PokemonTypes.POISON)}';
-        typeIconAsset = 'images/types/water.svg';
-        typeColor = kWaterTypeColor1;
-        break;
-    }
-
-    return TypeLabel(
-      title,
-      color: typeColor,
-      typeIcon: typeIconAsset,
-      padding: EdgeInsets.symmetric(
-        vertical: ScreenUtil.getInstance().setHeight(2),
-        horizontal: ScreenUtil.getInstance().setWidth(24),
-      ),
-      typeIconSize: 32,
-      titleSize: 24,
-      widget: EffectivenessValue(value: effectivenessValue),
-    );
-  }
-
-  String _extractType(PokemonTypes pokemonTypes) =>
-      pokemonTypes.toString().split('.')[1];
 }

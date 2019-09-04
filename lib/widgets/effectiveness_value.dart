@@ -1,4 +1,3 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -9,22 +8,36 @@ class EffectivenessValue extends StatelessWidget {
 
   Widget build(BuildContext context) {
     return Container(
-      width: ScreenUtil.getInstance().setWidth(48),
-      height: ScreenUtil.getInstance().setHeight(48),
+      width: ScreenUtil.getInstance().setWidth(40),
+      height: ScreenUtil.getInstance().setHeight(60),
       alignment: Alignment.center,
       decoration: BoxDecoration(
-        shape: BoxShape.circle,
         color: Colors.white,
+        shape: BoxShape.circle,
       ),
-      child: AutoSizeText(
-        value,
-        maxLines: 2,
-        textAlign: TextAlign.center,
-        style: TextStyle(
-          letterSpacing: -1,
-          fontSize: ScreenUtil.getInstance().setSp(24),
-          fontWeight: FontWeight.w400,
-        ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            value,
+            maxLines: 1,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              letterSpacing: -2,
+              fontSize: ScreenUtil.getInstance().setSp(24),
+              fontWeight: FontWeight.w400,
+            ),
+          ),
+          Text(
+            'x',
+            maxLines: 1,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: ScreenUtil.getInstance().setSp(16),
+              fontWeight: FontWeight.w400,
+            ),
+          ),
+        ],
       ),
     );
   }

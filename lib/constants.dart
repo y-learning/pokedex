@@ -108,7 +108,7 @@ const kIceRgbGradient = [
 //endregion
 
 //region Fire Type
-const kFireTypeColor1 = Color(0xFFf8a54f);
+const kFireTypeColor1 = Color(0xFFF8A54F);
 const kFireTypeColor2 = Color(0xFF7356be);
 const kFireTypeColor3 = Color(0xFF8066c4);
 const kFireTypeColor4 = Color(0xFF8c75ca);
@@ -150,7 +150,7 @@ const kElectricRgbGradient = [
 //endregion
 
 //region Fight Type
-const kFightTypeColor1 = Color(0xFFd94256);
+const kFightTypeColor1 = Color(0xFFD94256);
 const kFightTypeColor2 = Color(0xFF7356be);
 const kFightTypeColor3 = Color(0xFF8066c4);
 const kFightTypeColor4 = Color(0xFF8c75ca);
