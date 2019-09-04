@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:pokedex/viewmodels/stat_slider_view_model_test.dart';
+import 'package:pokedex/viewmodels/stat_slider_view_model.dart';
 
 void main() {
   group("Fixed tests", () {

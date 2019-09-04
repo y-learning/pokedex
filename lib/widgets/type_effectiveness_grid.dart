@@ -32,7 +32,7 @@ class TypeEffectivenessGrid extends StatelessWidget {
           childAspectRatio: childAspectRatio(context),
           crossAxisSpacing: ScreenUtil.getInstance().setWidth(26),
           mainAxisSpacing: ScreenUtil.getInstance().setHeight(12),
-          crossAxisCount: 2,
+          crossAxisCount: crossAxisCount(context),
         ),
         itemBuilder: (context, index) => _buildTypeLabel(
           index,
@@ -44,13 +44,16 @@ class TypeEffectivenessGrid extends StatelessWidget {
     );
   }
 
+  int crossAxisCount(BuildContext context) =>
+      (MediaQuery.of(context).orientation == Orientation.portrait) ? 2 : 3;
+
   double childAspectRatio(BuildContext context) {
     if (MediaQuery.of(context).orientation == Orientation.portrait)
       return MediaQuery.of(context).size.width /
           (MediaQuery.of(context).size.height / 8);
     else
       return MediaQuery.of(context).size.width /
-          (MediaQuery.of(context).size.height / 4);
+          (MediaQuery.of(context).size.height / 3);
   }
 
   TypeLabel _buildTypeLabel(

@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:pokedex/viewmodels/stat_slider_view_model_test.dart';
+import 'package:pokedex/viewmodels/stat_slider_view_model.dart';
 
 import '../constants.dart';
 
