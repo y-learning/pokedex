@@ -3,11 +3,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pokedex/widgets/type_label.dart';
 
 import '../constants.dart';
-import '../pokemon_types.dart';
+import '../usecases/pokemon_types.dart';
 import 'effectiveness_value.dart';
 
 class TypeEffectivenessGrid extends StatelessWidget {
-  final List<PokemonTypes> types;
+  final List<PokemonType> types;
   final List<String> effectivenessValues;
 
   TypeEffectivenessGrid({this.types, this.effectivenessValues});
@@ -58,7 +58,7 @@ class TypeEffectivenessGrid extends StatelessWidget {
 
   TypeLabel _buildTypeLabel(
     int index,
-    List<PokemonTypes> list,
+    List<PokemonType> list,
     List<String> effectivenessValues,
   ) {
     String title;
@@ -66,93 +66,93 @@ class TypeEffectivenessGrid extends StatelessWidget {
     Color typeColor;
 
     switch (list[index]) {
-      case PokemonTypes.GHOST:
-        title = '${_extractType(PokemonTypes.GHOST)}';
+      case PokemonType.GHOST:
+        title = '${_extractType(PokemonType.GHOST)}';
         typeIconAsset = 'images/types/ghost.svg';
         typeColor = kGhostTypeColor1;
         break;
-      case PokemonTypes.GROUND:
-        title = '${_extractType(PokemonTypes.GROUND)}';
+      case PokemonType.GROUND:
+        title = '${_extractType(PokemonType.GROUND)}';
         typeIconAsset = 'images/types/ground.svg';
         typeColor = kGroundTypeColor1;
         break;
-      case PokemonTypes.PSYCHIC:
-        title = '${_extractType(PokemonTypes.PSYCHIC)}';
+      case PokemonType.PSYCHIC:
+        title = '${_extractType(PokemonType.PSYCHIC)}';
         typeIconAsset = 'images/types/psychic.svg';
         typeColor = kPsychicTypeColor1;
         break;
-      case PokemonTypes.DARK:
-        title = '${_extractType(PokemonTypes.DARK)}';
+      case PokemonType.DARK:
+        title = '${_extractType(PokemonType.DARK)}';
         typeIconAsset = 'images/types/dark.svg';
         typeColor = kDarkTypeColor1;
         break;
-      case PokemonTypes.BUG:
-        title = '${_extractType(PokemonTypes.BUG)}';
+      case PokemonType.BUG:
+        title = '${_extractType(PokemonType.BUG)}';
         typeIconAsset = 'images/types/bug.svg';
         typeColor = kBugTypeColor1;
         break;
-      case PokemonTypes.DRAGON:
-        title = '${_extractType(PokemonTypes.DRAGON)}';
+      case PokemonType.DRAGON:
+        title = '${_extractType(PokemonType.DRAGON)}';
         typeIconAsset = 'images/types/dragon.svg';
         typeColor = kDragonTypeColor1;
         break;
-      case PokemonTypes.FAIRY:
-        title = '${_extractType(PokemonTypes.FAIRY)}';
+      case PokemonType.FAIRY:
+        title = '${_extractType(PokemonType.FAIRY)}';
         typeIconAsset = 'images/types/fairy.svg';
         typeColor = kFairyTypeColor1;
         break;
-      case PokemonTypes.FIRE:
-        title = '${_extractType(PokemonTypes.FIRE)}';
+      case PokemonType.FIRE:
+        title = '${_extractType(PokemonType.FIRE)}';
         typeIconAsset = 'images/types/fire.svg';
         typeColor = kFireTypeColor1;
         break;
-      case PokemonTypes.NORMAL:
-        title = '${_extractType(PokemonTypes.NORMAL)}';
+      case PokemonType.NORMAL:
+        title = '${_extractType(PokemonType.NORMAL)}';
         typeIconAsset = 'images/types/normal.svg';
         typeColor = kNormalTypeColor1;
         break;
-      case PokemonTypes.STEEL:
-        title = '${_extractType(PokemonTypes.STEEL)}';
+      case PokemonType.STEEL:
+        title = '${_extractType(PokemonType.STEEL)}';
         typeIconAsset = 'images/types/steel.svg';
         typeColor = kSteelTypeColor1;
         break;
-      case PokemonTypes.ELECTRIC:
-        title = '${_extractType(PokemonTypes.ELECTRIC)}';
+      case PokemonType.ELECTRIC:
+        title = '${_extractType(PokemonType.ELECTRIC)}';
         typeIconAsset = 'images/types/electric.svg';
         typeColor = kElectricTypeColor1;
         break;
-      case PokemonTypes.FIGHT:
-        title = '${_extractType(PokemonTypes.FIGHT)}';
+      case PokemonType.FIGHT:
+        title = '${_extractType(PokemonType.FIGHT)}';
         typeIconAsset = 'images/types/fight.svg';
         typeColor = kFightTypeColor1;
         break;
-      case PokemonTypes.FLYING:
-        title = '${_extractType(PokemonTypes.FLYING)}';
+      case PokemonType.FLYING:
+        title = '${_extractType(PokemonType.FLYING)}';
         typeIconAsset = 'images/types/flying.svg';
         typeColor = kFlyingTypeColor1;
         break;
-      case PokemonTypes.GRASS:
-        title = '${_extractType(PokemonTypes.GRASS)}';
+      case PokemonType.GRASS:
+        title = '${_extractType(PokemonType.GRASS)}';
         typeIconAsset = 'images/types/grass.svg';
         typeColor = kGrassTypeColor1;
         break;
-      case PokemonTypes.ICE:
-        title = '${_extractType(PokemonTypes.ICE)}';
+      case PokemonType.ICE:
+        title = '${_extractType(PokemonType.ICE)}';
         typeIconAsset = 'images/types/ice.svg';
         typeColor = kIceTypeColor1;
         break;
-      case PokemonTypes.ROCK:
-        title = '${_extractType(PokemonTypes.ROCK)}';
+      case PokemonType.ROCK:
+        title = '${_extractType(PokemonType.ROCK)}';
         typeIconAsset = 'images/types/rock.svg';
         typeColor = kRockTypeColor1;
         break;
-      case PokemonTypes.WATER:
-        title = '${_extractType(PokemonTypes.WATER)}';
+      case PokemonType.WATER:
+        title = '${_extractType(PokemonType.WATER)}';
         typeIconAsset = 'images/types/water.svg';
         typeColor = kWaterTypeColor1;
         break;
-      case PokemonTypes.POISON:
-        title = '${_extractType(PokemonTypes.POISON)}';
+      case PokemonType.POISON:
+        title = '${_extractType(PokemonType.POISON)}';
         typeIconAsset = 'images/types/water.svg';
         typeColor = kWaterTypeColor1;
         break;
@@ -176,6 +176,6 @@ class TypeEffectivenessGrid extends StatelessWidget {
     );
   }
 
-  String _extractType(PokemonTypes pokemonTypes) =>
+  String _extractType(PokemonType pokemonTypes) =>
       pokemonTypes.toString().split('.')[1];
 }

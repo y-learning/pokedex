@@ -1,4 +1,4 @@
-enum PokemonTypes {
+enum PokemonType {
   GHOST,
   GROUND,
   PSYCHIC,

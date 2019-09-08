@@ -1,5 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:pokedex/pokemon_types.dart';
+import 'package:pokedex/usecases/pokemon_types.dart';
+import 'package:pokedex/usecases/pokemon_profile_presenter.dart';
+import 'package:pokedex/usecases/pokemon_profile_response_model.dart';
+import 'package:pokedex/viewmodels/pokemon_profile_view_model.dart';
 
 void main() {
   PokemonProfilePresenter presenter;
@@ -81,10 +84,14 @@ void main() {
   });
 
   test("Validate ViewModel", () {
+    var weakTo = {PokemonType.GROUND: 'GROUND', PokemonType.GHOST: 'GHOST'};
+    var immuneTo = {PokemonType.NORMAL: 'NORMAL'};
+    var resistantTo = {PokemonType.POISON: 'POISON'};
+    var damagedNormallyBy = {PokemonType.FIRE: 'FIRE'};
     PokemonProfileResponseModel responseModel = PokemonProfileResponseModel(
       pokemonName: 'pokemon',
       nationalPokedexNum: '094',
-      types: [PokemonTypes.GHOST, PokemonTypes.POISON],
+      types: [PokemonType.GHOST, PokemonType.POISON],
       hasMegaEvolution: true,
       species: 'shadow',
       height: 1.5,
@@ -101,27 +108,31 @@ void main() {
       sAtk: 130,
       sDef: 75,
       spd: 110,
+      weakTo: weakTo.keys.toList(),
+      immuneTo: immuneTo.keys.toList(),
+      resistantTo: resistantTo.keys.toList(),
+      damagedNormallyBy: damagedNormallyBy.keys.toList(),
     );
 
     presenter.present(responseModel);
 
-    PokemonProfileViewModel viewModel = presenter.viewModel;
-    var chainViewModel1 = viewModel.chainViewModel;
+    PokemonProfileViewModel vm = presenter.viewModel;
+    var chainViewModel1 = vm.chainViewModel;
     var chainViewModel2 = chainViewModel1.evolvesTo[0];
     var chainViewModel3 = chainViewModel2.evolvesTo[0];
-    expect(viewModel.pokemonName, equals('Pokemon'));
-    expect(viewModel.nationalPokedexNum, equals('#094'));
-    expect(viewModel.types[0], equals('GHOST'));
-    expect(viewModel.types[1], equals('POISON'));
-    expect(viewModel.hasMegaEvolution, isTrue);
-    expect(viewModel.species, equals('Shadow'));
-    expect(viewModel.height, equals('1.5 m'));
-    expect(viewModel.weight, equals('40.5 kg'));
-    expect(viewModel.abilities[0], equals('Ability One'));
-    expect(viewModel.abilities[1], equals('Ability Two'));
-    expect(viewModel.isGenderless, equals(responseModel.isGenderless));
-    expect(viewModel.malePercentage, equals('70%'));
-    expect(viewModel.femalePercentage, equals('30%'));
+    expect(vm.pokemonName, equals('Pokemon'));
+    expect(vm.nationalPokedexNum, equals('#094'));
+    expect(vm.types[0], equals('GHOST'));
+    expect(vm.types[1], equals('POISON'));
+    expect(vm.hasMegaEvolution, isTrue);
+    expect(vm.species, equals('Shadow'));
+    expect(vm.height, equals('1.5 m'));
+    expect(vm.weight, equals('40.5 kg'));
+    expect(vm.abilities[0], equals('Ability One'));
+    expect(vm.abilities[1], equals('Ability Two'));
+    expect(vm.isGenderless, equals(responseModel.isGenderless));
+    expect(vm.malePercentage, equals('70%'));
+    expect(vm.femalePercentage, equals('30%'));
     expect(chainViewModel1.id, equals('#00${chain1.species.id}'));
     expect(chainViewModel1.name, equals('Pokemon1'));
     expect(chainViewModel1.evolutionDetails, equals(chain1.evolutionDetails));
@@ -131,214 +142,19 @@ void main() {
     expect(chainViewModel3.id, equals('#00${chain3.species.id}'));
     expect(chainViewModel3.name, equals('Pokemon3'));
     expect(chainViewModel3.evolutionDetails, equals(chain3.evolutionDetails));
-    expect(viewModel.hp, equals('60'));
-    expect(viewModel.atk, equals('65'));
-    expect(viewModel.def, equals('61'));
-    expect(viewModel.sAtk, equals('130'));
-    expect(viewModel.sDef, equals('75'));
-    expect(viewModel.spd, equals('110'));
+    expect(vm.hp, equals('60'));
+    expect(vm.atk, equals('65'));
+    expect(vm.def, equals('61'));
+    expect(vm.sAtk, equals('130'));
+    expect(vm.sDef, equals('75'));
+    expect(vm.spd, equals('110'));
+    expect(vm.weakTo.values, equals(weakTo.values));
+    expect(vm.weakTo.keys, equals(weakTo.keys));
+    expect(vm.immuneTo.values, equals(immuneTo.values));
+    expect(vm.immuneTo.keys, equals(immuneTo.keys));
+    expect(vm.resistantTo.values, equals(resistantTo.values));
+    expect(vm.resistantTo.keys, equals(resistantTo.keys));
+    expect(vm.damagedNormallyBy.values, equals(damagedNormallyBy.values));
+    expect(vm.damagedNormallyBy.keys, equals(damagedNormallyBy.keys));
   });
-}
-
-class PokemonProfilePresenter {
-  PokemonProfileViewModel _viewModel;
-
-  PokemonProfileViewModel get viewModel => _viewModel;
-
-  void present(PokemonProfileResponseModel responseModel) {
-    List<String> types = [];
-    for (var type in responseModel.types) types.add(_pokemonTypeToString(type));
-
-    _viewModel = PokemonProfileViewModel(
-      pokemonName: formatText(responseModel.pokemonName),
-      nationalPokedexNum: '#${responseModel.nationalPokedexNum}',
-      types: types,
-      hasMegaEvolution: responseModel.hasMegaEvolution,
-      species: formatText(responseModel.species),
-      height: _formatMetricHeight(responseModel.height),
-      weight: _formatMetricWeight(responseModel.weight),
-      abilities: _formatAbilities(responseModel.abilities),
-      isGenderless: responseModel.isGenderless,
-      malePercentage: _formatPercentage(responseModel.malePercentage),
-      femalePercentage: _formatPercentage(responseModel.femalePercentage),
-      chainViewModel: toChainViewModel(responseModel.chain),
-      hp: '${responseModel.hp}',
-      atk: '${responseModel.atk}',
-      def: '${responseModel.def}',
-      sAtk: '${responseModel.sAtk}',
-      sDef: '${responseModel.sDef}',
-      spd: '${responseModel.spd}',
-    );
-  }
-
-  List<String> _formatAbilities(List<String> abilities) {
-    for (var i = 0; i < abilities.length; i++)
-      abilities[i] = formatText(abilities[i]);
-
-    return abilities;
-  }
-
-  String formatId(int id) => '#${id.toString().padLeft(3, '0')}';
-
-  formatText(String text) {
-    var formattedText = '';
-
-    for (var word in text.split(' '))
-      formattedText +=
-          '${word[0].toUpperCase()}${word.substring(1).toLowerCase()} ';
-
-    return formattedText.trim();
-  }
-
-  String _pokemonTypeToString(PokemonTypes type) =>
-      type.toString().split('.')[1];
-
-  String _formatMetricHeight(double height) => '$height m';
-
-  String _formatMetricWeight(double weight) => '$weight kg';
-
-  String _formatPercentage(double malePercentage) =>
-      '${(malePercentage * 100).round()}%';
-
-  ChainViewModel toChainViewModel(Chain chain) => ChainViewModel(
-        isBaby: chain.isBaby,
-        id: formatId(chain.species.id),
-        name: formatText(chain.species.name),
-        evolutionDetails: chain.evolutionDetails,
-        evolvesTo: chain.evolvesTo
-            .map((Chain chain) => toChainViewModel(chain))
-            .toList(),
-      );
-}
-
-class PokemonProfileViewModel {
-  final String pokemonName;
-  final String nationalPokedexNum;
-  final List<String> types;
-  final bool hasMegaEvolution;
-  final String species;
-  final String height;
-  final String weight;
-  final List<String> abilities;
-  final bool isGenderless;
-  final String malePercentage;
-  final String femalePercentage;
-  final ChainViewModel chainViewModel;
-  final String hp;
-  final String atk;
-  final String def;
-  final String sAtk;
-  final String sDef;
-  final String spd;
-
-  PokemonProfileViewModel({
-    this.pokemonName,
-    this.nationalPokedexNum,
-    this.types,
-    this.hasMegaEvolution,
-    this.species,
-    this.height,
-    this.weight,
-    this.abilities,
-    this.isGenderless,
-    this.malePercentage,
-    this.femalePercentage,
-    this.chainViewModel,
-    this.hp,
-    this.atk,
-    this.def,
-    this.sAtk,
-    this.sDef,
-    this.spd,
-  });
-}
-
-class ChainViewModel {
-  final bool isBaby;
-  final String id;
-  final String name;
-  final List<EvolutionDetail> evolutionDetails;
-  final List<ChainViewModel> evolvesTo;
-
-  ChainViewModel({
-    this.isBaby,
-    this.id,
-    this.name,
-    this.evolvesTo,
-    this.evolutionDetails,
-  });
-}
-
-class PokemonProfileResponseModel {
-  final String pokemonName;
-  final String nationalPokedexNum;
-  final List<PokemonTypes> types;
-  final bool hasMegaEvolution;
-  final String species;
-  final double height;
-  final bool isMetricSystem;
-  final double weight;
-  final List<String> abilities;
-  final bool isGenderless;
-  final double malePercentage;
-  final double femalePercentage;
-  final Chain chain;
-  final int hp;
-  final int atk;
-  final int def;
-  final int sAtk;
-  final int sDef;
-  final int spd;
-
-  PokemonProfileResponseModel({
-    this.pokemonName,
-    this.nationalPokedexNum,
-    this.types,
-    this.hasMegaEvolution,
-    this.species,
-    this.height,
-    this.isMetricSystem,
-    this.weight,
-    this.abilities,
-    this.isGenderless,
-    this.malePercentage,
-    this.femalePercentage,
-    this.chain,
-    this.hp,
-    this.atk,
-    this.def,
-    this.sAtk,
-    this.sDef,
-    this.spd,
-  });
-}
-
-class Chain {
-  final bool isBaby;
-  final Species species;
-  final List<EvolutionDetail> evolutionDetails;
-  final List<Chain> evolvesTo;
-
-  Chain({this.isBaby, this.species, this.evolvesTo, this.evolutionDetails});
-}
-
-class Species {
-  int id;
-  String name;
-
-  Species({this.id, this.name});
-}
-
-class EvolutionDetail {
-  final int minLevel;
-  final Trigger trigger;
-
-  EvolutionDetail({this.minLevel, this.trigger});
-}
-
-enum Trigger {
-  LEVEL_UP,
-  TRADE,
-//  USE_ITEM,
-//  SHED,
 }

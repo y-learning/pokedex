@@ -16,7 +16,7 @@ import 'package:pokedex/widgets/type_label.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../constants.dart';
-import '../pokemon_types.dart';
+import '../usecases/pokemon_types.dart';
 
 class ProfileScreen extends StatefulWidget {
   _ProfileScreenState createState() => _ProfileScreenState();
@@ -26,11 +26,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
   String _mainPokemonAsset;
   bool _isMega;
 
-  List<PokemonTypes> _weaknesses = [
-    PokemonTypes.GROUND,
-    PokemonTypes.GHOST,
-    PokemonTypes.PSYCHIC,
-    PokemonTypes.DARK,
+  List<PokemonType> _weaknesses = [
+    PokemonType.GROUND,
+    PokemonType.GHOST,
+    PokemonType.PSYCHIC,
+    PokemonType.DARK,
   ];
 
   List<String> _weaknessesEffectivenessValues = [
@@ -40,9 +40,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
     '2',
   ];
 
-  List<PokemonTypes> _immuneTypes = [
-    PokemonTypes.NORMAL,
-    PokemonTypes.FIGHT,
+  List<PokemonType> _immuneTypes = [
+    PokemonType.NORMAL,
+    PokemonType.FIGHT,
   ];
 
   List<String> _immuneEffectivenessValues = [
@@ -50,11 +50,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
     '0',
   ];
 
-  List<PokemonTypes> _resistants = [
-    PokemonTypes.POISON,
-    PokemonTypes.BUG,
-    PokemonTypes.GRASS,
-    PokemonTypes.FAIRY,
+  List<PokemonType> _resistants = [
+    PokemonType.POISON,
+    PokemonType.BUG,
+    PokemonType.GRASS,
+    PokemonType.FAIRY,
   ];
 
   List<String> _resistantEffectivenessValues = [
@@ -64,15 +64,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
     '1/2',
   ];
 
-  List<PokemonTypes> _normalDamageTypes = [
-    PokemonTypes.FLYING,
-    PokemonTypes.ROCK,
-    PokemonTypes.STEEL,
-    PokemonTypes.FIRE,
-    PokemonTypes.WATER,
-    PokemonTypes.ELECTRIC,
-    PokemonTypes.ICE,
-    PokemonTypes.DRAGON,
+  List<PokemonType> _normalDamageTypes = [
+    PokemonType.FLYING,
+    PokemonType.ROCK,
+    PokemonType.STEEL,
+    PokemonType.FIRE,
+    PokemonType.WATER,
+    PokemonType.ELECTRIC,
+    PokemonType.ICE,
+    PokemonType.DRAGON,
   ];
 
   List<String> _normalEffectivenessValues = [
