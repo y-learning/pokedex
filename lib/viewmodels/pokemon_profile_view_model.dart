@@ -5,7 +5,7 @@ import 'chain_view_model.dart';
 class PokemonProfileViewModel {
   final String pokemonName;
   final String nationalPokedexNum;
-  final List<String> types;
+  final List<TypeViewModel> types;
   final bool hasMegaEvolution;
   final String species;
   final String height;
@@ -21,10 +21,10 @@ class PokemonProfileViewModel {
   final String sAtk;
   final String sDef;
   final String spd;
-  final List<TypeEffectivenessViewModel> weakTo;
-  final List<TypeEffectivenessViewModel> immuneTo;
-  final List<TypeEffectivenessViewModel> resistantTo;
-  final List<TypeEffectivenessViewModel> damagedNormallyBy;
+  final List<TypeViewModel> weakTo;
+  final List<TypeViewModel> immuneTo;
+  final List<TypeViewModel> resistantTo;
+  final List<TypeViewModel> damagedNormallyBy;
 
   PokemonProfileViewModel({
     this.pokemonName,
@@ -52,12 +52,12 @@ class PokemonProfileViewModel {
   });
 }
 
-class TypeEffectivenessViewModel {
+class TypeViewModel {
   final PokemonType type;
   final String title;
   final String effectiveness;
 
-  TypeEffectivenessViewModel({
+  TypeViewModel({
     this.type,
     this.title,
     this.effectiveness,

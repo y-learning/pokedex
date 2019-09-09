@@ -16,7 +16,12 @@ class PokemonProfilePresenter {
     _viewModel = PokemonProfileViewModel(
       pokemonName: formatText(responseModel.pokemonName),
       nationalPokedexNum: formatId(responseModel.nationalPokedexNum),
-      types: types,
+      types: responseModel.types
+          .map((type) => TypeViewModel(
+                type: type,
+                title: _pokemonTypeToString(type),
+              ))
+          .toList(),
       hasMegaEvolution: responseModel.hasMegaEvolution,
       species: formatText(responseModel.species),
       height: _formatMetricHeight(responseModel.height),
@@ -79,12 +84,12 @@ class PokemonProfilePresenter {
             .toList(),
       );
 
-  List<TypeEffectivenessViewModel> _toTypeEffectivenessViewModels(
+  List<TypeViewModel> _toTypeEffectivenessViewModels(
       Map<PokemonType, double> types) {
-    List<TypeEffectivenessViewModel> list = [];
+    List<TypeViewModel> list = [];
 
     types.forEach((k, v) => list.add(
-          TypeEffectivenessViewModel(
+          TypeViewModel(
             type: k,
             title: _pokemonTypeToString(k),
             effectiveness: _formatEffectivenessValue(v),
