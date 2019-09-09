@@ -21,10 +21,10 @@ class PokemonProfileViewModel {
   final String sAtk;
   final String sDef;
   final String spd;
-  final Map<PokemonType, String> weakTo;
-  final Map<PokemonType, String> immuneTo;
-  final Map<PokemonType, String> resistantTo;
-  final Map<PokemonType, String> damagedNormallyBy;
+  final List<TypeEffectivenessViewModel> weakTo;
+  final List<TypeEffectivenessViewModel> immuneTo;
+  final List<TypeEffectivenessViewModel> resistantTo;
+  final List<TypeEffectivenessViewModel> damagedNormallyBy;
 
   PokemonProfileViewModel({
     this.pokemonName,
@@ -49,5 +49,17 @@ class PokemonProfileViewModel {
     this.immuneTo,
     this.resistantTo,
     this.damagedNormallyBy,
+  });
+}
+
+class TypeEffectivenessViewModel {
+  final PokemonType type;
+  final String title;
+  final String effectiveness;
+
+  TypeEffectivenessViewModel({
+    this.type,
+    this.title,
+    this.effectiveness,
   });
 }

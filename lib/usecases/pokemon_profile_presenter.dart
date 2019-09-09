@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:pokedex/usecases/pokemon_profile_response_model.dart';
 import 'package:pokedex/viewmodels/chain_view_model.dart';
 import 'package:pokedex/viewmodels/pokemon_profile_view_model.dart';
@@ -32,11 +33,11 @@ class PokemonProfilePresenter {
       sAtk: '${responseModel.sAtk}',
       sDef: '${responseModel.sDef}',
       spd: '${responseModel.spd}',
-      weakTo: _pokemonTypesToStrings(responseModel.weakTo),
-      immuneTo: _pokemonTypesToStrings(responseModel.immuneTo),
-      resistantTo: _pokemonTypesToStrings(responseModel.resistantTo),
+      weakTo: _toTypeEffectivenessViewModels(responseModel.weakTo),
+      immuneTo: _toTypeEffectivenessViewModels(responseModel.immuneTo),
+      resistantTo: _toTypeEffectivenessViewModels(responseModel.resistantTo),
       damagedNormallyBy:
-          _pokemonTypesToStrings(responseModel.damagedNormallyBy),
+          _toTypeEffectivenessViewModels(responseModel.damagedNormallyBy),
     );
   }
 
@@ -79,11 +80,44 @@ class PokemonProfilePresenter {
             .toList(),
       );
 
-  Map<PokemonType, String> _pokemonTypesToStrings(List<PokemonType> weakTo) {
-    return Map.fromIterable(
-      weakTo,
-      key: (k) => k,
-      value: (v) => _pokemonTypeToString(v),
-    );
+  List<TypeEffectivenessViewModel> _toTypeEffectivenessViewModels(
+      Map<PokemonType, double> types) {
+    List<TypeEffectivenessViewModel> list = [];
+
+    types.forEach((k, v) => list.add(
+          TypeEffectivenessViewModel(
+            type: k,
+            title: _pokemonTypeToString(k),
+            effectiveness: _formatEffectivenessValue(v),
+          ),
+        ));
+
+    return list;
+  }
+
+  String _formatEffectivenessValue(double effectivenessValue) {
+    var formatted = '';
+    switch ((effectivenessValue * 100).round()) {
+      case 0:
+        formatted = '0x';
+        break;
+      case 25:
+        formatted = '1/4x';
+        break;
+      case 50:
+        formatted = '1/2x';
+        break;
+      case 100:
+        formatted = '1x';
+        break;
+      case 200:
+        formatted = '2x';
+        break;
+      case 400:
+        formatted = '4x';
+        break;
+    }
+
+    return formatted;
   }
 }

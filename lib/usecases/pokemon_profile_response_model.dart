@@ -20,10 +20,10 @@ class PokemonProfileResponseModel {
   final int sAtk;
   final int sDef;
   final int spd;
-  final List<PokemonType> weakTo;
-  final List<PokemonType> immuneTo;
-  final List<PokemonType> resistantTo;
-  final List<PokemonType> damagedNormallyBy;
+  final Map<PokemonType, double> weakTo;
+  final Map<PokemonType, double> immuneTo;
+  final Map<PokemonType, double> resistantTo;
+  final Map<PokemonType, double> damagedNormallyBy;
 
   PokemonProfileResponseModel({
     this.pokemonName,
