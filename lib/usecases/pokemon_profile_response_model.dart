@@ -2,7 +2,7 @@ import 'pokemon_types.dart';
 
 class PokemonProfileResponseModel {
   final String pokemonName;
-  final String nationalPokedexNum;
+  final int nationalPokedexNum;
   final List<PokemonType> types;
   final bool hasMegaEvolution;
   final String species;

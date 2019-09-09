@@ -94,7 +94,7 @@ void main() {
     var formattedNormalDamage = {'FIRE': '1x'};
     PokemonProfileResponseModel responseModel = PokemonProfileResponseModel(
       pokemonName: 'pokemon',
-      nationalPokedexNum: '094',
+      nationalPokedexNum: 94,
       types: [PokemonType.GHOST, PokemonType.POISON],
       hasMegaEvolution: true,
       species: 'shadow',

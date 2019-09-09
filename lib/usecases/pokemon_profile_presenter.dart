@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:pokedex/usecases/pokemon_profile_response_model.dart';
 import 'package:pokedex/viewmodels/chain_view_model.dart';
 import 'package:pokedex/viewmodels/pokemon_profile_view_model.dart';
@@ -16,7 +15,7 @@ class PokemonProfilePresenter {
 
     _viewModel = PokemonProfileViewModel(
       pokemonName: formatText(responseModel.pokemonName),
-      nationalPokedexNum: '#${responseModel.nationalPokedexNum}',
+      nationalPokedexNum: formatId(responseModel.nationalPokedexNum),
       types: types,
       hasMegaEvolution: responseModel.hasMegaEvolution,
       species: formatText(responseModel.species),
