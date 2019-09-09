@@ -154,7 +154,7 @@ class TypeEffectivenessGrid extends StatelessWidget {
       case PokemonType.POISON:
         title = '${_extractType(PokemonType.POISON)}';
         typeIconAsset = 'images/types/water.svg';
-        typeColor = kWaterTypeColor1;
+        typeColor = kPoisonTypeColor1;
         break;
     }
 
