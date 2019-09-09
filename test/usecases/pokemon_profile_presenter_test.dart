@@ -85,9 +85,13 @@ void main() {
 
   test("Validate ViewModel", () {
     var weakTo = {PokemonType.GROUND: 2.0, PokemonType.ELECTRIC: 4.0};
+    var formattedWeakTo = {'GROUND': '2x', 'ELECTRIC': '4x'};
     var immuneTo = {PokemonType.NORMAL: 0.0};
+    var formattedImmuneTo = {'NORMAL': '0x'};
     var resistantTo = {PokemonType.POISON: 0.25, PokemonType.GRASS: 0.5};
+    var formattedResistantTo = {'POISON': '1/4x', 'GRASS': '1/2x'};
     var damagedNormallyBy = {PokemonType.FIRE: 1.0};
+    var formattedNormalDamage = {'FIRE': '1x'};
     PokemonProfileResponseModel responseModel = PokemonProfileResponseModel(
       pokemonName: 'pokemon',
       nationalPokedexNum: '094',
@@ -148,24 +152,46 @@ void main() {
     expect(vm.sAtk, equals('130'));
     expect(vm.sDef, equals('75'));
     expect(vm.spd, equals('110'));
-    expect(vm.weakTo.length, equals(weakTo.length));
-    expect(vm.weakTo[0].type, equals(weakTo.keys.first));
-    expect(vm.weakTo[0].title, equals('GROUND'));
-    expect(vm.weakTo[0].effectiveness, equals('2x'));
-    expect(vm.weakTo[1].type, equals(weakTo.keys.elementAt(1)));
-    expect(vm.weakTo[1].title, equals('ELECTRIC'));
-    expect(vm.weakTo[1].effectiveness, equals('4x'));
-    expect(vm.immuneTo[0].type, equals(immuneTo.keys.first));
-    expect(vm.immuneTo[0].title, equals('NORMAL'));
-    expect(vm.immuneTo[0].effectiveness, equals('0x'));
-    expect(vm.resistantTo[0].type, equals(resistantTo.keys.first));
-    expect(vm.resistantTo[0].title, equals('POISON'));
-    expect(vm.resistantTo[0].effectiveness, equals('1/4x'));
-    expect(vm.resistantTo[1].type, equals(resistantTo.keys.elementAt(1)));
-    expect(vm.resistantTo[1].title, equals('GRASS'));
-    expect(vm.resistantTo[1].effectiveness, equals('1/2x'));
-    expect(vm.damagedNormallyBy[0].type, equals(damagedNormallyBy.keys.first));
-    expect(vm.damagedNormallyBy[0].title, equals('FIRE'));
-    expect(vm.damagedNormallyBy[0].effectiveness, equals('1x'));
+    for (var i = 0; i < weakTo.length; i++) {
+      expect(vm.weakTo[i].type, equals(weakTo.keys.elementAt(i)));
+      expect(vm.weakTo[i].title, equals(formattedWeakTo.keys.elementAt(i)));
+      expect(vm.weakTo[i].effectiveness, formattedWeakTo.values.elementAt(i));
+    }
+
+    for (var i = 0; i < immuneTo.length; i++) {
+      expect(vm.immuneTo[i].type, equals(immuneTo.keys.elementAt(i)));
+      expect(vm.immuneTo[i].title, equals(formattedImmuneTo.keys.elementAt(i)));
+      expect(
+        vm.immuneTo[i].effectiveness,
+        formattedImmuneTo.values.elementAt(i),
+      );
+    }
+
+    for (var i = 0; i < resistantTo.length; i++) {
+      expect(vm.resistantTo[i].type, equals(resistantTo.keys.elementAt(i)));
+      expect(
+        vm.resistantTo[i].title,
+        equals(formattedResistantTo.keys.elementAt(i)),
+      );
+      expect(
+        vm.resistantTo[i].effectiveness,
+        formattedResistantTo.values.elementAt(i),
+      );
+    }
+
+    for (var i = 0; i < damagedNormallyBy.length; i++) {
+      expect(
+        vm.damagedNormallyBy[i].type,
+        equals(damagedNormallyBy.keys.elementAt(i)),
+      );
+      expect(
+        vm.damagedNormallyBy[i].title,
+        equals(formattedNormalDamage.keys.elementAt(i)),
+      );
+      expect(
+        vm.damagedNormallyBy[i].effectiveness,
+        formattedNormalDamage.values.elementAt(i),
+      );
+    }
   });
 }
