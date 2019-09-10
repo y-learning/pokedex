@@ -26,7 +26,7 @@ class TypeEffectivenessGrid extends StatelessWidget {
       ),
       child: GridView.builder(
         physics: NeverScrollableScrollPhysics(),
-        padding: EdgeInsets.all(8),
+        padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
         shrinkWrap: true,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           childAspectRatio: childAspectRatio(context),

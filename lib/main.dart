@@ -44,10 +44,29 @@ class App extends StatelessWidget {
       evolutionDetails: [],
       evolvesTo: [chain2],
     );
-    var weakTo = {PokemonType.GROUND: 2.0, PokemonType.ELECTRIC: 4.0};
-    var immuneTo = {PokemonType.NORMAL: 0.0};
-    var resistantTo = {PokemonType.POISON: 0.25, PokemonType.GRASS: 0.5};
-    var damagedNormallyBy = {PokemonType.FIRE: 1.0};
+    var weakTo = {
+      PokemonType.GROUND: 2.0,
+      PokemonType.GHOST: 2.0,
+      PokemonType.PSYCHIC: 2.0,
+      PokemonType.DARK: 2.0,
+    };
+    var immuneTo = {PokemonType.NORMAL: 0.0, PokemonType.FIGHT: 0.0};
+    var resistantTo = {
+      PokemonType.POISON: 0.25,
+      PokemonType.BUG: 0.25,
+      PokemonType.GRASS: 0.5,
+      PokemonType.FAIRY: 0.5,
+    };
+    var damagedNormallyBy = {
+      PokemonType.FLYING: 1.0,
+      PokemonType.ROCK: 1.0,
+      PokemonType.STEEL: 1.0,
+      PokemonType.FIRE: 1.0,
+      PokemonType.WATER: 1.0,
+      PokemonType.ELECTRIC: 1.0,
+      PokemonType.ICE: 1.0,
+      PokemonType.DRAGON: 1.0,
+    };
     PokemonProfilePresenter presenter = PokemonProfilePresenter();
     PokemonProfileResponseModel responseModel = PokemonProfileResponseModel(
       pokemonName: 'Gengar',

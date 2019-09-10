@@ -251,68 +251,30 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         mainAxisSize: MainAxisSize.max,
                         children: [
                           EffectivenessText(text: 'Weak to'),
-                          Expanded(
-                            child: TypeEffectivenessGrid(
-                              types: _profileViewModel.weakTo
-                                  .map((vm) => vm.type)
-                                  .toList(),
-                              effectivenessValues: _profileViewModel.weakTo
-                                  .map((vm) => vm.effectiveness)
-                                  .toList(),
-                            ),
-                          ),
+                          Expanded(child: buildWeakToTypeEffectivenessGrid()),
                         ],
                       ),
-                      SizedBox(height: ScreenUtil.getInstance().setHeight(16)),
                       Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [
                           EffectivenessText(text: 'Immune to'),
-                          Expanded(
-                            child: TypeEffectivenessGrid(
-                              types: _profileViewModel.immuneTo
-                                  .map((vm) => vm.type)
-                                  .toList(),
-                              effectivenessValues: _profileViewModel.immuneTo
-                                  .map((vm) => vm.effectiveness)
-                                  .toList(),
-                            ),
-                          ),
+                          Expanded(child: _buildImmuneTypeEffectivenessGrid()),
                         ],
                       ),
-                      SizedBox(height: ScreenUtil.getInstance().setHeight(16)),
                       Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [
                           EffectivenessText(text: 'Resistant to'),
                           Expanded(
-                            child: TypeEffectivenessGrid(
-                              types: _profileViewModel.resistantTo
-                                  .map((vm) => vm.type)
-                                  .toList(),
-                              effectivenessValues: _profileViewModel.resistantTo
-                                  .map((vm) => vm.effectiveness)
-                                  .toList(),
-                            ),
+                            child: _buildResistantTypeEffectivenessGrid(),
                           ),
                         ],
                       ),
-                      SizedBox(height: ScreenUtil.getInstance().setHeight(16)),
                       Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [
                           EffectivenessText(text: 'Damaged normally by'),
-                          Expanded(
-                            child: TypeEffectivenessGrid(
-                              types: _profileViewModel.damagedNormallyBy
-                                  .map((vm) => vm.type)
-                                  .toList(),
-                              effectivenessValues: _profileViewModel
-                                  .damagedNormallyBy
-                                  .map((vm) => vm.effectiveness)
-                                  .toList(),
-                            ),
-                          ),
+                          Expanded(child: _buildNormalTypeEffectivenessGrid()),
                         ],
                       ),
                     ],
@@ -351,6 +313,39 @@ class _ProfileScreenState extends State<ProfileScreen> {
     });
 
     return list;
+  }
+
+  TypeEffectivenessGrid buildWeakToTypeEffectivenessGrid() {
+    return TypeEffectivenessGrid(
+      types: _profileViewModel.weakTo.map((vm) => vm.type).toList(),
+      effectivenessValues:
+          _profileViewModel.weakTo.map((vm) => vm.effectiveness).toList(),
+    );
+  }
+
+  TypeEffectivenessGrid _buildImmuneTypeEffectivenessGrid() {
+    return TypeEffectivenessGrid(
+      types: _profileViewModel.immuneTo.map((vm) => vm.type).toList(),
+      effectivenessValues:
+          _profileViewModel.immuneTo.map((vm) => vm.effectiveness).toList(),
+    );
+  }
+
+  TypeEffectivenessGrid _buildResistantTypeEffectivenessGrid() {
+    return TypeEffectivenessGrid(
+      types: _profileViewModel.resistantTo.map((vm) => vm.type).toList(),
+      effectivenessValues:
+          _profileViewModel.resistantTo.map((vm) => vm.effectiveness).toList(),
+    );
+  }
+
+  TypeEffectivenessGrid _buildNormalTypeEffectivenessGrid() {
+    return TypeEffectivenessGrid(
+      types: _profileViewModel.damagedNormallyBy.map((vm) => vm.type).toList(),
+      effectivenessValues: _profileViewModel.damagedNormallyBy
+          .map((vm) => vm.effectiveness)
+          .toList(),
+    );
   }
 
   List<List<Widget>> _linearEvolutionRows() {

@@ -19,12 +19,21 @@ class EffectivenessValue extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            value,
+            value.substring(0, value.length - 1),
             maxLines: 1,
             textAlign: TextAlign.center,
             style: TextStyle(
               letterSpacing: -2,
-              fontSize: ScreenUtil.getInstance().setSp(24),
+              fontSize: ScreenUtil.getInstance().setSp(22),
+              fontWeight: FontWeight.w400,
+            ),
+          ),
+          Text(
+            value.substring(value.length - 1, value.length),
+            maxLines: 1,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: ScreenUtil.getInstance().setSp(16),
               fontWeight: FontWeight.w400,
             ),
           ),
@@ -33,3 +42,13 @@ class EffectivenessValue extends StatelessWidget {
     );
   }
 }
+
+//Text(
+//'x',
+//maxLines: 1,
+//textAlign: TextAlign.center,
+//style: TextStyle(
+//fontSize: ScreenUtil.getInstance().setSp(16),
+//fontWeight: FontWeight.w400,
+//),
+//),
