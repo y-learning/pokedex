@@ -2,6 +2,9 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:pokedex/usecases/pokemon_profile_response_model.dart';
+import 'package:pokedex/viewmodels/chain_view_model.dart';
+import 'package:pokedex/viewmodels/pokemon_profile_view_model.dart';
 import 'package:pokedex/widgets/effectiveness_text.dart';
 import 'package:pokedex/widgets/type_effectiveness_grid.dart';
 import 'package:pokedex/widgets/vertical_separator.dart';
@@ -16,77 +19,22 @@ import 'package:pokedex/widgets/type_label.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../constants.dart';
-import '../usecases/pokemon_types.dart';
+import '../utils.dart';
 
 class ProfileScreen extends StatefulWidget {
-  _ProfileScreenState createState() => _ProfileScreenState();
+  final PokemonProfileViewModel profileViewModel;
+
+  ProfileScreen(this.profileViewModel);
+
+  _ProfileScreenState createState() => _ProfileScreenState(profileViewModel);
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  PokemonProfileViewModel _profileViewModel;
   String _mainPokemonAsset;
   bool _isMega;
 
-  List<PokemonType> _weaknesses = [
-    PokemonType.GROUND,
-    PokemonType.GHOST,
-    PokemonType.PSYCHIC,
-    PokemonType.DARK,
-  ];
-
-  List<String> _weaknessesEffectivenessValues = [
-    '2',
-    '2',
-    '2',
-    '2',
-  ];
-
-  List<PokemonType> _immuneTypes = [
-    PokemonType.NORMAL,
-    PokemonType.FIGHT,
-  ];
-
-  List<String> _immuneEffectivenessValues = [
-    '0',
-    '0',
-  ];
-
-  List<PokemonType> _resistants = [
-    PokemonType.POISON,
-    PokemonType.BUG,
-    PokemonType.GRASS,
-    PokemonType.FAIRY,
-  ];
-
-  List<String> _resistantEffectivenessValues = [
-    '1/4',
-    '1/4',
-    '1/2',
-    '1/2',
-  ];
-
-  List<PokemonType> _normalDamageTypes = [
-    PokemonType.FLYING,
-    PokemonType.ROCK,
-    PokemonType.STEEL,
-    PokemonType.FIRE,
-    PokemonType.WATER,
-    PokemonType.ELECTRIC,
-    PokemonType.ICE,
-    PokemonType.DRAGON,
-  ];
-
-  List<String> _normalEffectivenessValues = [
-    '1',
-    '1',
-    '1',
-    '1',
-    '1',
-    '1',
-    '1',
-    '1',
-  ];
-
-  _ProfileScreenState() {
+  _ProfileScreenState(this._profileViewModel) {
     _setRegularEvolution();
   }
 
@@ -143,7 +91,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          'Gengar',
+                          _profileViewModel.pokemonName,
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: ScreenUtil.getInstance().setSp(62),
@@ -151,7 +99,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ),
                         ),
                         Text(
-                          '#094',
+                          _profileViewModel.nationalPokedexNum,
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: ScreenUtil.getInstance().setSp(29),
@@ -175,39 +123,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     children: [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Expanded(
-                            child: TypeLabel(
-                              'GHOST',
-                              color: kGhostTypeColor1,
-                              typeIcon: 'images/types/ghost.svg',
-                              padding: EdgeInsets.symmetric(
-                                vertical:
-                                    ScreenUtil.getInstance().setHeight(10),
-                                horizontal:
-                                    ScreenUtil.getInstance().setWidth(34),
-                              ),
-                              typeIconSize: 34,
-                              titleSize: 32,
-                            ),
-                          ),
-                          SizedBox(width: 40),
-                          Expanded(
-                            child: TypeLabel(
-                              'POISON',
-                              color: kPoisonTypeColor1,
-                              typeIcon: 'images/types/poison.svg',
-                              padding: EdgeInsets.symmetric(
-                                vertical:
-                                    ScreenUtil.getInstance().setHeight(10),
-                                horizontal:
-                                    ScreenUtil.getInstance().setWidth(34),
-                              ),
-                              typeIconSize: 34,
-                              titleSize: 32,
-                            ),
-                          ),
-                        ],
+                        children: _buildTypeLabel(),
                       ),
                       Tooltip(
                         message: 'Mega Evolution',
@@ -226,11 +142,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       SizedBox(height: 24),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: const [
+                        children: [
                           DataBox(
                             widgets: [
                               DataBoxTitle(
-                                'Shadow',
+                                _profileViewModel.species,
                                 titleMaxLines: 2,
                                 color: kGhostTypeColor1,
                               )
@@ -241,7 +157,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           DataBox(
                             widgets: [
                               DataBoxTitle(
-                                '4\' 11\"',
+                                _profileViewModel.height,
                                 color: kGhostTypeColor1,
                               )
                             ],
@@ -251,7 +167,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           DataBox(
                             widgets: [
                               DataBoxTitle(
-                                '8956.3 lbs',
+                                _profileViewModel.weight,
                                 color: kGhostTypeColor1,
                               )
                             ],
@@ -268,7 +184,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   DataBoxTitle(
-                                    '50%',
+                                    _profileViewModel.malePercentage,
                                     color: kMaleColor,
                                   ),
                                   Icon(
@@ -281,7 +197,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   DataBoxTitle(
-                                    '50%',
+                                    _profileViewModel.femalePercentage,
                                     color: kFemaleColor,
                                   ),
                                   Icon(
@@ -294,12 +210,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             subtitle: 'Gender',
                           ),
                           DataBox(
-                            widgets: [
-                              DataBoxTitle(
-                                'Cursed Body',
-                                color: kGhostTypeColor1,
-                              ),
-                            ],
+                            widgets: _profileViewModel.abilities
+                                .map((ability) => DataBoxTitle(
+                                      ability,
+                                      color: kGhostTypeColor1,
+                                    ))
+                                .toList(),
                             subtitle: 'Abilities',
                           ),
                         ],
@@ -310,60 +226,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         textColor: kGhostTypeColor1,
                       ),
                       SizedBox(height: 6),
-                      Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: const [
-                          EvolutionImage('images/gastly.gif'),
-                          EvolutionConditionBox(
-                            assetName: 'images/evolution_icons/l25.png',
-                            hoverMessage: 'Level',
-                            hoverColor: kGhostTypeColor4,
-                          ),
-                          EvolutionImage('images/haunter.gif'),
-                          EvolutionConditionBox(
-                            assetName: 'images/evolution_icons/trade.png',
-                            hoverMessage: 'Trade',
-                            hoverColor: kGhostTypeColor4,
-                          ),
-                          EvolutionImage('images/gengar.gif'),
-                        ],
-                      ),
-                      Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: const [
-                          DataBox(
-                            widgets: [
-                              DataBoxTitle(
-                                'Gastly',
-                                color: kGhostTypeColor1,
-                              ),
-                            ],
-                            subtitle: '#092',
-                          ),
-                          VerticalSeparator(),
-                          DataBox(
-                            widgets: [
-                              DataBoxTitle(
-                                'Haunter',
-                                color: kGhostTypeColor1,
-                              ),
-                            ],
-                            subtitle: '#093',
-                          ),
-                          VerticalSeparator(),
-                          DataBox(
-                            widgets: [
-                              DataBoxTitle(
-                                'Gengar',
-                                color: kGhostTypeColor1,
-                              ),
-                            ],
-                            subtitle: '#094',
-                          ),
-                        ],
-                      ),
+                      for (var row in _linearEvolutionRows())
+                        Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: row,
+                        ),
                       SizedBox(height: 24),
                       const SectionTitleText(
                         'Base Stats',
@@ -371,44 +239,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                       SizedBox(height: 6),
                       Column(
-                        children: const [
-                          StatRow(
-                            statLabel: 'HP',
-                            stat: 60,
-                            textColor: kGhostTypeColor1,
-                            separatorColor: kGhostTypeColor4,
-                          ),
-                          StatRow(
-                            statLabel: 'ATK',
-                            stat: 65,
-                            textColor: kGhostTypeColor1,
-                            separatorColor: kGhostTypeColor4,
-                          ),
-                          StatRow(
-                            statLabel: 'DEF',
-                            stat: 60,
-                            textColor: kGhostTypeColor1,
-                            separatorColor: kGhostTypeColor4,
-                          ),
-                          StatRow(
-                            statLabel: 'SATK',
-                            stat: 130,
-                            textColor: kGhostTypeColor1,
-                            separatorColor: kGhostTypeColor4,
-                          ),
-                          StatRow(
-                            statLabel: 'SDEF',
-                            stat: 75,
-                            textColor: kGhostTypeColor1,
-                            separatorColor: kGhostTypeColor4,
-                          ),
-                          StatRow(
-                            statLabel: 'SPD',
-                            stat: 110,
-                            textColor: kGhostTypeColor1,
-                            separatorColor: kGhostTypeColor4,
-                          ),
-                        ],
+                        children: _buildStatsChart(),
                       ),
                       SizedBox(height: 6),
                       const SectionTitleText(
@@ -422,9 +253,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           EffectivenessText(text: 'Weak to'),
                           Expanded(
                             child: TypeEffectivenessGrid(
-                              types: _weaknesses,
-                              effectivenessValues:
-                                  _weaknessesEffectivenessValues,
+                              types: _profileViewModel.weakTo
+                                  .map((vm) => vm.type)
+                                  .toList(),
+                              effectivenessValues: _profileViewModel.weakTo
+                                  .map((vm) => vm.effectiveness)
+                                  .toList(),
                             ),
                           ),
                         ],
@@ -436,8 +270,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           EffectivenessText(text: 'Immune to'),
                           Expanded(
                             child: TypeEffectivenessGrid(
-                              types: _immuneTypes,
-                              effectivenessValues: _immuneEffectivenessValues,
+                              types: _profileViewModel.immuneTo
+                                  .map((vm) => vm.type)
+                                  .toList(),
+                              effectivenessValues: _profileViewModel.immuneTo
+                                  .map((vm) => vm.effectiveness)
+                                  .toList(),
                             ),
                           ),
                         ],
@@ -449,9 +287,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           EffectivenessText(text: 'Resistant to'),
                           Expanded(
                             child: TypeEffectivenessGrid(
-                              types: _resistants,
-                              effectivenessValues:
-                                  _resistantEffectivenessValues,
+                              types: _profileViewModel.resistantTo
+                                  .map((vm) => vm.type)
+                                  .toList(),
+                              effectivenessValues: _profileViewModel.resistantTo
+                                  .map((vm) => vm.effectiveness)
+                                  .toList(),
                             ),
                           ),
                         ],
@@ -463,8 +304,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           EffectivenessText(text: 'Damaged normally by'),
                           Expanded(
                             child: TypeEffectivenessGrid(
-                              types: _normalDamageTypes,
-                              effectivenessValues: _normalEffectivenessValues,
+                              types: _profileViewModel.damagedNormallyBy
+                                  .map((vm) => vm.type)
+                                  .toList(),
+                              effectivenessValues: _profileViewModel
+                                  .damagedNormallyBy
+                                  .map((vm) => vm.effectiveness)
+                                  .toList(),
                             ),
                           ),
                         ],
@@ -491,11 +337,114 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
+  List<Widget> _buildStatsChart() {
+    return [
+      StatRow(
+        statLabel: 'HP',
+        stat: _profileViewModel.hp,
+        textColor: kGhostTypeColor1,
+        separatorColor: kGhostTypeColor4,
+      ),
+      StatRow(
+        statLabel: 'ATK',
+        stat: _profileViewModel.atk,
+        textColor: kGhostTypeColor1,
+        separatorColor: kGhostTypeColor4,
+      ),
+      StatRow(
+        statLabel: 'DEF',
+        stat: _profileViewModel.def,
+        textColor: kGhostTypeColor1,
+        separatorColor: kGhostTypeColor4,
+      ),
+      StatRow(
+        statLabel: 'SATK',
+        stat: _profileViewModel.sAtk,
+        textColor: kGhostTypeColor1,
+        separatorColor: kGhostTypeColor4,
+      ),
+      StatRow(
+        statLabel: 'SDEF',
+        stat: _profileViewModel.sDef,
+        textColor: kGhostTypeColor1,
+        separatorColor: kGhostTypeColor4,
+      ),
+      StatRow(
+        statLabel: 'SPD',
+        stat: _profileViewModel.spd,
+        textColor: kGhostTypeColor1,
+        separatorColor: kGhostTypeColor4,
+      ),
+    ];
+  }
+
+  List<List<Widget>> _linearEvolutionRows() {
+    List<List<Widget>> list = [];
+
+    list.add(_linearEvolution(_profileViewModel.chainViewModel).firstRow);
+    list.add(_linearEvolution(_profileViewModel.chainViewModel).secondRow);
+
+    return list;
+  }
+
+  LinearEvolution _linearEvolution(ChainViewModel chainViewModel) {
+    LinearEvolution linearEvolution = LinearEvolution();
+
+    if (chainViewModel.evolutionDetails.isNotEmpty) {
+      linearEvolution.secondRow.add(VerticalSeparator());
+      var triggerIconAsset = _getTriggerIconAsset(chainViewModel);
+      linearEvolution.firstRow.add(
+        EvolutionConditionBox(
+          assetName: 'images/evolution_icons/$triggerIconAsset',
+          // TODO: Provide a hoverMessage from the view model
+          hoverMessage: 'Level',
+          hoverColor: kGhostTypeColor4,
+        ),
+      );
+    }
+
+    linearEvolution.firstRow.add(
+      EvolutionImage('images/${chainViewModel.id}.gif'),
+    );
+    linearEvolution.secondRow.add(
+      DataBox(
+        widgets: [DataBoxTitle(chainViewModel.name, color: kGhostTypeColor1)],
+        subtitle: chainViewModel.formattedId,
+      ),
+    );
+
+    if (chainViewModel.evolvesTo.isNotEmpty) {
+      linearEvolution.firstRow.addAll(
+        _linearEvolution(chainViewModel.evolvesTo.first).firstRow,
+      );
+      linearEvolution.secondRow.addAll(
+        _linearEvolution(chainViewModel.evolvesTo.first).secondRow,
+      );
+    }
+
+    return linearEvolution;
+  }
+
+  String _getTriggerIconAsset(ChainViewModel chainViewModel) {
+    var triggerResource;
+    switch (chainViewModel.evolutionDetails.first.trigger) {
+      case Trigger.LEVEL_UP:
+        triggerResource =
+            'l${chainViewModel.evolutionDetails.first.minLevel}.png';
+        break;
+      case Trigger.TRADE:
+        triggerResource = 'trade.png';
+        break;
+    }
+
+    return triggerResource;
+  }
+
   void _toggleMegaEvolution() =>
       setState(() => _isMega ? _setRegularEvolution() : _setMegaEvolution());
 
   void _setRegularEvolution() {
-    _mainPokemonAsset = 'images/gengar.gif';
+    _mainPokemonAsset = 'images/94.gif';
     _isMega = false;
   }
 
@@ -503,4 +452,33 @@ class _ProfileScreenState extends State<ProfileScreen> {
     _mainPokemonAsset = 'images/mega_gengar.gif';
     _isMega = true;
   }
+
+  List<Widget> _buildTypeLabel() {
+    var list = _profileViewModel.types.map<Widget>((typeViewModel) {
+      var typeLabelAssets = Utils.getLabelAssetsFor(typeViewModel.type);
+      return Expanded(
+        child: TypeLabel(
+          typeViewModel.title,
+          color: typeLabelAssets.color,
+          typeIcon: typeLabelAssets.icon,
+          padding: EdgeInsets.symmetric(
+            vertical: ScreenUtil.getInstance().setHeight(10),
+            horizontal: ScreenUtil.getInstance().setWidth(34),
+          ),
+          typeIconSize: 34,
+          titleSize: 32,
+        ),
+      );
+    }).toList();
+
+    if (_profileViewModel.types.length == 2)
+      list.insert(1, SizedBox(width: 40));
+
+    return list;
+  }
+}
+
+class LinearEvolution {
+  List<Widget> firstRow = [];
+  List<Widget> secondRow = [];
 }

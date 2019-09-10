@@ -5,7 +5,7 @@ import 'base_stats_slider.dart';
 
 class StatRow extends StatelessWidget {
   final String statLabel;
-  final double stat;
+  final String stat;
   final Color textColor;
   final Color separatorColor;
 
@@ -37,7 +37,7 @@ class StatRow extends StatelessWidget {
           ),
         ),
         BaseStatText(
-          stat: '${stat.floor()}',
+          stat: stat,
           width: ScreenUtil.getInstance().setWidth(66),
           fontWeight: FontWeight.w600,
           color: textColor,
@@ -45,7 +45,7 @@ class StatRow extends StatelessWidget {
             right: ScreenUtil.getInstance().setWidth(24),
           ),
         ),
-        Expanded(child: BaseStatSlider(stat: stat))
+        Expanded(child: BaseStatSlider(stat: double.parse(stat)))
       ],
     );
   }
