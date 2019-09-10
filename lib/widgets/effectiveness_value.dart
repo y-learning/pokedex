@@ -28,15 +28,6 @@ class EffectivenessValue extends StatelessWidget {
               fontWeight: FontWeight.w400,
             ),
           ),
-          Text(
-            'x',
-            maxLines: 1,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: ScreenUtil.getInstance().setSp(16),
-              fontWeight: FontWeight.w400,
-            ),
-          ),
         ],
       ),
     );
