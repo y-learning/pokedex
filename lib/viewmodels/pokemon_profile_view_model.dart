@@ -25,6 +25,7 @@ class PokemonProfileViewModel {
   final List<TypeViewModel> immuneTo;
   final List<TypeViewModel> resistantTo;
   final List<TypeViewModel> damagedNormallyBy;
+  final Map<String, String> stats;
 
   PokemonProfileViewModel({
     this.pokemonName,
@@ -49,6 +50,7 @@ class PokemonProfileViewModel {
     this.immuneTo,
     this.resistantTo,
     this.damagedNormallyBy,
+    this.stats,
   });
 }
 

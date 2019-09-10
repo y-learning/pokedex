@@ -13,6 +13,13 @@ class PokemonProfilePresenter {
     List<String> types = [];
     for (var type in responseModel.types) types.add(_pokemonTypeToString(type));
 
+    Map<String, String> stats = {};
+    stats['HP'] = '${responseModel.hp}';
+    stats['ATK'] = '${responseModel.atk}';
+    stats['DEF'] = '${responseModel.def}';
+    stats['SATK'] = '${responseModel.sAtk}';
+    stats['SDEF'] = '${responseModel.sDef}';
+    stats['SPD'] = '${responseModel.spd}';
     _viewModel = PokemonProfileViewModel(
       pokemonName: formatText(responseModel.pokemonName),
       nationalPokedexNum: formatId(responseModel.nationalPokedexNum),
@@ -31,6 +38,7 @@ class PokemonProfilePresenter {
       malePercentage: _formatPercentage(responseModel.malePercentage),
       femalePercentage: _formatPercentage(responseModel.femalePercentage),
       chainViewModel: toChainViewModel(responseModel.chain),
+      stats: stats,
       hp: '${responseModel.hp}',
       atk: '${responseModel.atk}',
       def: '${responseModel.def}',

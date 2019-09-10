@@ -92,6 +92,14 @@ void main() {
     var formattedResistantTo = {'POISON': '1/4x', 'GRASS': '1/2x'};
     var damagedNormallyBy = {PokemonType.FIRE: 1.0};
     var formattedNormalDamage = {'FIRE': '1x'};
+    var expectedStats = {
+      'HP': '60',
+      'ATK': '65',
+      'DEF': '61',
+      'SATK': '130',
+      'SDEF': '75',
+      'SPD': '110',
+    };
     PokemonProfileResponseModel responseModel = PokemonProfileResponseModel(
       pokemonName: 'pokemon',
       nationalPokedexNum: 94,
@@ -149,12 +157,7 @@ void main() {
     expect(chainViewModel3.id, equals(chain3.species.id));
     expect(chainViewModel3.name, equals('Pokemon3'));
     expect(chainViewModel3.evolutionDetails, equals(chain3.evolutionDetails));
-    expect(vm.hp, equals('60'));
-    expect(vm.atk, equals('65'));
-    expect(vm.def, equals('61'));
-    expect(vm.sAtk, equals('130'));
-    expect(vm.sDef, equals('75'));
-    expect(vm.spd, equals('110'));
+    expect(vm.stats, equals(expectedStats));
     for (var i = 0; i < weakTo.length; i++) {
       expect(vm.weakTo[i].type, equals(weakTo.keys.elementAt(i)));
       expect(vm.weakTo[i].title, equals(formattedWeakTo.keys.elementAt(i)));
