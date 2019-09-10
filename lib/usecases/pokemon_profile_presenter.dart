@@ -76,7 +76,8 @@ class PokemonProfilePresenter {
 
   ChainViewModel toChainViewModel(Chain chain) => ChainViewModel(
         isBaby: chain.isBaby,
-        id: formatId(chain.species.id),
+        id: chain.species.id,
+        formattedId: formatId(chain.species.id),
         name: formatText(chain.species.name),
         evolutionDetails: chain.evolutionDetails,
         evolvesTo: chain.evolvesTo

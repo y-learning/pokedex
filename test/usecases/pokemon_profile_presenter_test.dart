@@ -53,13 +53,13 @@ void main() {
       var chainViewModel3 = chainViewModel2.evolvesTo[0];
       expect(chainViewModel1.isBaby, equals(chain1.isBaby));
       expect(chainViewModel1.name, equals('Pokemon1'));
-      expect(chainViewModel1.id, equals('#001'));
+      expect(chainViewModel1.formattedId, equals('#001'));
       expect(chainViewModel1.evolutionDetails, chain1.evolutionDetails);
-      expect(chainViewModel2.id, equals('#002'));
+      expect(chainViewModel2.formattedId, equals('#002'));
       expect(chainViewModel2.name, equals('Pokemon2'));
       expect(chainViewModel2.isBaby, equals(chain2.isBaby));
       expect(chainViewModel2.evolutionDetails, equals(chain2.evolutionDetails));
-      expect(chainViewModel3.id, equals('#003'));
+      expect(chainViewModel3.formattedId, equals('#003'));
       expect(chainViewModel3.name, equals('Pokemon3'));
       expect(chainViewModel3.isBaby, equals(chain3.isBaby));
       expect(chainViewModel3.evolutionDetails, equals(chain3.evolutionDetails));
@@ -77,9 +77,9 @@ void main() {
       var chainViewModel = presenter.toChainViewModel(chain);
 
       expect(chainViewModel.evolvesTo.length, equals(chain.evolvesTo.length));
-      expect(chainViewModel.evolvesTo[0].id, equals('#001'));
-      expect(chainViewModel.evolvesTo[1].id, equals('#002'));
-      expect(chainViewModel.evolvesTo[2].id, equals('#003'));
+      expect(chainViewModel.evolvesTo[0].formattedId, equals('#001'));
+      expect(chainViewModel.evolvesTo[1].formattedId, equals('#002'));
+      expect(chainViewModel.evolvesTo[2].formattedId, equals('#003'));
     });
   });
 
@@ -137,13 +137,16 @@ void main() {
     expect(vm.isGenderless, equals(responseModel.isGenderless));
     expect(vm.malePercentage, equals('70%'));
     expect(vm.femalePercentage, equals('30%'));
-    expect(chainViewModel1.id, equals('#00${chain1.species.id}'));
+    expect(chainViewModel1.formattedId, equals('#00${chain1.species.id}'));
+    expect(chainViewModel1.id, equals(chain1.species.id));
     expect(chainViewModel1.name, equals('Pokemon1'));
     expect(chainViewModel1.evolutionDetails, equals(chain1.evolutionDetails));
-    expect(chainViewModel2.id, equals('#00${chain2.species.id}'));
+    expect(chainViewModel2.formattedId, equals('#00${chain2.species.id}'));
+    expect(chainViewModel2.id, equals(chain2.species.id));
     expect(chainViewModel2.name, equals('Pokemon2'));
     expect(chainViewModel2.evolutionDetails, equals(chain2.evolutionDetails));
-    expect(chainViewModel3.id, equals('#00${chain3.species.id}'));
+    expect(chainViewModel3.formattedId, equals('#00${chain3.species.id}'));
+    expect(chainViewModel3.id, equals(chain3.species.id));
     expect(chainViewModel3.name, equals('Pokemon3'));
     expect(chainViewModel3.evolutionDetails, equals(chain3.evolutionDetails));
     expect(vm.hp, equals('60'));
