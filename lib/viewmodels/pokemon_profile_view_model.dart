@@ -4,6 +4,7 @@ import 'chain_view_model.dart';
 
 class PokemonProfileViewModel {
   final String pokemonName;
+  final int id;
   final String nationalPokedexNum;
   final List<TypeViewModel> types;
   final bool hasMegaEvolution;
@@ -24,6 +25,7 @@ class PokemonProfileViewModel {
   PokemonProfileViewModel({
     this.pokemonName,
     this.nationalPokedexNum,
+    this.id,
     this.types,
     this.hasMegaEvolution,
     this.species,

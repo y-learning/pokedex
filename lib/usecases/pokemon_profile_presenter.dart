@@ -20,8 +20,10 @@ class PokemonProfilePresenter {
     stats['SATK'] = '${responseModel.sAtk}';
     stats['SDEF'] = '${responseModel.sDef}';
     stats['SPD'] = '${responseModel.spd}';
+
     _viewModel = PokemonProfileViewModel(
       pokemonName: formatText(responseModel.pokemonName),
+      id: responseModel.nationalPokedexNum,
       nationalPokedexNum: formatId(responseModel.nationalPokedexNum),
       types: responseModel.types
           .map((type) => TypeViewModel(

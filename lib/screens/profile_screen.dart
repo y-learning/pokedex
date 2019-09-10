@@ -413,12 +413,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
       setState(() => _isMega ? _setRegularEvolution() : _setMegaEvolution());
 
   void _setRegularEvolution() {
-    _mainPokemonAsset = 'images/94.gif';
+    _mainPokemonAsset = 'images/${_profileViewModel.id}.gif';
     _isMega = false;
   }
 
   void _setMegaEvolution() {
-    _mainPokemonAsset = 'images/mega_gengar.gif';
+    _mainPokemonAsset = 'images/mega_${_profileViewModel.id}.gif';
     _isMega = true;
   }
 

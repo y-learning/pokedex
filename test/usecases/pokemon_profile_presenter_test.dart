@@ -134,6 +134,7 @@ void main() {
     var chainViewModel3 = chainViewModel2.evolvesTo[0];
     expect(vm.pokemonName, equals('Pokemon'));
     expect(vm.nationalPokedexNum, equals('#094'));
+    expect(vm.id, equals(94));
     expect(vm.types[0].title, equals('GHOST'));
     expect(vm.types[1].title, equals('POISON'));
     expect(vm.hasMegaEvolution, isTrue);
