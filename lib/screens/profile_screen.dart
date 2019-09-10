@@ -338,49 +338,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   List<Widget> _buildStatsChart() {
-    return [
-      StatRow(
-        statLabel: 'HP',
-        stat: _profileViewModel.hp,
-        textColor: kGhostTypeColor1,
-        separatorColor: kGhostTypeColor4,
-      ),
-      StatRow(
-        statLabel: 'ATK',
-        stat: _profileViewModel.atk,
-        textColor: kGhostTypeColor1,
-        separatorColor: kGhostTypeColor4,
-      ),
-      StatRow(
-        statLabel: 'DEF',
-        stat: _profileViewModel.def,
-        textColor: kGhostTypeColor1,
-        separatorColor: kGhostTypeColor4,
-      ),
-      StatRow(
-        statLabel: 'SATK',
-        stat: _profileViewModel.sAtk,
-        textColor: kGhostTypeColor1,
-        separatorColor: kGhostTypeColor4,
-      ),
-      StatRow(
-        statLabel: 'SDEF',
-        stat: _profileViewModel.sDef,
-        textColor: kGhostTypeColor1,
-        separatorColor: kGhostTypeColor4,
-      ),
-      StatRow(
-        statLabel: 'SPD',
-        stat: _profileViewModel.spd,
-        textColor: kGhostTypeColor1,
-        separatorColor: kGhostTypeColor4,
-      ),
-    ];
+    List<Widget> list = [];
+    _profileViewModel.stats.forEach((statLabel, statValue) {
+      list.add(
+        StatRow(
+          statLabel: statLabel,
+          stat: statValue,
+          textColor: kGhostTypeColor1,
+          separatorColor: kGhostTypeColor4,
+        ),
+      );
+    });
+
+    return list;
   }
 
   List<List<Widget>> _linearEvolutionRows() {
     List<List<Widget>> list = [];
-
     list.add(_linearEvolution(_profileViewModel.chainViewModel).firstRow);
     list.add(_linearEvolution(_profileViewModel.chainViewModel).secondRow);
 

@@ -15,12 +15,6 @@ class PokemonProfileViewModel {
   final String malePercentage;
   final String femalePercentage;
   final ChainViewModel chainViewModel;
-  final String hp;
-  final String atk;
-  final String def;
-  final String sAtk;
-  final String sDef;
-  final String spd;
   final List<TypeViewModel> weakTo;
   final List<TypeViewModel> immuneTo;
   final List<TypeViewModel> resistantTo;
@@ -40,12 +34,6 @@ class PokemonProfileViewModel {
     this.malePercentage,
     this.femalePercentage,
     this.chainViewModel,
-    this.hp,
-    this.atk,
-    this.def,
-    this.sAtk,
-    this.sDef,
-    this.spd,
     this.weakTo,
     this.immuneTo,
     this.resistantTo,
