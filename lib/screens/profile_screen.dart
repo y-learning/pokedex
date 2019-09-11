@@ -19,6 +19,7 @@ import 'package:pokedex/widgets/type_label.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../constants.dart';
+import '../profile_theme.dart';
 import '../utils.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -30,12 +31,14 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  ProfileTheme _profileTheme;
   PokemonProfileViewModel _profileViewModel;
   String _mainPokemonAsset;
   bool _isMega;
 
   _ProfileScreenState(this._profileViewModel) {
     _setRegularEvolution();
+    _profileTheme = ProfileTheme(_profileViewModel.types[0].type);
   }
 
   Widget build(BuildContext context) {
@@ -43,7 +46,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       appBar: AppBar(
         elevation: 0,
         automaticallyImplyLeading: true,
-        backgroundColor: kGhostTypeColor4,
+        backgroundColor: _profileTheme.appBarBackgroundColor,
         title: Text(
           'Pokédex',
           style: TextStyle(
@@ -82,7 +85,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         begin: Alignment.bottomCenter,
                         end: Alignment.topCenter,
                         stops: [0.1, 0.4, 0.6, 0.9],
-                        colors: kGhostRgbGradient,
+                        colors: _profileTheme.topRgbGradient,
                       ),
                     ),
                     child: Row(
@@ -148,7 +151,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               DataBoxTitle(
                                 _profileViewModel.species,
                                 titleMaxLines: 2,
-                                color: kGhostTypeColor1,
+                                color: _profileTheme.dataBoxTitleColor,
                               )
                             ],
                             subtitle: 'Species',
@@ -158,7 +161,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             widgets: [
                               DataBoxTitle(
                                 _profileViewModel.height,
-                                color: kGhostTypeColor1,
+                                color: _profileTheme.dataBoxTitleColor,
                               )
                             ],
                             subtitle: 'Height',
@@ -168,7 +171,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             widgets: [
                               DataBoxTitle(
                                 _profileViewModel.weight,
-                                color: kGhostTypeColor1,
+                                color: _profileTheme.dataBoxTitleColor,
                               )
                             ],
                             subtitle: 'Weight',
@@ -213,7 +216,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             widgets: _profileViewModel.abilities
                                 .map((ability) => DataBoxTitle(
                                       ability,
-                                      color: kGhostTypeColor1,
+                                      color: _profileTheme.dataBoxTitleColor,
                                     ))
                                 .toList(),
                             subtitle: 'Abilities',
@@ -221,9 +224,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ],
                       ),
                       SizedBox(height: 24),
-                      const SectionTitleText(
+                      SectionTitleText(
                         'Evolution',
-                        textColor: kGhostTypeColor1,
+                        textColor: _profileTheme.dataBoxTitleColor,
                       ),
                       SizedBox(height: 6),
                       for (var row in _linearEvolutionRows())
@@ -233,38 +236,47 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           children: row,
                         ),
                       SizedBox(height: 24),
-                      const SectionTitleText(
+                      SectionTitleText(
                         'Base Stats',
-                        textColor: kGhostTypeColor1,
+                        textColor: _profileTheme.dataBoxTitleColor,
                       ),
                       SizedBox(height: 6),
                       Column(
                         children: _buildStatsChart(),
                       ),
                       SizedBox(height: 6),
-                      const SectionTitleText(
+                      SectionTitleText(
                         'Type effectiveness',
-                        textColor: kGhostTypeColor1,
+                        textColor: _profileTheme.dataBoxTitleColor,
                       ),
                       SizedBox(height: 10),
                       Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [
-                          EffectivenessText(text: 'Weak to'),
+                          EffectivenessText(
+                            text: 'Weak to',
+                            color: _profileTheme.dataBoxTitleColor,
+                          ),
                           Expanded(child: buildWeakToTypeEffectivenessGrid()),
                         ],
                       ),
                       Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [
-                          EffectivenessText(text: 'Immune to'),
+                          EffectivenessText(
+                            text: 'Immune to',
+                            color: _profileTheme.dataBoxTitleColor,
+                          ),
                           Expanded(child: _buildImmuneTypeEffectivenessGrid()),
                         ],
                       ),
                       Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [
-                          EffectivenessText(text: 'Resistant to'),
+                          EffectivenessText(
+                            text: 'Resistant to',
+                            color: _profileTheme.dataBoxTitleColor,
+                          ),
                           Expanded(
                             child: _buildResistantTypeEffectivenessGrid(),
                           ),
@@ -273,7 +285,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [
-                          EffectivenessText(text: 'Damaged normally by'),
+                          EffectivenessText(
+                            text: 'Damaged normally by',
+                            color: _profileTheme.dataBoxTitleColor,
+                          ),
                           Expanded(child: _buildNormalTypeEffectivenessGrid()),
                         ],
                       ),
@@ -306,8 +321,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
         StatRow(
           statLabel: statLabel,
           stat: statValue,
-          textColor: kGhostTypeColor1,
-          separatorColor: kGhostTypeColor4,
+          textColor: _profileTheme.dataBoxTitleColor,
+          separatorColor: _profileTheme.appBarBackgroundColor,
         ),
       );
     });
@@ -320,6 +335,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       types: _profileViewModel.weakTo.map((vm) => vm.type).toList(),
       effectivenessValues:
           _profileViewModel.weakTo.map((vm) => vm.effectiveness).toList(),
+      separatorColor: _profileTheme.appBarBackgroundColor,
     );
   }
 
@@ -328,6 +344,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       types: _profileViewModel.immuneTo.map((vm) => vm.type).toList(),
       effectivenessValues:
           _profileViewModel.immuneTo.map((vm) => vm.effectiveness).toList(),
+      separatorColor: _profileTheme.appBarBackgroundColor,
     );
   }
 
@@ -336,6 +353,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       types: _profileViewModel.resistantTo.map((vm) => vm.type).toList(),
       effectivenessValues:
           _profileViewModel.resistantTo.map((vm) => vm.effectiveness).toList(),
+      separatorColor: _profileTheme.appBarBackgroundColor,
     );
   }
 
@@ -345,6 +363,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       effectivenessValues: _profileViewModel.damagedNormallyBy
           .map((vm) => vm.effectiveness)
           .toList(),
+      separatorColor: _profileTheme.appBarBackgroundColor,
     );
   }
 
@@ -360,14 +379,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
     LinearEvolution linearEvolution = LinearEvolution();
 
     if (chainViewModel.evolutionDetails.isNotEmpty) {
-      linearEvolution.secondRow.add(VerticalSeparator());
+      linearEvolution.secondRow.add(VerticalSeparator(
+        color: _profileTheme.appBarBackgroundColor,
+      ));
       var evolutionDetailVm = chainViewModel.evolutionDetails[0];
       var assetName = _getTriggerIconAsset(evolutionDetailVm);
       linearEvolution.firstRow.add(
         EvolutionConditionBox(
           assetName: 'images/evolution_icons/$assetName',
           hoverMessage: evolutionDetailVm.desc,
-          hoverColor: kGhostTypeColor4,
+          hoverColor: _profileTheme.appBarBackgroundColor,
         ),
       );
     }
@@ -377,7 +398,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
     linearEvolution.secondRow.add(
       DataBox(
-        widgets: [DataBoxTitle(chainViewModel.name, color: kGhostTypeColor1)],
+        widgets: [
+          DataBoxTitle(
+            chainViewModel.name,
+            color: _profileTheme.dataBoxTitleColor,
+          )
+        ],
         subtitle: chainViewModel.formattedId,
       ),
     );

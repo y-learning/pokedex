@@ -7,6 +7,16 @@ const kFemaleColor = Color(0xFFFF0159);
 
 //region Poison Type
 const kPoisonTypeColor1 = Color(0xFFB563Ce);
+const kPoisonTypeColor2 = Color(0xFFbc72d3);
+const kPoisonTypeColor3 = Color(0xFFc381d7);
+const kPoisonTypeColor4 = Color(0xFFca90dc);
+
+const kPoisonRgbGradient = [
+  kPoisonTypeColor1,
+  kPoisonTypeColor2,
+  kPoisonTypeColor3,
+  kPoisonTypeColor4,
+];
 //endregion
 
 //region Ghost Type

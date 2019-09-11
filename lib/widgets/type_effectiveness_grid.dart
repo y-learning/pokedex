@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pokedex/widgets/type_label.dart';
-
 import '../constants.dart';
 import '../usecases/pokemon_types.dart';
 import 'effectiveness_value.dart';
@@ -9,8 +8,13 @@ import 'effectiveness_value.dart';
 class TypeEffectivenessGrid extends StatelessWidget {
   final List<PokemonType> types;
   final List<String> effectivenessValues;
+  final Color separatorColor;
 
-  TypeEffectivenessGrid({this.types, this.effectivenessValues});
+  TypeEffectivenessGrid({
+    this.types,
+    this.effectivenessValues,
+    this.separatorColor,
+  });
 
   Widget build(BuildContext context) {
     return Container(
@@ -19,7 +23,7 @@ class TypeEffectivenessGrid extends StatelessWidget {
       decoration: BoxDecoration(
         border: Border(
           left: BorderSide(
-            color: kGhostTypeColor4,
+            color: separatorColor,
             width: ScreenUtil.getInstance().setWidth(3),
           ),
         ),

@@ -45,7 +45,11 @@ class StatRow extends StatelessWidget {
             right: ScreenUtil.getInstance().setWidth(24),
           ),
         ),
-        Expanded(child: BaseStatSlider(stat: double.parse(stat)))
+        Expanded(
+            child: BaseStatSlider(
+          stat: double.parse(stat),
+          color: textColor,
+        ))
       ],
     );
   }
