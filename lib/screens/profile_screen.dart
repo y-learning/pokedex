@@ -361,12 +361,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
     if (chainViewModel.evolutionDetails.isNotEmpty) {
       linearEvolution.secondRow.add(VerticalSeparator());
-//      var assetName = _getTriggerIconAsset(chainViewModel.evolutionDetails[0]);
+      var evolutionDetailVm = chainViewModel.evolutionDetails[0];
+      var assetName = _getTriggerIconAsset(evolutionDetailVm);
       linearEvolution.firstRow.add(
         EvolutionConditionBox(
-          assetName: 'images/evolution_icons/}',
-          // TODO: Provide a hoverMessage from the view model
-          hoverMessage: 'Level',
+          assetName: 'images/evolution_icons/$assetName',
+          hoverMessage: evolutionDetailVm.desc,
           hoverColor: kGhostTypeColor4,
         ),
       );
@@ -394,11 +394,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return linearEvolution;
   }
 
-  String _getTriggerIconAsset(EvolutionDetail evolutionDetail) {
+  String _getTriggerIconAsset(EvolutionDetailViewModel evolutionDetailVm) {
     var triggerResource;
-    switch (evolutionDetail.trigger) {
+    switch (evolutionDetailVm.trigger) {
       case Trigger.LEVEL_UP:
-        triggerResource = 'l${evolutionDetail.minLevel}.png';
+        triggerResource = 'l${evolutionDetailVm.minLevel}.png';
         break;
       case Trigger.TRADE:
         triggerResource = 'trade.png';
