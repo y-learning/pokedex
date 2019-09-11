@@ -90,7 +90,7 @@ const kBugRgbGradient = [
 //endregion
 
 //region Dragon Type
-const kDragonTypeColor1 = Color(0xFF0665ae);
+const kDragonTypeColor1 = Color(0xFF0773c7);
 const kDragonTypeColor2 = Color(0xFF0881e0);
 const kDragonTypeColor3 = Color(0xFF0b8ff6);
 const kDragonTypeColor4 = Color(0xFF239bf7);

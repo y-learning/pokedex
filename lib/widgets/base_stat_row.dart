@@ -48,7 +48,8 @@ class StatRow extends StatelessWidget {
         Expanded(
             child: BaseStatSlider(
           stat: double.parse(stat),
-          color: textColor,
+          activeColor: textColor,
+          inactiveColor: separatorColor.withAlpha(170),
         ))
       ],
     );
