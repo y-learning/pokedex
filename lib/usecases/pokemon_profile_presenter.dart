@@ -83,7 +83,7 @@ class PokemonProfilePresenter {
         id: chain.species.id,
         formattedId: formatId(chain.species.id),
         name: formatText(chain.species.name),
-        evolutionDetails: chain.evolutionDetails,
+        evolutionDetails: _toEvolutionDetailsViewModels(chain.evolutionDetails),
         evolvesTo: chain.evolvesTo
             .map((Chain chain) => toChainViewModel(chain))
             .toList(),
@@ -128,5 +128,30 @@ class PokemonProfilePresenter {
     }
 
     return formatted;
+  }
+
+  List<EvolutionDetailViewModel> _toEvolutionDetailsViewModels(
+      List<EvolutionDetail> evolutionDetails) {
+    return evolutionDetails
+        .map((evolutionDetail) => EvolutionDetailViewModel(
+              desc: _formatTrigger(evolutionDetail.trigger),
+              minLevel: evolutionDetail.minLevel,
+              trigger: evolutionDetail.trigger,
+            ))
+        .toList();
+  }
+
+  String _formatTrigger(Trigger trigger) {
+    String desc;
+    switch (trigger) {
+      case Trigger.LEVEL_UP:
+        desc = 'Level';
+        break;
+      case Trigger.TRADE:
+        desc = 'Trade';
+        break;
+    }
+
+    return desc;
   }
 }

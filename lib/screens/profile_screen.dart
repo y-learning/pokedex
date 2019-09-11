@@ -361,10 +361,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
     if (chainViewModel.evolutionDetails.isNotEmpty) {
       linearEvolution.secondRow.add(VerticalSeparator());
-      var assetName = _getTriggerIconAsset(chainViewModel.evolutionDetails[0]);
+//      var assetName = _getTriggerIconAsset(chainViewModel.evolutionDetails[0]);
       linearEvolution.firstRow.add(
         EvolutionConditionBox(
-          assetName: 'images/evolution_icons/$assetName',
+          assetName: 'images/evolution_icons/}',
           // TODO: Provide a hoverMessage from the view model
           hoverMessage: 'Level',
           hoverColor: kGhostTypeColor4,

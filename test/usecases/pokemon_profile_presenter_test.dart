@@ -5,64 +5,75 @@ import 'package:pokedex/usecases/pokemon_profile_response_model.dart';
 import 'package:pokedex/viewmodels/pokemon_profile_view_model.dart';
 
 void main() {
-  PokemonProfilePresenter presenter;
-  Chain chain1;
-  Chain chain2;
-  Chain chain3;
+  PokemonProfilePresenter _presenter;
+  Chain _chain1;
+  Chain _chain2;
+  Chain _chain3;
+  EvolutionDetail _evolutionDetail3 = EvolutionDetail(trigger: Trigger.TRADE);
+  EvolutionDetail _evolutionDetail2 = EvolutionDetail(
+    minLevel: 10,
+    trigger: Trigger.LEVEL_UP,
+  );
 
   setUp(() {
-    presenter = PokemonProfilePresenter();
-    chain3 = Chain(
+    _presenter = PokemonProfilePresenter();
+    _chain3 = Chain(
       isBaby: false,
       species: Species(id: 3, name: 'pokemon3'),
-      evolutionDetails: [EvolutionDetail(minLevel: 30)],
+      evolutionDetails: [_evolutionDetail3],
       evolvesTo: [],
     );
-    chain2 = Chain(
+    _chain2 = Chain(
       isBaby: false,
       species: Species(id: 2, name: 'pokemon2'),
-      evolutionDetails: [EvolutionDetail(minLevel: 10)],
-      evolvesTo: [chain3],
+      evolutionDetails: [_evolutionDetail2],
+      evolvesTo: [_chain3],
     );
-    chain1 = Chain(
+    _chain1 = Chain(
       isBaby: true,
       species: Species(id: 1, name: 'pokemon1'),
       evolutionDetails: [],
-      evolvesTo: [chain2],
+      evolvesTo: [_chain2],
     );
   });
 
   test("Validate id format", () {
-    expect(presenter.formatId(90), equals('#090'));
-    expect(presenter.formatId(112), equals('#112'));
-    expect(presenter.formatId(1), equals('#001'));
+    expect(_presenter.formatId(90), equals('#090'));
+    expect(_presenter.formatId(112), equals('#112'));
+    expect(_presenter.formatId(1), equals('#001'));
   });
 
   test("Validate text format", () {
-    expect(presenter.formatText('pokemon1'), equals('Pokemon1'));
-    expect(presenter.formatText('POKEMON'), equals('Pokemon'));
-    expect(presenter.formatText('ability one'), equals('Ability One'));
-    expect(presenter.formatText('ability one one'), equals('Ability One One'));
+    expect(_presenter.formatText('pokemon1'), equals('Pokemon1'));
+    expect(_presenter.formatText('POKEMON'), equals('Pokemon'));
+    expect(_presenter.formatText('ability one'), equals('Ability One'));
+    expect(_presenter.formatText('ability one one'), equals('Ability One One'));
   });
 
   group('Parse a Chain to a ChainViewModel', () {
     test("Chain of level 3", () {
-      var chainViewModel1 = presenter.toChainViewModel(chain1);
+      var chainViewModel1 = _presenter.toChainViewModel(_chain1);
 
       var chainViewModel2 = chainViewModel1.evolvesTo[0];
       var chainViewModel3 = chainViewModel2.evolvesTo[0];
-      expect(chainViewModel1.isBaby, equals(chain1.isBaby));
+      var evolutionDetailVm2 = chainViewModel2.evolutionDetails[0];
+      var evolutionDetailVm3 = chainViewModel3.evolutionDetails[0];
+      expect(chainViewModel1.isBaby, equals(_chain1.isBaby));
       expect(chainViewModel1.name, equals('Pokemon1'));
       expect(chainViewModel1.formattedId, equals('#001'));
-      expect(chainViewModel1.evolutionDetails, chain1.evolutionDetails);
+      expect(chainViewModel1.evolutionDetails, []);
       expect(chainViewModel2.formattedId, equals('#002'));
       expect(chainViewModel2.name, equals('Pokemon2'));
-      expect(chainViewModel2.isBaby, equals(chain2.isBaby));
-      expect(chainViewModel2.evolutionDetails, equals(chain2.evolutionDetails));
+      expect(chainViewModel2.isBaby, equals(_chain2.isBaby));
+      expect(evolutionDetailVm2.desc, equals('Level'));
+      expect(evolutionDetailVm2.minLevel, equals(_evolutionDetail2.minLevel));
+      expect(evolutionDetailVm2.trigger, equals(_evolutionDetail2.trigger));
       expect(chainViewModel3.formattedId, equals('#003'));
       expect(chainViewModel3.name, equals('Pokemon3'));
-      expect(chainViewModel3.isBaby, equals(chain3.isBaby));
-      expect(chainViewModel3.evolutionDetails, equals(chain3.evolutionDetails));
+      expect(chainViewModel3.isBaby, equals(_chain3.isBaby));
+      expect(evolutionDetailVm3.desc, equals('Trade'));
+      expect(evolutionDetailVm3.minLevel, equals(_evolutionDetail3.minLevel));
+      expect(evolutionDetailVm3.trigger, equals(_evolutionDetail3.trigger));
       expect(chainViewModel3.evolvesTo, equals([]));
     });
 
@@ -71,10 +82,10 @@ void main() {
         isBaby: true,
         species: Species(id: 1, name: 'pokemon'),
         evolutionDetails: [],
-        evolvesTo: [chain1, chain2, chain3],
+        evolvesTo: [_chain1, _chain2, _chain3],
       );
 
-      var chainViewModel = presenter.toChainViewModel(chain);
+      var chainViewModel = _presenter.toChainViewModel(chain);
 
       expect(chainViewModel.evolvesTo.length, equals(chain.evolvesTo.length));
       expect(chainViewModel.evolvesTo[0].formattedId, equals('#001'));
@@ -113,7 +124,7 @@ void main() {
       isGenderless: false,
       malePercentage: 0.7,
       femalePercentage: 0.3,
-      chain: chain1,
+      chain: _chain1,
       hp: 60,
       atk: 65,
       def: 61,
@@ -126,12 +137,14 @@ void main() {
       damagedNormallyBy: damagedNormallyBy,
     );
 
-    presenter.present(responseModel);
+    _presenter.present(responseModel);
 
-    PokemonProfileViewModel vm = presenter.viewModel;
+    PokemonProfileViewModel vm = _presenter.viewModel;
     var chainViewModel1 = vm.chainViewModel;
     var chainViewModel2 = chainViewModel1.evolvesTo[0];
     var chainViewModel3 = chainViewModel2.evolvesTo[0];
+    var evolutionDetailVm2 = chainViewModel2.evolutionDetails[0];
+    var evolutionDetailVm3 = chainViewModel3.evolutionDetails[0];
     expect(vm.pokemonName, equals('Pokemon'));
     expect(vm.nationalPokedexNum, equals('#094'));
     expect(vm.id, equals(94));
@@ -146,18 +159,22 @@ void main() {
     expect(vm.isGenderless, equals(responseModel.isGenderless));
     expect(vm.malePercentage, equals('70%'));
     expect(vm.femalePercentage, equals('30%'));
-    expect(chainViewModel1.formattedId, equals('#00${chain1.species.id}'));
-    expect(chainViewModel1.id, equals(chain1.species.id));
+    expect(chainViewModel1.formattedId, equals('#00${_chain1.species.id}'));
+    expect(chainViewModel1.id, equals(_chain1.species.id));
     expect(chainViewModel1.name, equals('Pokemon1'));
-    expect(chainViewModel1.evolutionDetails, equals(chain1.evolutionDetails));
-    expect(chainViewModel2.formattedId, equals('#00${chain2.species.id}'));
-    expect(chainViewModel2.id, equals(chain2.species.id));
+    expect(chainViewModel1.evolutionDetails, equals([]));
+    expect(chainViewModel2.formattedId, equals('#00${_chain2.species.id}'));
+    expect(chainViewModel2.id, equals(_chain2.species.id));
     expect(chainViewModel2.name, equals('Pokemon2'));
-    expect(chainViewModel2.evolutionDetails, equals(chain2.evolutionDetails));
-    expect(chainViewModel3.formattedId, equals('#00${chain3.species.id}'));
-    expect(chainViewModel3.id, equals(chain3.species.id));
+    expect(evolutionDetailVm2.desc, equals('Level'));
+    expect(evolutionDetailVm2.minLevel, equals(_evolutionDetail2.minLevel));
+    expect(evolutionDetailVm2.trigger, equals(_evolutionDetail2.trigger));
+    expect(chainViewModel3.formattedId, equals('#00${_chain3.species.id}'));
+    expect(chainViewModel3.id, equals(_chain3.species.id));
     expect(chainViewModel3.name, equals('Pokemon3'));
-    expect(chainViewModel3.evolutionDetails, equals(chain3.evolutionDetails));
+    expect(evolutionDetailVm3.desc, equals('Trade'));
+    expect(evolutionDetailVm3.trigger, equals(_evolutionDetail3.trigger));
+    expect(evolutionDetailVm3.minLevel, equals(_evolutionDetail3.minLevel));
     expect(vm.stats, equals(expectedStats));
     for (var i = 0; i < weakTo.length; i++) {
       expect(vm.weakTo[i].type, equals(weakTo.keys.elementAt(i)));

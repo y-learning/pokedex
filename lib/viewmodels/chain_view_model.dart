@@ -1,11 +1,11 @@
-import 'package:pokedex/usecases/pokemon_profile_response_model.dart';
+import '../usecases/pokemon_profile_response_model.dart';
 
 class ChainViewModel {
   final bool isBaby;
   final int id;
   final String formattedId;
   final String name;
-  final List<EvolutionDetail> evolutionDetails;
+  final List<EvolutionDetailViewModel> evolutionDetails;
   final List<ChainViewModel> evolvesTo;
 
   ChainViewModel({
@@ -16,4 +16,12 @@ class ChainViewModel {
     this.evolvesTo,
     this.evolutionDetails,
   });
+}
+
+class EvolutionDetailViewModel {
+  final String desc;
+  final int minLevel;
+  final Trigger trigger;
+
+  EvolutionDetailViewModel({this.desc, this.minLevel, this.trigger});
 }
