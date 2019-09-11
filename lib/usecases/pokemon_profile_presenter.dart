@@ -41,11 +41,10 @@ class PokemonProfilePresenter {
       femalePercentage: _formatPercentage(responseModel.femalePercentage),
       chainViewModel: toChainViewModel(responseModel.chain),
       stats: stats,
-      weakTo: _toTypeEffectivenessViewModels(responseModel.weakTo),
-      immuneTo: _toTypeEffectivenessViewModels(responseModel.immuneTo),
-      resistantTo: _toTypeEffectivenessViewModels(responseModel.resistantTo),
-      damagedNormallyBy:
-          _toTypeEffectivenessViewModels(responseModel.damagedNormallyBy),
+      weakTo: _toTypeViewModels(responseModel.weakTo),
+      immuneTo: _toTypeViewModels(responseModel.immuneTo),
+      resistantTo: _toTypeViewModels(responseModel.resistantTo),
+      damagedNormallyBy: _toTypeViewModels(responseModel.damagedNormallyBy),
     );
   }
 
@@ -89,8 +88,7 @@ class PokemonProfilePresenter {
             .toList(),
       );
 
-  List<TypeViewModel> _toTypeEffectivenessViewModels(
-      Map<PokemonType, double> types) {
+  List<TypeViewModel> _toTypeViewModels(Map<PokemonType, double> types) {
     List<TypeViewModel> list = [];
 
     types.forEach((k, v) => list.add(
