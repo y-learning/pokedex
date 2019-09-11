@@ -32,7 +32,7 @@ class ProfileTheme {
         break;
       case PokemonType.BUG:
         _appBarBackgroundColor = kBugTypeColor4;
-        _topRgbGradient = kDarkRgbGradient;
+        _topRgbGradient = kBugRgbGradient;
         _dataBoxTitleColor = kBugTypeColor1;
         break;
       case PokemonType.DRAGON:
@@ -67,7 +67,7 @@ class ProfileTheme {
         break;
       case PokemonType.FIGHT:
         _appBarBackgroundColor = kFightTypeColor4;
-        _topRgbGradient = kFireRgbGradient;
+        _topRgbGradient = kFightRgbGradient;
         _dataBoxTitleColor = kFightTypeColor1;
         break;
       case PokemonType.FLYING:
