@@ -450,9 +450,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
   List<Widget> _buildTypeLabel() {
     var list = _profileViewModel.types.map<Widget>((typeViewModel) {
       var typeLabelAssets = Utils.getLabelAssetsFor(typeViewModel.type);
-      return Expanded(
+      return Flexible(
         child: TypeLabel(
           typeViewModel.title,
+          width: ScreenUtil.getInstance().setWidth(350),
           color: typeLabelAssets.color,
           typeIcon: typeLabelAssets.icon,
           padding: EdgeInsets.symmetric(
