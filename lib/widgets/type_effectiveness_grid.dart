@@ -38,12 +38,22 @@ class TypeEffectivenessGrid extends StatelessWidget {
           mainAxisSpacing: ScreenUtil.getInstance().setHeight(12),
           crossAxisCount: crossAxisCount(context),
         ),
-        itemBuilder: (context, index) => _buildTypeLabel(
-          index,
-          types,
-          effectivenessValues,
-        ),
-        itemCount: types.length,
+        itemCount: types.isNotEmpty ? types.length : 1,
+        itemBuilder: (context, index) {
+          return types.isNotEmpty
+              ? _buildTypeLabel(index, types, effectivenessValues)
+              : TypeLabel(
+                  'NONE',
+                  color: Colors.black,
+                  typeIcon: '',
+                  padding: EdgeInsets.symmetric(
+                    vertical: ScreenUtil.getInstance().setHeight(10),
+                    horizontal: ScreenUtil.getInstance().setWidth(34),
+                  ),
+                  typeIconSize: 0,
+                  titleSize: 24,
+                );
+        },
       ),
     );
   }

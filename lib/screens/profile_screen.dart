@@ -261,7 +261,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             text: 'Weak to',
                             color: _profileTheme.dataBoxTitleColor,
                           ),
-                          Expanded(child: buildWeakToTypeEffectivenessGrid()),
+                          Expanded(
+                            child: buildTypeEffectivenessGrid(
+                              _profileViewModel.weakTo,
+                            ),
+                          ),
                         ],
                       ),
                       Row(
@@ -271,7 +275,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             text: 'Immune to',
                             color: _profileTheme.dataBoxTitleColor,
                           ),
-                          Expanded(child: _buildImmuneTypeEffectivenessGrid()),
+                          Expanded(
+                            child: buildTypeEffectivenessGrid(
+                              _profileViewModel.immuneTo,
+                            ),
+                          ),
                         ],
                       ),
                       Row(
@@ -282,7 +290,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             color: _profileTheme.dataBoxTitleColor,
                           ),
                           Expanded(
-                            child: _buildResistantTypeEffectivenessGrid(),
+                            child: buildTypeEffectivenessGrid(
+                              _profileViewModel.resistantTo,
+                            ),
                           ),
                         ],
                       ),
@@ -293,7 +303,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             text: 'Damaged normally by',
                             color: _profileTheme.dataBoxTitleColor,
                           ),
-                          Expanded(child: _buildNormalTypeEffectivenessGrid()),
+                          Expanded(
+                            child: buildTypeEffectivenessGrid(
+                              _profileViewModel.damagedNormallyBy,
+                            ),
+                          ),
                         ],
                       ),
                     ],
@@ -334,39 +348,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return list;
   }
 
-  TypeEffectivenessGrid buildWeakToTypeEffectivenessGrid() {
+  TypeEffectivenessGrid buildTypeEffectivenessGrid(List<TypeViewModel> types) {
     return TypeEffectivenessGrid(
-      types: _profileViewModel.weakTo.map((vm) => vm.type).toList(),
-      effectivenessValues:
-          _profileViewModel.weakTo.map((vm) => vm.effectiveness).toList(),
-      separatorColor: _profileTheme.appBarBackgroundColor,
-    );
-  }
-
-  TypeEffectivenessGrid _buildImmuneTypeEffectivenessGrid() {
-    return TypeEffectivenessGrid(
-      types: _profileViewModel.immuneTo.map((vm) => vm.type).toList(),
-      effectivenessValues:
-          _profileViewModel.immuneTo.map((vm) => vm.effectiveness).toList(),
-      separatorColor: _profileTheme.appBarBackgroundColor,
-    );
-  }
-
-  TypeEffectivenessGrid _buildResistantTypeEffectivenessGrid() {
-    return TypeEffectivenessGrid(
-      types: _profileViewModel.resistantTo.map((vm) => vm.type).toList(),
-      effectivenessValues:
-          _profileViewModel.resistantTo.map((vm) => vm.effectiveness).toList(),
-      separatorColor: _profileTheme.appBarBackgroundColor,
-    );
-  }
-
-  TypeEffectivenessGrid _buildNormalTypeEffectivenessGrid() {
-    return TypeEffectivenessGrid(
-      types: _profileViewModel.damagedNormallyBy.map((vm) => vm.type).toList(),
-      effectivenessValues: _profileViewModel.damagedNormallyBy
-          .map((vm) => vm.effectiveness)
-          .toList(),
+      types: types.map((vm) => vm.type).toList(),
+      effectivenessValues: types.map((vm) => vm.effectiveness).toList(),
       separatorColor: _profileTheme.appBarBackgroundColor,
     );
   }
