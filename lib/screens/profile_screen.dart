@@ -128,18 +128,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: _buildTypeLabel(),
                       ),
-                      Tooltip(
-                        message: 'Mega Evolution',
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(100),
-                          color: kGhostTypeColor4,
-                        ),
-                        child: IconButton(
-                          splashColor: kGhostTypeColor4,
-                          icon: Image(
-                            image: AssetImage('images/megastone_gengarite.png'),
+                      Visibility(
+                        visible: _profileViewModel.hasMegaEvolution,
+                        child: Tooltip(
+                          message: 'Mega Evolution',
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(100),
+                            color: kGhostTypeColor4,
                           ),
-                          onPressed: _toggleMegaEvolution,
+                          child: IconButton(
+                            splashColor: kGhostTypeColor4,
+                            icon: Image(
+                              image:
+                                  AssetImage('images/megastone_gengarite.png'),
+                            ),
+                            onPressed: _toggleMegaEvolution,
+                          ),
                         ),
                       ),
                       SizedBox(height: 24),
