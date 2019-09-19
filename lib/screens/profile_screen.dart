@@ -6,6 +6,7 @@ import 'package:pokedex/usecases/pokemon_profile_response_model.dart';
 import 'package:pokedex/viewmodels/chain_view_model.dart';
 import 'package:pokedex/viewmodels/pokemon_profile_view_model.dart';
 import 'package:pokedex/widgets/effectiveness_text.dart';
+import 'package:pokedex/widgets/hidden_ability_text.dart';
 import 'package:pokedex/widgets/type_effectiveness_grid.dart';
 import 'package:pokedex/widgets/vertical_separator.dart';
 import 'package:pokedex/widgets/arc_dlipper.dart';
@@ -219,12 +220,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             subtitle: 'Gender',
                           ),
                           DataBox(
-                            widgets: _profileViewModel.abilities
-                                .map((ability) => DataBoxTitle(
-                                      ability,
-                                      color: _profileTheme.dataBoxTitleColor,
-                                    ))
-                                .toList(),
+                            widgets: _buildAbilities(),
                             subtitle: 'Abilities',
                           ),
                         ],
@@ -334,20 +330,29 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
+  List<Widget> _buildAbilities() {
+    return _profileViewModel.abilities
+        .map((ability) => ability.isHidden
+            ? Row(
+                children: [
+                  DataBoxTitle(
+                    ability.title,
+                    color: _profileTheme.dataBoxTitleColor,
+                  ),
+                  HiddenAbilityText(
+                    color: _profileTheme.dataBoxTitleColor,
+                  )
+                ],
+              )
+            : DataBoxTitle(
+                ability.title,
+                color: _profileTheme.dataBoxTitleColor,
+              ))
+        .toList();
+  }
+
   List<Widget> _buildStatsChart() {
     List<Widget> list = [];
-//    _profileViewModel.stats.forEach((statLabel, statValue) {
-//      list.add(
-//        StatRow(
-//          statLabel: statLabel,
-//          statValue: statValue,
-//          textColor: _profileTheme.dataBoxTitleColor,
-//          separatorColor: _profileTheme.appBarBackgroundColor,
-//          min: 230,
-//          max: 324,
-//        ),
-//      );
-//    });
 
     for (var baseStatViewModel in _profileViewModel.stats) {
       list.add(

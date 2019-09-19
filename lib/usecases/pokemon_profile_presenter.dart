@@ -47,9 +47,9 @@ class PokemonProfilePresenter {
 
   String _formatMetricWeight(double weight) => '$weight kg';
 
-  List<String> _formatAbilities(List<String> abilities) {
+  List<Ability> _formatAbilities(List<Ability> abilities) {
     for (var i = 0; i < abilities.length; i++)
-      abilities[i] = formatText(abilities[i]);
+      abilities[i].title = formatText(abilities[i].title);
 
     return abilities;
   }

@@ -9,7 +9,7 @@ class PokemonProfileResponseModel {
   final double height;
   final bool isMetricSystem;
   final double weight;
-  final List<String> abilities;
+  final List<Ability> abilities;
   final bool isGenderless;
   final double malePercentage;
   final double femalePercentage;
@@ -88,4 +88,11 @@ enum BaseStat {
   SATK,
   SDEF,
   SPD,
+}
+
+class Ability {
+  String title;
+  final bool isHidden;
+
+  Ability({this.title, this.isHidden});
 }

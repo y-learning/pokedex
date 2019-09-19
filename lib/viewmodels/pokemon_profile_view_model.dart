@@ -1,3 +1,4 @@
+import 'package:pokedex/usecases/pokemon_profile_response_model.dart';
 import 'package:pokedex/usecases/pokemon_types.dart';
 
 import 'base_stat_view_model.dart';
@@ -12,7 +13,7 @@ class PokemonProfileViewModel {
   final String species;
   final String height;
   final String weight;
-  final List<String> abilities;
+  final List<Ability> abilities;
   final bool isGenderless;
   final String malePercentage;
   final String femalePercentage;

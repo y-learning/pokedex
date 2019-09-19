@@ -146,7 +146,10 @@ void main() {
       height: 1.5,
       weight: 40.5,
       isMetricSystem: true,
-      abilities: ['ability one', 'ability two'],
+      abilities: [
+        Ability(title: 'ability one', isHidden: false),
+        Ability(title: 'ability two', isHidden: true),
+      ],
       isGenderless: false,
       malePercentage: 0.7,
       femalePercentage: 0.3,
@@ -182,8 +185,10 @@ void main() {
     expect(vm.species, equals('Shadow'));
     expect(vm.height, equals('1.5 m'));
     expect(vm.weight, equals('40.5 kg'));
-    expect(vm.abilities[0], equals('Ability One'));
-    expect(vm.abilities[1], equals('Ability Two'));
+    expect(vm.abilities[0].title, equals('Ability One'));
+    expect(vm.abilities[1].title, equals('Ability Two'));
+    expect(vm.abilities[0].isHidden, equals(false));
+    expect(vm.abilities[1].isHidden, equals(true));
     expect(vm.isGenderless, equals(responseModel.isGenderless));
     expect(vm.malePercentage, equals('70%'));
     expect(vm.femalePercentage, equals('30%'));
