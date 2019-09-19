@@ -217,7 +217,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 ],
                               ),
                             ],
-                            subtitle: 'Gender',
+                            subtitle: 'Gender ratio',
                           ),
                           DataBox(
                             widgets: _buildAbilities(),
