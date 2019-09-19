@@ -340,7 +340,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       list.add(
         StatRow(
           statLabel: statLabel,
-          stat: statValue,
+          statValue: statValue,
           textColor: _profileTheme.dataBoxTitleColor,
           separatorColor: _profileTheme.appBarBackgroundColor,
           min: 230,
@@ -353,7 +353,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       Row(
         children: [
           BaseStatLabel(
-            stat: 'TOTAL',
+            stat: _profileViewModel.totalStats.keys.first,
             color: _profileTheme.dataBoxTitleColor,
           ),
           VerticalSeparator(
@@ -361,7 +361,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             color: _profileTheme.appBarBackgroundColor,
           ),
           BaseStatValue(
-            stat: '500',
+            stat: _profileViewModel.totalStats.values.first,
             fontWeight: FontWeight.w900,
             color: _profileTheme.dataBoxTitleColor,
           ),

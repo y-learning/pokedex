@@ -103,14 +103,6 @@ void main() {
     var formattedResistantTo = {'POISON': '1/4x', 'GRASS': '1/2x'};
     var damagedNormallyBy = {PokemonType.FIRE: 1.0};
     var formattedNormalDamage = {'FIRE': '1x'};
-    var expectedStats = {
-      'HP': '60',
-      'ATK': '65',
-      'DEF': '61',
-      'SATK': '130',
-      'SDEF': '75',
-      'SPD': '110',
-    };
     PokemonProfileResponseModel responseModel = PokemonProfileResponseModel(
       pokemonName: 'pokemon',
       nationalPokedexNum: 94,
@@ -175,7 +167,18 @@ void main() {
     expect(evolutionDetailVm3.desc, equals('Trade'));
     expect(evolutionDetailVm3.trigger, equals(_evolutionDetail3.trigger));
     expect(evolutionDetailVm3.minLevel, equals(_evolutionDetail3.minLevel));
-    expect(vm.stats, equals(expectedStats));
+    expect(
+      vm.stats,
+      equals({
+        'HP': 60,
+        'ATK': 65,
+        'DEF': 61,
+        'SATK': 130,
+        'SDEF': 75,
+        'SPD': 110,
+      }),
+    );
+    expect(vm.totalStats, equals({'TOTAL': 501}));
     for (var i = 0; i < weakTo.length; i++) {
       expect(vm.weakTo[i].type, equals(weakTo.keys.elementAt(i)));
       expect(vm.weakTo[i].title, equals(formattedWeakTo.keys.elementAt(i)));

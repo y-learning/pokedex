@@ -13,13 +13,13 @@ class PokemonProfilePresenter {
     List<String> types = [];
     for (var type in responseModel.types) types.add(_pokemonTypeToString(type));
 
-    Map<String, String> stats = {};
-    stats['HP'] = '${responseModel.hp}';
-    stats['ATK'] = '${responseModel.atk}';
-    stats['DEF'] = '${responseModel.def}';
-    stats['SATK'] = '${responseModel.sAtk}';
-    stats['SDEF'] = '${responseModel.sDef}';
-    stats['SPD'] = '${responseModel.spd}';
+    Map<String, int> stats = {};
+    stats['HP'] = responseModel.hp;
+    stats['ATK'] = responseModel.atk;
+    stats['DEF'] = responseModel.def;
+    stats['SATK'] = responseModel.sAtk;
+    stats['SDEF'] = responseModel.sDef;
+    stats['SPD'] = responseModel.spd;
 
     _viewModel = PokemonProfileViewModel(
       pokemonName: formatText(responseModel.pokemonName),
@@ -41,6 +41,7 @@ class PokemonProfilePresenter {
       femalePercentage: _formatPercentage(responseModel.femalePercentage),
       chainViewModel: toChainViewModel(responseModel.chain),
       stats: stats,
+      totalStats: {'TOTAL': _calculateTotalStats(stats.values)},
       weakTo: _toTypeViewModels(responseModel.weakTo),
       immuneTo: _toTypeViewModels(responseModel.immuneTo),
       resistantTo: _toTypeViewModels(responseModel.resistantTo),
@@ -87,6 +88,9 @@ class PokemonProfilePresenter {
             .map((Chain chain) => toChainViewModel(chain))
             .toList(),
       );
+
+  int _calculateTotalStats(Iterable<int> stats) =>
+      stats.reduce((a, b) => a + b);
 
   List<TypeViewModel> _toTypeViewModels(Map<PokemonType, double> types) {
     List<TypeViewModel> list = [];

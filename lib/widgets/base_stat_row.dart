@@ -5,15 +5,15 @@ import 'base_stats_slider.dart';
 
 class StatRow extends StatelessWidget {
   final String statLabel;
-  final String stat;
+  final int statValue;
   final Color textColor;
   final Color separatorColor;
   final int min;
   final int max;
 
   const StatRow({
-    @required this.stat,
     @required this.statLabel,
+    @required this.statValue,
     this.textColor,
     this.separatorColor,
     this.min,
@@ -32,7 +32,7 @@ class StatRow extends StatelessWidget {
           color: separatorColor,
         ),
         BaseStatValue(
-          stat: stat,
+          stat: statValue,
           fontWeight: FontWeight.w600,
           color: textColor,
         ),
@@ -54,7 +54,7 @@ class StatRow extends StatelessWidget {
                   ],
                 ),
                 BaseStatSlider(
-                  stat: double.parse(stat),
+                  stat: statValue.toDouble(),
                   activeColor: textColor,
                   inactiveColor: separatorColor.withAlpha(170),
                 )
@@ -102,7 +102,7 @@ class BaseStatLabel extends StatelessWidget {
 }
 
 class BaseStatValue extends StatelessWidget {
-  final String stat;
+  final int stat;
   final EdgeInsetsGeometry padding;
   final EdgeInsetsGeometry margin;
   final Decoration decoration;
@@ -125,7 +125,7 @@ class BaseStatValue extends StatelessWidget {
       padding: padding,
       decoration: decoration,
       child: Text(
-        stat,
+        '$stat',
         textAlign: TextAlign.end,
         style: TextStyle(
           color: color,
