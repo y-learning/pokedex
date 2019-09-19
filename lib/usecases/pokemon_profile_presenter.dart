@@ -11,6 +11,15 @@ class PokemonProfilePresenter {
   PokemonProfileViewModel get viewModel => _viewModel;
 
   void present(PokemonProfileResponseModel responseModel) {
+    var malePercentage;
+    var femalePercentage;
+    if (!responseModel.isGenderless) {
+      if (responseModel.malePercentage != null)
+        malePercentage = formatPercentage(responseModel.malePercentage);
+
+      if (responseModel.femalePercentage != null)
+        femalePercentage = formatPercentage(responseModel.femalePercentage);
+    }
     _viewModel = PokemonProfileViewModel(
       pokemonName: formatText(responseModel.pokemonName),
       id: responseModel.nationalPokedexNum,
@@ -22,8 +31,8 @@ class PokemonProfilePresenter {
       weight: _formatMetricWeight(responseModel.weight),
       abilities: _formatAbilities(responseModel.abilities),
       isGenderless: responseModel.isGenderless,
-      malePercentage: formatPercentage(responseModel.malePercentage),
-      femalePercentage: formatPercentage(responseModel.femalePercentage),
+      malePercentage: malePercentage,
+      femalePercentage: femalePercentage,
       chainViewModel: toChainViewModel(responseModel.chain),
       stats: _statsToBaseStatsViewModels(responseModel.stats),
       totalStats: {'TOTAL': _calculateStatsTotal(responseModel.stats)},
@@ -32,6 +41,11 @@ class PokemonProfilePresenter {
       resistantTo: _toTypeViewModels(responseModel.resistantTo),
       damagedNormallyBy: _toTypeViewModels(responseModel.damagedNormallyBy),
     );
+  }
+
+  String formatPercentage(double percentage) {
+    var n = (percentage * 100);
+    return '${n.toStringAsFixed(n.truncateToDouble() == n ? 0 : 1)}%';
   }
 
   String formatId(int id) => '#${id.toString().padLeft(3, '0')}';
@@ -62,11 +76,6 @@ class PokemonProfilePresenter {
           '${word[0].toUpperCase()}${word.substring(1).toLowerCase()} ';
 
     return formattedText.trim();
-  }
-
-  String formatPercentage(double percentage) {
-    var n = (percentage * 100);
-    return '${n.toStringAsFixed(n.truncateToDouble() == n ? 0 : 1)}%';
   }
 
   ChainViewModel toChainViewModel(Chain chain) => ChainViewModel(

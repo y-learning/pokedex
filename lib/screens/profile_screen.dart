@@ -187,36 +187,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       Row(
                         children: [
                           DataBox(
-                            widgets: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  DataBoxTitle(
-                                    _profileViewModel.malePercentage,
-                                    color: kMaleColor,
-                                  ),
-                                  Icon(
-                                    FontAwesomeIcons.mars,
-                                    color: kMaleColor,
-                                    size: ScreenUtil.getInstance().setWidth(30),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  DataBoxTitle(
-                                    _profileViewModel.femalePercentage,
-                                    color: kFemaleColor,
-                                  ),
-                                  Icon(
-                                    FontAwesomeIcons.venus,
-                                    color: kFemaleColor,
-                                    size: ScreenUtil.getInstance().setWidth(30),
-                                  ),
-                                ],
-                              ),
-                            ],
+                            widgets: _buildGenderRatio(),
                             subtitle: 'Gender ratio',
                           ),
                           DataBox(
@@ -328,6 +299,33 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ],
       ),
     );
+  }
+
+  List<Widget> _buildGenderRatio() {
+    List<Widget> genders = [];
+
+    if (_profileViewModel.isGenderless)
+      genders.add(DataBoxTitle(
+        'Genderless',
+        color: _profileTheme.dataBoxTitleColor,
+      ));
+    else {
+      if (_profileViewModel.malePercentage != null)
+        genders.add(GenderRow(
+          percentage: _profileViewModel.malePercentage,
+          iconData: FontAwesomeIcons.mars,
+          color: kMaleColor,
+        ));
+
+      if (_profileViewModel.femalePercentage != null)
+        genders.add(GenderRow(
+          percentage: _profileViewModel.femalePercentage,
+          iconData: FontAwesomeIcons.venus,
+          color: kFemaleColor,
+        ));
+    }
+
+    return genders;
   }
 
   List<Widget> _buildAbilities() {
@@ -500,6 +498,28 @@ class _ProfileScreenState extends State<ProfileScreen> {
       list.insert(1, SizedBox(width: 40));
 
     return list;
+  }
+}
+
+class GenderRow extends StatelessWidget {
+  final String percentage;
+  final IconData iconData;
+  final Color color;
+
+  GenderRow({this.percentage, this.iconData, this.color});
+
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        DataBoxTitle(percentage, color: color),
+        Icon(
+          iconData,
+          color: color,
+          size: ScreenUtil.getInstance().setWidth(30),
+        ),
+      ],
+    );
   }
 }
 

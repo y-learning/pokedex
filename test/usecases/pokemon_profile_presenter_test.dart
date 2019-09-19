@@ -266,4 +266,118 @@ void main() {
       );
     }
   });
+
+  group("Gender tests", () {
+    test("When pokemon is genderless, gender percentage is null", () {
+      PokemonProfileResponseModel responseModel = PokemonProfileResponseModel(
+        pokemonName: 'pokemon',
+        nationalPokedexNum: 94,
+        types: [],
+        hasMegaEvolution: true,
+        species: 'shadow',
+        height: 1.5,
+        weight: 40.5,
+        isMetricSystem: true,
+        abilities: [],
+        isGenderless: true,
+        chain: _chain1,
+        stats: [],
+        weakTo: {},
+        immuneTo: {},
+        resistantTo: {},
+        damagedNormallyBy: {},
+      );
+
+      _presenter.present(responseModel);
+
+      expect(_presenter.viewModel.malePercentage, equals(null));
+      expect(_presenter.viewModel.femalePercentage, equals(null));
+      expect(_presenter.viewModel.isGenderless, equals(true));
+    });
+
+    test('When pokemon is only male, female should be null', () {
+      PokemonProfileResponseModel responseModel = PokemonProfileResponseModel(
+        pokemonName: 'pokemon',
+        nationalPokedexNum: 94,
+        types: [],
+        hasMegaEvolution: true,
+        species: 'shadow',
+        height: 1.5,
+        weight: 40.5,
+        isMetricSystem: true,
+        abilities: [],
+        isGenderless: false,
+        malePercentage: 1,
+        chain: _chain1,
+        stats: [],
+        weakTo: {},
+        immuneTo: {},
+        resistantTo: {},
+        damagedNormallyBy: {},
+      );
+
+      _presenter.present(responseModel);
+
+      expect(_presenter.viewModel.malePercentage, equals('100%'));
+      expect(_presenter.viewModel.femalePercentage, equals(null));
+      expect(_presenter.viewModel.isGenderless, equals(false));
+    });
+
+    test('When pokemon is only female, male should be null', () {
+      PokemonProfileResponseModel responseModel = PokemonProfileResponseModel(
+        pokemonName: 'pokemon',
+        nationalPokedexNum: 94,
+        types: [],
+        hasMegaEvolution: true,
+        species: 'shadow',
+        height: 1.5,
+        weight: 40.5,
+        isMetricSystem: true,
+        abilities: [],
+        isGenderless: false,
+        femalePercentage: 1,
+        chain: _chain1,
+        stats: [],
+        weakTo: {},
+        immuneTo: {},
+        resistantTo: {},
+        damagedNormallyBy: {},
+      );
+
+      _presenter.present(responseModel);
+
+      expect(_presenter.viewModel.femalePercentage, equals('100%'));
+      expect(_presenter.viewModel.malePercentage, equals(null));
+      expect(_presenter.viewModel.isGenderless, equals(false));
+    });
+
+    test('when bith genders are available', () {
+      PokemonProfileResponseModel responseModel = PokemonProfileResponseModel(
+        pokemonName: 'pokemon',
+        nationalPokedexNum: 94,
+        types: [],
+        hasMegaEvolution: true,
+        species: 'shadow',
+        height: 1.5,
+        weight: 40.5,
+        isMetricSystem: true,
+        abilities: [],
+        isGenderless: false,
+        malePercentage: 0.6,
+        femalePercentage: 0.4,
+        chain: _chain1,
+        stats: [],
+        weakTo: {},
+        immuneTo: {},
+        resistantTo: {},
+        damagedNormallyBy: {},
+      );
+
+      _presenter.present(responseModel);
+
+      expect(_presenter.viewModel.malePercentage, equals('60%'));
+      expect(_presenter.viewModel.femalePercentage, equals('40%'));
+      expect(_presenter.viewModel.isGenderless, equals(false));
+    });
+  });
 }
