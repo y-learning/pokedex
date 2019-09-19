@@ -197,6 +197,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   Icon(
                                     FontAwesomeIcons.mars,
                                     color: kMaleColor,
+                                    size: ScreenUtil.getInstance().setWidth(30),
                                   ),
                                 ],
                               ),
@@ -210,6 +211,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   Icon(
                                     FontAwesomeIcons.venus,
                                     color: kFemaleColor,
+                                    size: ScreenUtil.getInstance().setWidth(30),
                                   ),
                                 ],
                               ),
