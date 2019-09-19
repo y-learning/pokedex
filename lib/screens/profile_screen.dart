@@ -343,10 +343,31 @@ class _ProfileScreenState extends State<ProfileScreen> {
           stat: statValue,
           textColor: _profileTheme.dataBoxTitleColor,
           separatorColor: _profileTheme.appBarBackgroundColor,
+          min: 230,
+          max: 324,
         ),
       );
     });
 
+    list.add(
+      Row(
+        children: [
+          BaseStatLabel(
+            stat: 'TOTAL',
+            color: _profileTheme.dataBoxTitleColor,
+          ),
+          VerticalSeparator(
+            height: ScreenUtil.getInstance().setHeight(42),
+            color: _profileTheme.appBarBackgroundColor,
+          ),
+          BaseStatValue(
+            stat: '500',
+            fontWeight: FontWeight.w900,
+            color: _profileTheme.dataBoxTitleColor,
+          ),
+        ],
+      ),
+    );
     return list;
   }
 
