@@ -24,6 +24,91 @@ class App extends StatelessWidget {
   }
 
   PokemonProfileViewModel _buildPokemonProfileViewModel() {
+    PokemonProfilePresenter presenter = PokemonProfilePresenter();
+
+    presenter.present(_eveeResponseModel());
+
+    return presenter.viewModel;
+  }
+
+  PokemonProfileResponseModel _eveeResponseModel() {
+    var chain = Chain(
+      isBaby: true,
+      species: Species(id: 133, name: 'evee'),
+      evolutionDetails: [],
+      evolvesTo: [
+        Chain(
+          isBaby: false,
+          species: Species(id: 134, name: 'vaporeon'),
+          evolutionDetails: [],
+          evolvesTo: [],
+        ),
+        Chain(
+          isBaby: false,
+          species: Species(id: 135, name: 'jolteon'),
+          evolutionDetails: [],
+          evolvesTo: [],
+        ),
+        Chain(
+          isBaby: false,
+          species: Species(id: 136, name: 'flareon'),
+          evolutionDetails: [],
+          evolvesTo: [],
+        ),
+      ],
+    );
+    var weakTo = {PokemonType.FIGHT: 2.0};
+    var immuneTo = {PokemonType.GHOST: 0.0};
+    var damagedNormallyBy = {
+      PokemonType.NORMAL: 1.0,
+      PokemonType.FLYING: 1.0,
+      PokemonType.POISON: 1.0,
+      PokemonType.GROUND: 1.0,
+      PokemonType.BUG: 1.0,
+      PokemonType.FAIRY: 1.0,
+      PokemonType.PSYCHIC: 1.0,
+      PokemonType.DARK: 1.0,
+      PokemonType.GRASS: 1.0,
+      PokemonType.ROCK: 1.0,
+      PokemonType.STEEL: 1.0,
+      PokemonType.FIRE: 1.0,
+      PokemonType.WATER: 1.0,
+      PokemonType.ELECTRIC: 1.0,
+      PokemonType.ICE: 1.0,
+      PokemonType.DRAGON: 1.0,
+    };
+    PokemonProfileResponseModel responseModel = PokemonProfileResponseModel(
+      pokemonName: 'evee',
+      nationalPokedexNum: 133,
+      types: [PokemonType.NORMAL],
+      hasMegaEvolution: false,
+      species: 'evolution',
+      height: 0.3,
+      weight: 6.5,
+      isMetricSystem: true,
+      abilities: ['run away', 'adaptability', 'anticipation'],
+      isGenderless: false,
+      malePercentage: 0.875,
+      femalePercentage: 0.125,
+      chain: chain,
+      stats: [
+        Stat(baseStat: BaseStat.HP, value: 55, min: 220, max: 314),
+        Stat(baseStat: BaseStat.ATK, value: 55, min: 103, max: 229),
+        Stat(baseStat: BaseStat.DEF, value: 50, min: 94, max: 218),
+        Stat(baseStat: BaseStat.SATK, value: 45, min: 85, max: 207),
+        Stat(baseStat: BaseStat.SDEF, value: 65, min: 121, max: 251),
+        Stat(baseStat: BaseStat.SPD, value: 55, min: 103, max: 229),
+      ],
+      weakTo: weakTo,
+      immuneTo: immuneTo,
+      resistantTo: {},
+      damagedNormallyBy: damagedNormallyBy,
+    );
+
+    return responseModel;
+  }
+
+  PokemonProfileResponseModel _gengarResponseModel() {
     var chain3 = Chain(
       isBaby: false,
       species: Species(id: 94, name: 'Gengar'),
@@ -67,7 +152,6 @@ class App extends StatelessWidget {
       PokemonType.ICE: 1.0,
       PokemonType.DRAGON: 1.0,
     };
-    PokemonProfilePresenter presenter = PokemonProfilePresenter();
     PokemonProfileResponseModel responseModel = PokemonProfileResponseModel(
       pokemonName: 'Gengar',
       nationalPokedexNum: 94,
@@ -96,9 +180,7 @@ class App extends StatelessWidget {
       damagedNormallyBy: damagedNormallyBy,
     );
 
-    presenter.present(responseModel);
-
-    return presenter.viewModel;
+    return responseModel;
   }
 
   void _setScreenUtil(Orientation orientation, BuildContext context) {
