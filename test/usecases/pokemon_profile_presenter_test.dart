@@ -51,6 +51,12 @@ void main() {
     expect(_presenter.formatText('ability one one'), equals('Ability One One'));
   });
 
+  test("Validate gender percentage", () {
+    expect(_presenter.formatPercentage(0.7), equals('70%'));
+    expect(_presenter.formatPercentage(0.875), equals('87.5%'));
+    expect(_presenter.formatPercentage(0.01), equals('1%'));
+  });
+
   group('Parse a Chain to a ChainViewModel', () {
     test("Chain of level 3", () {
       var chainViewModel1 = _presenter.toChainViewModel(_chain1);

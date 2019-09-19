@@ -22,8 +22,8 @@ class PokemonProfilePresenter {
       weight: _formatMetricWeight(responseModel.weight),
       abilities: _formatAbilities(responseModel.abilities),
       isGenderless: responseModel.isGenderless,
-      malePercentage: _formatPercentage(responseModel.malePercentage),
-      femalePercentage: _formatPercentage(responseModel.femalePercentage),
+      malePercentage: formatPercentage(responseModel.malePercentage),
+      femalePercentage: formatPercentage(responseModel.femalePercentage),
       chainViewModel: toChainViewModel(responseModel.chain),
       stats: _statsToBaseStatsViewModels(responseModel.stats),
       totalStats: {'TOTAL': _calculateStatsTotal(responseModel.stats)},
@@ -64,8 +64,10 @@ class PokemonProfilePresenter {
     return formattedText.trim();
   }
 
-  String _formatPercentage(double malePercentage) =>
-      '${(malePercentage * 100).round()}%';
+  String formatPercentage(double percentage) {
+    var n = (percentage * 100);
+    return '${n.toStringAsFixed(n.truncateToDouble() == n ? 0 : 1)}%';
+  }
 
   ChainViewModel toChainViewModel(Chain chain) => ChainViewModel(
         isBaby: chain.isBaby,
