@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:pokedex/widgets/vertical_separator.dart';
 
 import 'base_stats_slider.dart';
 
@@ -21,36 +22,28 @@ class StatRow extends StatelessWidget {
       children: [
         BaseStatText(
           stat: statLabel,
-          width: ScreenUtil.getInstance().setWidth(90),
-          margin: EdgeInsets.only(right: ScreenUtil.getInstance().setWidth(24)),
+          width: ScreenUtil.getInstance().setWidth(62),
           fontWeight: FontWeight.w700,
           color: textColor,
-          padding: EdgeInsets.only(
-            right: ScreenUtil.getInstance().setWidth(24),
-            top: ScreenUtil.getInstance().setWidth(8),
-            bottom: ScreenUtil.getInstance().setWidth(8),
-          ),
-          decoration: BoxDecoration(
-            border: Border(
-              right: BorderSide(color: separatorColor, width: 2),
-            ),
-          ),
+        ),
+        VerticalSeparator(
+          height: ScreenUtil.getInstance().setHeight(28),
+          color: separatorColor,
         ),
         BaseStatText(
           stat: stat,
-          width: ScreenUtil.getInstance().setWidth(66),
+          width: ScreenUtil.getInstance().setWidth(42),
           fontWeight: FontWeight.w600,
           color: textColor,
-          padding: EdgeInsets.only(
-            right: ScreenUtil.getInstance().setWidth(24),
-          ),
         ),
+        SizedBox(width: ScreenUtil.getInstance().setWidth(24)),
         Expanded(
-            child: BaseStatSlider(
-          stat: double.parse(stat),
-          activeColor: textColor,
-          inactiveColor: separatorColor.withAlpha(170),
-        ))
+          child: BaseStatSlider(
+            stat: double.parse(stat),
+            activeColor: textColor,
+            inactiveColor: separatorColor.withAlpha(170),
+          ),
+        )
       ],
     );
   }
