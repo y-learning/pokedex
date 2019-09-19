@@ -336,18 +336,31 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   List<Widget> _buildStatsChart() {
     List<Widget> list = [];
-    _profileViewModel.stats.forEach((statLabel, statValue) {
+//    _profileViewModel.stats.forEach((statLabel, statValue) {
+//      list.add(
+//        StatRow(
+//          statLabel: statLabel,
+//          statValue: statValue,
+//          textColor: _profileTheme.dataBoxTitleColor,
+//          separatorColor: _profileTheme.appBarBackgroundColor,
+//          min: 230,
+//          max: 324,
+//        ),
+//      );
+//    });
+
+    for (var baseStatViewModel in _profileViewModel.stats) {
       list.add(
         StatRow(
-          statLabel: statLabel,
-          statValue: statValue,
+          statLabel: baseStatViewModel.label,
+          statValue: baseStatViewModel.value,
           textColor: _profileTheme.dataBoxTitleColor,
           separatorColor: _profileTheme.appBarBackgroundColor,
-          min: 230,
-          max: 324,
+          min: baseStatViewModel.min,
+          max: baseStatViewModel.max,
         ),
       );
-    });
+    }
 
     list.add(
       Row(

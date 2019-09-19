@@ -14,12 +14,7 @@ class PokemonProfileResponseModel {
   final double malePercentage;
   final double femalePercentage;
   final Chain chain;
-  final int hp;
-  final int atk;
-  final int def;
-  final int sAtk;
-  final int sDef;
-  final int spd;
+  final List<Stat> stats;
   final Map<PokemonType, double> weakTo;
   final Map<PokemonType, double> immuneTo;
   final Map<PokemonType, double> resistantTo;
@@ -39,12 +34,7 @@ class PokemonProfileResponseModel {
     this.malePercentage,
     this.femalePercentage,
     this.chain,
-    this.hp,
-    this.atk,
-    this.def,
-    this.sAtk,
-    this.sDef,
-    this.spd,
+    this.stats,
     this.weakTo,
     this.immuneTo,
     this.resistantTo,
@@ -80,4 +70,22 @@ enum Trigger {
   TRADE,
 //  USE_ITEM,
 //  SHED,
+}
+
+class Stat {
+  final BaseStat baseStat;
+  final int value;
+  final int min;
+  final int max;
+
+  Stat({this.baseStat, this.value, this.min, this.max});
+}
+
+enum BaseStat {
+  HP,
+  ATK,
+  DEF,
+  SATK,
+  SDEF,
+  SPD,
 }

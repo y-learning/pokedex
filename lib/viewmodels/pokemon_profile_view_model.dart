@@ -1,5 +1,6 @@
 import 'package:pokedex/usecases/pokemon_types.dart';
 
+import 'base_stat_view_model.dart';
 import 'chain_view_model.dart';
 
 class PokemonProfileViewModel {
@@ -20,7 +21,7 @@ class PokemonProfileViewModel {
   final List<TypeViewModel> immuneTo;
   final List<TypeViewModel> resistantTo;
   final List<TypeViewModel> damagedNormallyBy;
-  final Map<String, int> stats;
+  final List<BaseStatViewModel> stats;
   final Map<String, int> totalStats;
 
   PokemonProfileViewModel({

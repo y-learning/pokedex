@@ -8,8 +8,8 @@ class StatRow extends StatelessWidget {
   final int statValue;
   final Color textColor;
   final Color separatorColor;
-  final int min;
-  final int max;
+  final String min;
+  final String max;
 
   const StatRow({
     @required this.statLabel,
@@ -47,9 +47,9 @@ class StatRow extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    StatLimitText(label: 'min.$min', textColor: textColor),
+                    StatLimitText(label: min, textColor: textColor),
                     SizedBox(width: ScreenUtil.getInstance().setWidth(20)),
-                    StatLimitText(label: 'max.$max', textColor: textColor),
+                    StatLimitText(label: max, textColor: textColor),
                     SizedBox(width: ScreenUtil.getInstance().setWidth(28)),
                   ],
                 ),

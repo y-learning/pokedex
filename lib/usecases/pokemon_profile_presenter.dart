@@ -1,4 +1,5 @@
 import 'package:pokedex/usecases/pokemon_profile_response_model.dart';
+import 'package:pokedex/viewmodels/base_stat_view_model.dart';
 import 'package:pokedex/viewmodels/chain_view_model.dart';
 import 'package:pokedex/viewmodels/pokemon_profile_view_model.dart';
 
@@ -10,27 +11,11 @@ class PokemonProfilePresenter {
   PokemonProfileViewModel get viewModel => _viewModel;
 
   void present(PokemonProfileResponseModel responseModel) {
-    List<String> types = [];
-    for (var type in responseModel.types) types.add(_pokemonTypeToString(type));
-
-    Map<String, int> stats = {};
-    stats['HP'] = responseModel.hp;
-    stats['ATK'] = responseModel.atk;
-    stats['DEF'] = responseModel.def;
-    stats['SATK'] = responseModel.sAtk;
-    stats['SDEF'] = responseModel.sDef;
-    stats['SPD'] = responseModel.spd;
-
     _viewModel = PokemonProfileViewModel(
       pokemonName: formatText(responseModel.pokemonName),
       id: responseModel.nationalPokedexNum,
       nationalPokedexNum: formatId(responseModel.nationalPokedexNum),
-      types: responseModel.types
-          .map((type) => TypeViewModel(
-                type: type,
-                title: _pokemonTypeToString(type),
-              ))
-          .toList(),
+      types: _typesToTypeViewModels(responseModel.types),
       hasMegaEvolution: responseModel.hasMegaEvolution,
       species: formatText(responseModel.species),
       height: _formatMetricHeight(responseModel.height),
@@ -40,8 +25,8 @@ class PokemonProfilePresenter {
       malePercentage: _formatPercentage(responseModel.malePercentage),
       femalePercentage: _formatPercentage(responseModel.femalePercentage),
       chainViewModel: toChainViewModel(responseModel.chain),
-      stats: stats,
-      totalStats: {'TOTAL': _calculateTotalStats(stats.values)},
+      stats: _statsToBaseStatsViewModels(responseModel.stats),
+      totalStats: {'TOTAL': _calculateStatsTotal(responseModel.stats)},
       weakTo: _toTypeViewModels(responseModel.weakTo),
       immuneTo: _toTypeViewModels(responseModel.immuneTo),
       resistantTo: _toTypeViewModels(responseModel.resistantTo),
@@ -49,14 +34,25 @@ class PokemonProfilePresenter {
     );
   }
 
+  String formatId(int id) => '#${id.toString().padLeft(3, '0')}';
+
+  List<TypeViewModel> _typesToTypeViewModels(List<PokemonType> types) => types
+      .map((type) => TypeViewModel(
+            type: type,
+            title: _pokemonTypeToString(type),
+          ))
+      .toList();
+
+  String _formatMetricHeight(double height) => '$height m';
+
+  String _formatMetricWeight(double weight) => '$weight kg';
+
   List<String> _formatAbilities(List<String> abilities) {
     for (var i = 0; i < abilities.length; i++)
       abilities[i] = formatText(abilities[i]);
 
     return abilities;
   }
-
-  String formatId(int id) => '#${id.toString().padLeft(3, '0')}';
 
   formatText(String text) {
     var formattedText = '';
@@ -67,13 +63,6 @@ class PokemonProfilePresenter {
 
     return formattedText.trim();
   }
-
-  String _pokemonTypeToString(PokemonType type) =>
-      type.toString().split('.')[1];
-
-  String _formatMetricHeight(double height) => '$height m';
-
-  String _formatMetricWeight(double weight) => '$weight kg';
 
   String _formatPercentage(double malePercentage) =>
       '${(malePercentage * 100).round()}%';
@@ -89,8 +78,44 @@ class PokemonProfilePresenter {
             .toList(),
       );
 
-  int _calculateTotalStats(Iterable<int> stats) =>
-      stats.reduce((a, b) => a + b);
+  List<EvolutionDetailViewModel> _toEvolutionDetailsViewModels(
+      List<EvolutionDetail> evolutionDetails) {
+    return evolutionDetails
+        .map((evolutionDetail) => EvolutionDetailViewModel(
+              desc: _formatTrigger(evolutionDetail.trigger),
+              minLevel: evolutionDetail.minLevel,
+              trigger: evolutionDetail.trigger,
+            ))
+        .toList();
+  }
+
+  String _formatTrigger(Trigger trigger) {
+    String desc;
+    switch (trigger) {
+      case Trigger.LEVEL_UP:
+        desc = 'Level';
+        break;
+      case Trigger.TRADE:
+        desc = 'Trade';
+        break;
+    }
+
+    return desc;
+  }
+
+  List<BaseStatViewModel> _statsToBaseStatsViewModels(List<Stat> stats) {
+    return stats
+        .map((stat) => BaseStatViewModel(
+              label: stat.baseStat.toString().split('.')[1],
+              value: stat.value,
+              min: 'min.${stat.min}',
+              max: 'max.${stat.max}',
+            ))
+        .toList();
+  }
+
+  int _calculateStatsTotal(List<Stat> stats) =>
+      stats.fold<int>(0, (total, stat) => total + stat.value);
 
   List<TypeViewModel> _toTypeViewModels(Map<PokemonType, double> types) {
     List<TypeViewModel> list = [];
@@ -105,6 +130,9 @@ class PokemonProfilePresenter {
 
     return list;
   }
+
+  String _pokemonTypeToString(PokemonType type) =>
+      type.toString().split('.')[1];
 
   String _formatEffectivenessValue(double effectivenessValue) {
     var formatted = '';
@@ -130,30 +158,5 @@ class PokemonProfilePresenter {
     }
 
     return formatted;
-  }
-
-  List<EvolutionDetailViewModel> _toEvolutionDetailsViewModels(
-      List<EvolutionDetail> evolutionDetails) {
-    return evolutionDetails
-        .map((evolutionDetail) => EvolutionDetailViewModel(
-              desc: _formatTrigger(evolutionDetail.trigger),
-              minLevel: evolutionDetail.minLevel,
-              trigger: evolutionDetail.trigger,
-            ))
-        .toList();
-  }
-
-  String _formatTrigger(Trigger trigger) {
-    String desc;
-    switch (trigger) {
-      case Trigger.LEVEL_UP:
-        desc = 'Level';
-        break;
-      case Trigger.TRADE:
-        desc = 'Trade';
-        break;
-    }
-
-    return desc;
   }
 }
