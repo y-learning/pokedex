@@ -120,12 +120,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 flex: 3,
                 child: Padding(
                   padding: EdgeInsets.only(
-                    top: ScreenUtil.getInstance().setHeight(104),
+                    top: ScreenUtil.getInstance().setHeight(60),
                     right: ScreenUtil.getInstance().setWidth(32),
                     left: ScreenUtil.getInstance().setWidth(32),
                   ),
                   child: GlowFreeListView(
                     children: [
+                      SizedBox(height: 40),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: _buildTypeLabel(),
