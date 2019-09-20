@@ -14,6 +14,7 @@ class DataBox extends StatelessWidget {
         alignment: Alignment.center,
         width: 100,
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             for (var widget in widgets) widget,
