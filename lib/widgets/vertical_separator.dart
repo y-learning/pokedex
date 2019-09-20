@@ -15,7 +15,7 @@ class VerticalSeparator extends StatelessWidget {
       ),
       color: color,
       height: ScreenUtil.getInstance().setHeight(height),
-      width: 2,
+      width: ScreenUtil.getInstance().setWidth(3),
     );
   }
 }
