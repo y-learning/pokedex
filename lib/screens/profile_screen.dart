@@ -2,7 +2,6 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:pokedex/usecases/pokemon_profile_response_model.dart';
 import 'package:pokedex/viewmodels/chain_view_model.dart';
 import 'package:pokedex/viewmodels/pokemon_profile_view_model.dart';
 import 'package:pokedex/widgets/effectiveness_text.dart';
@@ -22,6 +21,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../constants.dart';
 import '../profile_theme.dart';
+import '../resources.dart';
 import '../utils.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -141,8 +141,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           child: IconButton(
                             splashColor: kGhostTypeColor4,
                             icon: Image(
-                              image:
-                                  AssetImage('images/megastone_gengarite.png'),
+                              image: AssetImage(
+                                itemImage(_profileViewModel.id),
+                              ),
                             ),
                             onPressed: _toggleMegaEvolution,
                           ),
@@ -412,7 +413,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         color: _profileTheme.appBarBackgroundColor,
       ));
       var evolutionDetailVm = chainViewModel.evolutionDetails[0];
-      var assetName = _getTriggerIconAsset(evolutionDetailVm);
+      var assetName = getTriggerIconAsset(evolutionDetailVm);
       linearEvolution.firstRow.add(
         EvolutionConditionBox(
           assetName: 'images/evolution_icons/$assetName',
@@ -423,7 +424,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     }
 
     linearEvolution.firstRow.add(
-      EvolutionImage('images/${chainViewModel.id}.gif'),
+      EvolutionImage(pokemonImage(chainViewModel.id.toString())),
     );
     linearEvolution.secondRow.add(
       DataBox(
@@ -449,30 +450,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return linearEvolution;
   }
 
-  String _getTriggerIconAsset(EvolutionDetailViewModel evolutionDetailVm) {
-    var triggerResource;
-    switch (evolutionDetailVm.trigger) {
-      case Trigger.LEVEL_UP:
-        triggerResource = 'l${evolutionDetailVm.minLevel}.png';
-        break;
-      case Trigger.TRADE:
-        triggerResource = 'trade.png';
-        break;
-    }
-
-    return triggerResource;
-  }
-
   void _toggleMegaEvolution() =>
       setState(() => _isMega ? _setRegularEvolution() : _setMegaEvolution());
 
   void _setRegularEvolution() {
-    _mainPokemonAsset = 'images/${_profileViewModel.id}.gif';
+    _mainPokemonAsset = pokemonImage(_profileViewModel.id.toString());
     _isMega = false;
   }
 
   void _setMegaEvolution() {
-    _mainPokemonAsset = 'images/mega_${_profileViewModel.id}.gif';
+    _mainPokemonAsset = pokemonImage('${_profileViewModel.id}_mega');
     _isMega = true;
   }
 
