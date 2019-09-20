@@ -199,6 +199,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                       SizedBox(height: 24),
                       Row(
+                        crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           DataBox(
                             widgets: _buildGenderRatio(),
