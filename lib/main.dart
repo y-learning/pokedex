@@ -26,7 +26,7 @@ class App extends StatelessWidget {
   PokemonProfileViewModel _buildPokemonProfileViewModel() {
     PokemonProfilePresenter presenter = PokemonProfilePresenter();
 
-    presenter.present(_gengarResponseModel());
+    presenter.present(_eveeResponseModel());
 
     return presenter.viewModel;
   }

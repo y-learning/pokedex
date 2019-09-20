@@ -157,13 +157,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             widgets: [
                               DataBoxTitle(
                                 _profileViewModel.species,
-                                titleMaxLines: 2,
                                 color: _profileTheme.dataBoxTitleColor,
+                                titleMaxLines: 2,
                               )
                             ],
                             subtitle: 'Species',
                           ),
-                          VerticalSeparator(),
+                          Column(
+                            children: [
+                              VerticalSeparator(
+                                color: _profileTheme.appBarBackgroundColor,
+                              ),
+                            ],
+                          ),
                           DataBox(
                             widgets: [
                               DataBoxTitle(
@@ -173,7 +179,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             ],
                             subtitle: 'Height',
                           ),
-                          VerticalSeparator(),
+                          Column(
+                            children: [
+                              VerticalSeparator(
+                                color: _profileTheme.appBarBackgroundColor,
+                              ),
+                            ],
+                          ),
                           DataBox(
                             widgets: [
                               DataBoxTitle(

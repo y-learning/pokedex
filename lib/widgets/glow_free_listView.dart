@@ -9,6 +9,7 @@ class GlowFreeListView extends StatelessWidget {
     return ScrollConfiguration(
       behavior: NoScrollBehavior(),
       child: ListView(
+        shrinkWrap: true,
         padding: EdgeInsets.symmetric(
           vertical: 16.0,
           horizontal: 8,
