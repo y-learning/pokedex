@@ -10,27 +10,23 @@ class DataBox extends StatelessWidget {
 
   Widget build(BuildContext context) {
     return Expanded(
-      child: Container(
-        alignment: Alignment.center,
-        width: 100,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            for (var widget in widgets) widget,
-            SizedBox(height: 4),
-            Text(
-              subtitle,
-              textAlign: TextAlign.center,
-              maxLines: 1,
-              style: TextStyle(
-                color: Colors.grey[500],
-                fontSize: ScreenUtil.getInstance().setSp(20),
-                fontWeight: FontWeight.w600,
-              ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          for (var widget in widgets) widget,
+          SizedBox(height: 4),
+          Text(
+            subtitle,
+            textAlign: TextAlign.center,
+            maxLines: 1,
+            style: TextStyle(
+              color: Colors.grey[500],
+              fontSize: ScreenUtil.getInstance().setSp(20),
+              fontWeight: FontWeight.w600,
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
