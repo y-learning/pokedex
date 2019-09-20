@@ -28,8 +28,9 @@ class StatRow extends StatelessWidget {
           color: textColor,
         ),
         VerticalSeparator(
-          height: ScreenUtil.getInstance().setHeight(42),
+          height: 42,
           color: separatorColor,
+          margin: 24,
         ),
         BaseStatValue(
           stat: statValue,

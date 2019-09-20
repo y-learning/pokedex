@@ -375,7 +375,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
             color: _profileTheme.dataBoxTitleColor,
           ),
           VerticalSeparator(
-            height: ScreenUtil.getInstance().setHeight(42),
+            height: 26,
+            margin: 24,
             color: _profileTheme.appBarBackgroundColor,
           ),
           BaseStatValue(

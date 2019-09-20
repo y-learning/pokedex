@@ -1,22 +1,21 @@
 import 'package:flutter/material.dart';
-
-import '../constants.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class VerticalSeparator extends StatelessWidget {
-  final double height;
   final Color color;
+  final double height;
+  final double margin;
 
-  const VerticalSeparator({this.height = 60, this.color});
+  const VerticalSeparator({this.color, this.height = 55, this.margin = 32});
 
   Widget build(BuildContext context) {
     return Container(
-      alignment: Alignment.center,
-      width: 32,
-      child: Container(
-        color: color,
-        height: height,
-        width: 2,
+      margin: EdgeInsets.symmetric(
+        horizontal: ScreenUtil.getInstance().setWidth(margin),
       ),
+      color: color,
+      height: ScreenUtil.getInstance().setHeight(height),
+      width: 2,
     );
   }
 }
