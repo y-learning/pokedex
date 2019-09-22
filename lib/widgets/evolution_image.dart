@@ -7,13 +7,12 @@ class EvolutionImage extends StatelessWidget {
   const EvolutionImage(this.assetName);
 
   Widget build(BuildContext context) {
-    return Flexible(
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 4),
-        child: Image(
-          width: ScreenUtil.getInstance().setWidth(112),
-          image: AssetImage(assetName),
-        ),
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 4),
+      child: Image(
+        width: ScreenUtil.getInstance().setWidth(112),
+        height: ScreenUtil.getInstance().setWidth(112),
+        image: AssetImage(assetName),
       ),
     );
   }

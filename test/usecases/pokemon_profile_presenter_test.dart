@@ -351,7 +351,7 @@ void main() {
       expect(_presenter.viewModel.isGenderless, equals(false));
     });
 
-    test('when bith genders are available', () {
+    test('when both genders are available', () {
       PokemonProfileResponseModel responseModel = PokemonProfileResponseModel(
         pokemonName: 'pokemon',
         nationalPokedexNum: 94,

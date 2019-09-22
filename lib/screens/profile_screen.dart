@@ -38,11 +38,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
   String _mainPokemonAsset;
   bool _isMega;
 
+  final _nullWidget = Container(width: 0, height: 0);
+
   _ProfileScreenState(this._profileViewModel) {
     _setRegularEvolution();
     _profileTheme = ProfileTheme(_profileViewModel.types[0].type);
   }
 
+  List<Widget> tree = [];
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -154,15 +157,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          DataBox(
-                            widgets: [
-                              DataBoxTitle(
-                                _profileViewModel.species,
-                                color: _profileTheme.dataBoxTitleColor,
-                                titleMaxLines: 2,
-                              )
-                            ],
-                            subtitle: 'Species',
+                          Expanded(
+                            child: DataBox(
+                              widgets: [
+                                DataBoxTitle(
+                                  _profileViewModel.species,
+                                  color: _profileTheme.dataBoxTitleColor,
+                                  titleMaxLines: 2,
+                                )
+                              ],
+                              subtitle: 'Species',
+                            ),
                           ),
                           Column(
                             children: [
@@ -171,14 +176,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               ),
                             ],
                           ),
-                          DataBox(
-                            widgets: [
-                              DataBoxTitle(
-                                _profileViewModel.height,
-                                color: _profileTheme.dataBoxTitleColor,
-                              )
-                            ],
-                            subtitle: 'Height',
+                          Expanded(
+                            child: DataBox(
+                              widgets: [
+                                DataBoxTitle(
+                                  _profileViewModel.height,
+                                  color: _profileTheme.dataBoxTitleColor,
+                                )
+                              ],
+                              subtitle: 'Height',
+                            ),
                           ),
                           Column(
                             children: [
@@ -187,14 +194,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               ),
                             ],
                           ),
-                          DataBox(
-                            widgets: [
-                              DataBoxTitle(
-                                _profileViewModel.weight,
-                                color: _profileTheme.dataBoxTitleColor,
-                              )
-                            ],
-                            subtitle: 'Weight',
+                          Expanded(
+                            child: DataBox(
+                              widgets: [
+                                DataBoxTitle(
+                                  _profileViewModel.weight,
+                                  color: _profileTheme.dataBoxTitleColor,
+                                )
+                              ],
+                              subtitle: 'Weight',
+                            ),
                           ),
                         ],
                       ),
@@ -202,13 +211,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
-                          DataBox(
-                            widgets: _buildGenderRatio(),
-                            subtitle: 'Gender ratio',
+                          Expanded(
+                            child: DataBox(
+                              widgets: _buildGenderRatio(),
+                              subtitle: 'Gender ratio',
+                            ),
                           ),
-                          DataBox(
-                            widgets: _buildAbilities(),
-                            subtitle: 'Abilities',
+                          Expanded(
+                            child: DataBox(
+                              widgets: _buildAbilities(),
+                              subtitle: 'Abilities',
+                            ),
                           ),
                         ],
                       ),
@@ -218,21 +231,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         textColor: _profileTheme.dataBoxTitleColor,
                       ),
                       SizedBox(height: 6),
-                      for (var row in _linearEvolutionRows())
-                        Row(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: row,
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: _buildEvolutionTree(
+                          _profileViewModel.chainViewModel,
                         ),
+                      ),
                       SizedBox(height: 24),
                       SectionTitleText(
                         'Base Stats',
                         textColor: _profileTheme.dataBoxTitleColor,
                       ),
                       SizedBox(height: 6),
-                      Column(
-                        children: _buildStatsChart(),
-                      ),
+                      Column(children: _buildStatsChart()),
                       SizedBox(height: 6),
                       SectionTitleText(
                         'Type effectiveness',
@@ -315,6 +326,69 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ],
       ),
     );
+  }
+
+  List<Widget> _buildEvolutionTree(ChainViewModel chainViewModel) {
+    return [
+      Row(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Expanded(
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                chainViewModel.evolutionDetails.isNotEmpty
+                    ? EvolutionConditionBox(
+                        assetName: 'images/items/stone_water.png',
+                        hoverMessage: 'Water Stone',
+                        hoverColor: _profileTheme.appBarBackgroundColor,
+                      )
+                    : _nullWidget,
+                PokemonEvolutionWidget(
+                  chainViewModel: chainViewModel,
+                  profileTheme: _profileTheme,
+                ),
+              ],
+            ),
+          ),
+          _nextEvolutions(chainViewModel.evolvesTo),
+        ],
+      ),
+    ];
+  }
+
+  Widget _nextEvolutions(List<ChainViewModel> list) {
+    return list.isEmpty
+        ? _nullWidget
+        : Expanded(
+            flex: 2,
+            child: Column(
+              children: list.map<Widget>((chainViewModel) {
+                List<Widget> children = [
+                  EvolutionConditionBox(
+                    assetName: 'images/items/stone_water.png',
+                    hoverMessage: 'Water Stone',
+                    hoverColor: _profileTheme.appBarBackgroundColor,
+                  ),
+                  PokemonEvolutionWidget(
+                    chainViewModel: chainViewModel,
+                    profileTheme: _profileTheme,
+                  ),
+                ];
+
+                if (chainViewModel.evolvesTo.isNotEmpty)
+                  children.add(_nextEvolutions(chainViewModel.evolvesTo));
+
+                return Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: children,
+                );
+              }).toList(),
+            ),
+          );
   }
 
   List<Widget> _buildGenderRatio() {
@@ -412,59 +486,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  List<List<Widget>> _linearEvolutionRows() {
-    List<List<Widget>> list = [];
-    list.add(_linearEvolution(_profileViewModel.chainViewModel).firstRow);
-    list.add(_linearEvolution(_profileViewModel.chainViewModel).secondRow);
-
-    return list;
-  }
-
-  LinearEvolution _linearEvolution(ChainViewModel chainViewModel) {
-    LinearEvolution linearEvolution = LinearEvolution();
-
-    if (chainViewModel.evolutionDetails.isNotEmpty) {
-      linearEvolution.secondRow.add(VerticalSeparator(
-        color: _profileTheme.appBarBackgroundColor,
-      ));
-      var evolutionDetailVm = chainViewModel.evolutionDetails[0];
-      var assetName = getTriggerIconAsset(evolutionDetailVm);
-      linearEvolution.firstRow.add(
-        EvolutionConditionBox(
-          assetName: 'images/evolution_icons/$assetName',
-          hoverMessage: evolutionDetailVm.desc,
-          hoverColor: _profileTheme.appBarBackgroundColor,
-        ),
-      );
-    }
-
-    linearEvolution.firstRow.add(
-      EvolutionImage(pokemonImage(chainViewModel.id.toString())),
-    );
-    linearEvolution.secondRow.add(
-      DataBox(
-        widgets: [
-          DataBoxTitle(
-            chainViewModel.name,
-            color: _profileTheme.dataBoxTitleColor,
-          )
-        ],
-        subtitle: chainViewModel.formattedId,
-      ),
-    );
-
-    if (chainViewModel.evolvesTo.isNotEmpty) {
-      linearEvolution.firstRow.addAll(
-        _linearEvolution(chainViewModel.evolvesTo.first).firstRow,
-      );
-      linearEvolution.secondRow.addAll(
-        _linearEvolution(chainViewModel.evolvesTo.first).secondRow,
-      );
-    }
-
-    return linearEvolution;
-  }
-
   void _toggleMegaEvolution() =>
       setState(() => _isMega ? _setRegularEvolution() : _setMegaEvolution());
 
@@ -504,7 +525,29 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 }
 
-class LinearEvolution {
-  List<Widget> firstRow = [];
-  List<Widget> secondRow = [];
+class PokemonEvolutionWidget extends StatelessWidget {
+  final ChainViewModel chainViewModel;
+  final ProfileTheme profileTheme;
+
+  const PokemonEvolutionWidget({this.chainViewModel, this.profileTheme});
+
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        EvolutionImage(pokemonImage('${chainViewModel.id}')),
+        SizedBox(height: ScreenUtil.getInstance().setHeight(8)),
+        DataBox(
+          subtitle: chainViewModel.formattedId,
+          widgets: [
+            DataBoxTitle(
+              chainViewModel.name,
+              color: profileTheme.dataBoxTitleColor,
+            )
+          ],
+        ),
+      ],
+    );
+  }
 }

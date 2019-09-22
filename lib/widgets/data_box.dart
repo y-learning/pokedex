@@ -9,25 +9,23 @@ class DataBox extends StatelessWidget {
   const DataBox({this.widgets, this.subtitle});
 
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          for (var widget in widgets) widget,
-          SizedBox(height: 4),
-          Text(
-            subtitle,
-            textAlign: TextAlign.center,
-            maxLines: 1,
-            style: TextStyle(
-              color: Colors.grey[500],
-              fontSize: ScreenUtil.getInstance().setSp(20),
-              fontWeight: FontWeight.w600,
-            ),
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        for (var widget in widgets) widget,
+        SizedBox(height: 4),
+        Text(
+          subtitle,
+          textAlign: TextAlign.center,
+          maxLines: 1,
+          style: TextStyle(
+            color: Colors.grey[500],
+            fontSize: ScreenUtil.getInstance().setSp(20),
+            fontWeight: FontWeight.w600,
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
