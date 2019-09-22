@@ -61,14 +61,22 @@ class Species {
 class EvolutionDetail {
   final int minLevel;
   final Trigger trigger;
+  final Item item;
 
-  EvolutionDetail({this.minLevel, this.trigger});
+  EvolutionDetail({this.minLevel, this.trigger, this.item});
+}
+
+class Item {
+  final String id;
+  final String name;
+
+  Item({this.id, this.name});
 }
 
 enum Trigger {
   LEVEL_UP,
   TRADE,
-//  USE_ITEM,
+  USE_ITEM,
 //  SHED,
 }
 

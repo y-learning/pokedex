@@ -58,7 +58,7 @@ void main() {
   });
 
   group('Parse a Chain to a ChainViewModel', () {
-    test("Chain of level 3", () {
+    test("Validate a Chain of level 3", () {
       var chainViewModel1 = _presenter.toChainViewModel(_chain1);
 
       var chainViewModel2 = chainViewModel1.evolvesTo[0];
@@ -84,7 +84,7 @@ void main() {
       expect(chainViewModel3.evolvesTo, equals([]));
     });
 
-    test("Chain of level 2 with multi evolutions", () {
+    test("Validate a Chain of level 2 with multi evolutions", () {
       var chain = Chain(
         isBaby: true,
         species: Species(id: 1, name: 'pokemon'),
@@ -98,6 +98,42 @@ void main() {
       expect(chainViewModel.evolvesTo[0].formattedId, equals('#001'));
       expect(chainViewModel.evolvesTo[1].formattedId, equals('#002'));
       expect(chainViewModel.evolvesTo[2].formattedId, equals('#003'));
+    });
+
+    test("Validate evolution detail using an item", () {
+      var chain = Chain(
+        isBaby: true,
+        species: Species(id: 1, name: 'pokemon'),
+        evolutionDetails: [],
+        evolvesTo: [
+          Chain(
+            species: Species(id: 2, name: 'pokemon2'),
+            evolutionDetails: [
+              EvolutionDetail(
+                trigger: Trigger.USE_ITEM,
+                item: Item(id: 'some-stone', name: 'Some Stone'),
+              )
+            ],
+            evolvesTo: [],
+          ),
+        ],
+      );
+
+      var chainViewModel = _presenter.toChainViewModel(chain);
+
+      expect(
+        chainViewModel.evolvesTo[0].evolutionDetails[0].desc,
+        equals('Use Item'),
+      );
+      expect(
+        chainViewModel.evolvesTo[0].evolutionDetails[0].item.id,
+        equals('some_stone'),
+      );
+
+      expect(
+        chainViewModel.evolvesTo[0].evolutionDetails[0].item.name,
+        equals('Some Stone'),
+      );
     });
   });
 

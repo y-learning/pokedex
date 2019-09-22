@@ -96,8 +96,18 @@ class PokemonProfilePresenter {
               desc: _formatTrigger(evolutionDetail.trigger),
               minLevel: evolutionDetail.minLevel,
               trigger: evolutionDetail.trigger,
+              item: evolutionDetail.item == null
+                  ? null
+                  : ItemViewModel(
+                      id: _formatItemId(evolutionDetail),
+                      name: evolutionDetail.item.name,
+                    ),
             ))
         .toList();
+  }
+
+  String _formatItemId(EvolutionDetail evolutionDetail) {
+    return evolutionDetail.item.id.replaceAll('-', '_');
   }
 
   String _formatTrigger(Trigger trigger) {
@@ -108,6 +118,9 @@ class PokemonProfilePresenter {
         break;
       case Trigger.TRADE:
         desc = 'Trade';
+        break;
+      case Trigger.USE_ITEM:
+        desc = 'Use Item';
         break;
     }
 
