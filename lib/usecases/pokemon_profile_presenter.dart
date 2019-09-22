@@ -93,7 +93,7 @@ class PokemonProfilePresenter {
       List<EvolutionDetail> evolutionDetails) {
     return evolutionDetails
         .map((evolutionDetail) => EvolutionDetailViewModel(
-              desc: _formatTrigger(evolutionDetail.trigger),
+              desc: _formatTrigger(evolutionDetail),
               minLevel: evolutionDetail.minLevel,
               trigger: evolutionDetail.trigger,
               item: evolutionDetail.item == null
@@ -110,9 +110,9 @@ class PokemonProfilePresenter {
     return evolutionDetail.item.id.replaceAll('-', '_');
   }
 
-  String _formatTrigger(Trigger trigger) {
+  String _formatTrigger(EvolutionDetail evolutionDetail) {
     String desc;
-    switch (trigger) {
+    switch (evolutionDetail.trigger) {
       case Trigger.LEVEL_UP:
         desc = 'Level';
         break;
@@ -120,7 +120,7 @@ class PokemonProfilePresenter {
         desc = 'Trade';
         break;
       case Trigger.USE_ITEM:
-        desc = 'Use Item';
+        desc = evolutionDetail.item.name;
         break;
     }
 

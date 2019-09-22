@@ -123,7 +123,7 @@ void main() {
 
       expect(
         chainViewModel.evolvesTo[0].evolutionDetails[0].desc,
-        equals('Use Item'),
+        equals('Some Stone'),
       );
       expect(
         chainViewModel.evolvesTo[0].evolutionDetails[0].item.id,
