@@ -96,24 +96,46 @@ class PokemonProfilePresenter {
               desc: _formatTrigger(evolutionDetail),
               minLevel: evolutionDetail.minLevel,
               trigger: evolutionDetail.trigger,
+              minHappiness: evolutionDetail.minHappiness,
+              timeOfDay: evolutionDetail.timeOfDay,
+              location: evolutionDetail.location == null
+                  ? null
+                  : LocationViewModel(
+                      id: _formatResourceId(evolutionDetail.location.id),
+                      name: evolutionDetail.location.name,
+                    ),
               item: evolutionDetail.item == null
                   ? null
                   : ItemViewModel(
-                      id: _formatItemId(evolutionDetail),
+                      id: _formatResourceId(evolutionDetail.item.id),
                       name: evolutionDetail.item.name,
                     ),
             ))
         .toList();
   }
 
-  String _formatItemId(EvolutionDetail evolutionDetail) {
-    return evolutionDetail.item.id.replaceAll('-', '_');
-  }
+  String _formatResourceId(String id) => id.replaceAll('-', '_');
 
   String _formatTrigger(EvolutionDetail evolutionDetail) {
     String desc;
     switch (evolutionDetail.trigger) {
       case Trigger.LEVEL_UP:
+        if (evolutionDetail.minHappiness != null) {
+          desc = 'High Friendship';
+          switch (evolutionDetail.timeOfDay) {
+            case TimeOfDay.DAY:
+              desc = _concatenateWords(desc, 'Daytime');
+              break;
+            case TimeOfDay.NIGHT:
+              desc = _concatenateWords(desc, 'Nighttime');
+              break;
+          }
+          break;
+        } else if (evolutionDetail.location != null) {
+          desc = 'Level up near ${evolutionDetail.location.name}';
+          break;
+        }
+
         desc = 'Level';
         break;
       case Trigger.TRADE:
@@ -126,6 +148,8 @@ class PokemonProfilePresenter {
 
     return desc;
   }
+
+  String _concatenateWords(String word1, String word2) => '$word1, $word2';
 
   List<BaseStatViewModel> _statsToBaseStatsViewModels(List<Stat> stats) {
     return stats
@@ -182,5 +206,12 @@ class PokemonProfilePresenter {
     }
 
     return formatted;
+  }
+
+  LocationViewModel _toLocationViewModel(Location location) {
+    return LocationViewModel(
+      id: location.id,
+      name: location.name,
+    );
   }
 }

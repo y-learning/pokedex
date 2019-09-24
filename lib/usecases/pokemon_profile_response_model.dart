@@ -62,8 +62,30 @@ class EvolutionDetail {
   final int minLevel;
   final Trigger trigger;
   final Item item;
+  final int minHappiness;
+  final TimeOfDay timeOfDay;
+  final Location location;
 
-  EvolutionDetail({this.minLevel, this.trigger, this.item});
+  EvolutionDetail({
+    this.minLevel,
+    this.trigger,
+    this.item,
+    this.minHappiness,
+    this.timeOfDay,
+    this.location,
+  });
+}
+
+class Location {
+  final String id;
+  final String name;
+
+  Location({this.id, this.name});
+}
+
+enum TimeOfDay {
+  DAY,
+  NIGHT,
 }
 
 class Item {

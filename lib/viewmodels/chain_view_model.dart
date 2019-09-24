@@ -23,8 +23,26 @@ class EvolutionDetailViewModel {
   final int minLevel;
   final Trigger trigger;
   final ItemViewModel item;
+  final int minHappiness;
+  final TimeOfDay timeOfDay;
+  final LocationViewModel location;
 
-  EvolutionDetailViewModel({this.desc, this.minLevel, this.trigger, this.item});
+  EvolutionDetailViewModel({
+    this.desc,
+    this.minLevel,
+    this.trigger,
+    this.item,
+    this.minHappiness,
+    this.timeOfDay,
+    this.location,
+  });
+}
+
+class LocationViewModel {
+  final String id;
+  final String name;
+
+  LocationViewModel({this.id, this.name});
 }
 
 class ItemViewModel {

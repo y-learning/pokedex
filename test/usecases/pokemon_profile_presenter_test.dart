@@ -100,40 +100,155 @@ void main() {
       expect(chainViewModel.evolvesTo[2].formattedId, equals('#003'));
     });
 
-    test("Validate evolution detail using an item", () {
-      var chain = Chain(
-        isBaby: true,
-        species: Species(id: 1, name: 'pokemon'),
-        evolutionDetails: [],
-        evolvesTo: [
-          Chain(
-            species: Species(id: 2, name: 'pokemon2'),
-            evolutionDetails: [
-              EvolutionDetail(
-                trigger: Trigger.USE_ITEM,
-                item: Item(id: 'some-stone', name: 'Some Stone'),
-              )
-            ],
-            evolvesTo: [],
-          ),
-        ],
-      );
+    group('Validate evolution details', () {
+      test("Evolution by using an item", () {
+        var chain = Chain(
+          isBaby: true,
+          species: Species(id: 1, name: 'pokemon'),
+          evolutionDetails: [],
+          evolvesTo: [
+            Chain(
+              species: Species(id: 2, name: 'pokemon2'),
+              evolutionDetails: [
+                EvolutionDetail(
+                  trigger: Trigger.USE_ITEM,
+                  item: Item(id: 'some-stone', name: 'Some Stone'),
+                )
+              ],
+              evolvesTo: [],
+            ),
+          ],
+        );
 
-      var chainViewModel = _presenter.toChainViewModel(chain);
+        var chainViewModel = _presenter.toChainViewModel(chain);
 
-      expect(
-        chainViewModel.evolvesTo[0].evolutionDetails[0].desc,
-        equals('Some Stone'),
-      );
-      expect(
-        chainViewModel.evolvesTo[0].evolutionDetails[0].item.id,
-        equals('some_stone'),
-      );
+        expect(
+          chainViewModel.evolvesTo[0].evolutionDetails[0].desc,
+          equals('Some Stone'),
+        );
+        expect(
+          chainViewModel.evolvesTo[0].evolutionDetails[0].item.id,
+          equals('some_stone'),
+        );
 
-      expect(
-        chainViewModel.evolvesTo[0].evolutionDetails[0].item.name,
-        equals('Some Stone'),
-      );
+        expect(
+          chainViewModel.evolvesTo[0].evolutionDetails[0].item.name,
+          equals('Some Stone'),
+        );
+      });
+
+      test("Evolution by friendship only", () {
+        var chain = Chain(
+          isBaby: true,
+          species: Species(id: 1, name: 'pokemon'),
+          evolutionDetails: [],
+          evolvesTo: [
+            Chain(
+              species: Species(id: 2, name: 'pokemon2'),
+              evolutionDetails: [
+                EvolutionDetail(
+                  minHappiness: 220,
+                  trigger: Trigger.LEVEL_UP,
+                )
+              ],
+              evolvesTo: [],
+            ),
+          ],
+        );
+
+        var chainViewModel = _presenter.toChainViewModel(chain);
+        var evolutionDetail = chainViewModel.evolvesTo[0].evolutionDetails[0];
+
+        expect(evolutionDetail.desc, equals('High Friendship'));
+        expect(evolutionDetail.trigger, equals(Trigger.LEVEL_UP));
+        expect(evolutionDetail.minHappiness, equals(220));
+      });
+
+      test("Evolution by friendship and time of day", () {
+        var chain = Chain(
+          isBaby: true,
+          species: Species(id: 1, name: 'pokemon'),
+          evolutionDetails: [],
+          evolvesTo: [
+            Chain(
+              species: Species(id: 2, name: 'pokemon2'),
+              evolutionDetails: [
+                EvolutionDetail(
+                  minHappiness: 220,
+                  timeOfDay: TimeOfDay.DAY,
+                  trigger: Trigger.LEVEL_UP,
+                )
+              ],
+              evolvesTo: [],
+            ),
+          ],
+        );
+
+        var chainViewModel = _presenter.toChainViewModel(chain);
+        var evolutionDetail = chainViewModel.evolvesTo[0].evolutionDetails[0];
+
+        expect(evolutionDetail.desc, equals('High Friendship, Daytime'));
+        expect(evolutionDetail.trigger, equals(Trigger.LEVEL_UP));
+        expect(evolutionDetail.minHappiness, equals(220));
+        expect(evolutionDetail.timeOfDay, equals(TimeOfDay.DAY));
+      });
+
+      test("Evolution by friendship and time of night", () {
+        var chain = Chain(
+          isBaby: true,
+          species: Species(id: 1, name: 'pokemon'),
+          evolutionDetails: [],
+          evolvesTo: [
+            Chain(
+              species: Species(id: 2, name: 'pokemon2'),
+              evolutionDetails: [
+                EvolutionDetail(
+                  minHappiness: 220,
+                  timeOfDay: TimeOfDay.NIGHT,
+                  trigger: Trigger.LEVEL_UP,
+                )
+              ],
+              evolvesTo: [],
+            ),
+          ],
+        );
+
+        var chainViewModel = _presenter.toChainViewModel(chain);
+        var evolutionDetail = chainViewModel.evolvesTo[0].evolutionDetails[0];
+
+        expect(evolutionDetail.desc, equals('High Friendship, Nighttime'));
+        expect(evolutionDetail.trigger, equals(Trigger.LEVEL_UP));
+        expect(evolutionDetail.minHappiness, equals(220));
+        expect(evolutionDetail.timeOfDay, equals(TimeOfDay.NIGHT));
+      });
+
+      test("Evolution by Level and location", () {
+        var chain = Chain(
+          isBaby: true,
+          species: Species(id: 1, name: 'pokemon'),
+          evolutionDetails: [],
+          evolvesTo: [
+            Chain(
+              species: Species(id: 2, name: 'pokemon2'),
+              evolutionDetails: [
+                EvolutionDetail(
+                  location: Location(id: 'icy-rock', name: 'Icy Rock'),
+                  trigger: Trigger.LEVEL_UP,
+                )
+              ],
+              evolvesTo: [],
+            ),
+          ],
+        );
+
+        var chainViewModel = _presenter.toChainViewModel(chain);
+        var evolutionDetail = chainViewModel.evolvesTo[0].evolutionDetails[0];
+
+        expect(evolutionDetail.desc, equals('Level up near Icy Rock'));
+        expect(evolutionDetail.trigger, equals(Trigger.LEVEL_UP));
+        expect(evolutionDetail.location.id, equals('icy_rock'));
+        expect(evolutionDetail.location.name, equals('Icy Rock'));
+      });
     });
   });
 
