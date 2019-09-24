@@ -207,11 +207,4 @@ class PokemonProfilePresenter {
 
     return formatted;
   }
-
-  LocationViewModel _toLocationViewModel(Location location) {
-    return LocationViewModel(
-      id: location.id,
-      name: location.name,
-    );
-  }
 }
