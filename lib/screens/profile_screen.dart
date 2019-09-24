@@ -38,6 +38,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
   String _mainPokemonAsset;
   bool _isMega;
 
+  int _evolutionsCount = 1;
+
   final _nullWidget = Container(width: 0, height: 0);
 
   _ProfileScreenState(this._profileViewModel) {
@@ -231,11 +233,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         textColor: _profileTheme.dataBoxTitleColor,
                       ),
                       SizedBox(height: 6),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: _buildEvolutionTree(
-                          _profileViewModel.chainViewModel,
-                        ),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Column(
+                              children: _buildEvolutionTree(
+                                _profileViewModel.chainViewModel,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                       SizedBox(height: 24),
                       SectionTitleText(
@@ -329,28 +336,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   List<Widget> _buildEvolutionTree(ChainViewModel chainViewModel) {
+    _calcEvolutionsCount(chainViewModel.evolvesTo);
+
     return [
       Row(
         mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Expanded(
-            child: Row(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                chainViewModel.evolutionDetails.isNotEmpty
-                    ? EvolutionConditionBox(
-                        assetName: 'images/items/stone_water.png',
-                        hoverMessage: 'Water Stone',
-                        hoverColor: _profileTheme.appBarBackgroundColor,
-                      )
-                    : _nullWidget,
-                PokemonEvolutionWidget(
-                  chainViewModel: chainViewModel,
-                  profileTheme: _profileTheme,
-                ),
-              ],
+            child: PokemonEvolutionWidget(
+              chainViewModel: chainViewModel,
+              profileTheme: _profileTheme,
             ),
           ),
           _nextEvolutions(chainViewModel.evolvesTo),
@@ -359,33 +354,46 @@ class _ProfileScreenState extends State<ProfileScreen> {
     ];
   }
 
+  void _calcEvolutionsCount(List<ChainViewModel> chainViewModels) {
+    if (chainViewModels.isNotEmpty) {
+      _evolutionsCount++;
+      for (var vm in chainViewModels) _calcEvolutionsCount(vm.evolvesTo);
+    }
+  }
+
   Widget _nextEvolutions(List<ChainViewModel> list) {
     return list.isEmpty
         ? _nullWidget
         : Expanded(
-            flex: 2,
+            flex: _evolutionsCount,
             child: Column(
               children: list.map<Widget>((chainViewModel) {
+                var evolutionDetail = chainViewModel.evolutionDetails[0];
                 List<Widget> children = [
-                  EvolutionConditionBox(
-                    assetName: 'images/items/stone_water.png',
-                    hoverMessage: 'Water Stone',
-                    hoverColor: _profileTheme.appBarBackgroundColor,
-                  ),
-                  PokemonEvolutionWidget(
-                    chainViewModel: chainViewModel,
-                    profileTheme: _profileTheme,
-                  ),
+                  Expanded(
+                    flex: _evolutionsCount,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        EvolutionConditionBox(
+                          assetName: getTriggerIconAsset(evolutionDetail),
+                          hoverMessage: evolutionDetail.desc,
+                          hoverColor: _profileTheme.appBarBackgroundColor,
+                        ),
+                        PokemonEvolutionWidget(
+                          chainViewModel: chainViewModel,
+                          profileTheme: _profileTheme,
+                        ),
+                      ],
+                    ),
+                  )
                 ];
 
                 if (chainViewModel.evolvesTo.isNotEmpty)
                   children.add(_nextEvolutions(chainViewModel.evolvesTo));
 
-                return Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: children,
-                );
+                _evolutionsCount = 1;
+                return Row(children: children);
               }).toList(),
             ),
           );
