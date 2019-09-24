@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pokedex/usecases/pokemon_profile_presenter.dart';
 import 'package:pokedex/usecases/pokemon_profile_response_model.dart';
+import 'package:pokedex/usecases/pokemon_profile_response_model.dart'
+    as prefix0;
 import 'package:pokedex/usecases/pokemon_types.dart';
 import 'package:pokedex/viewmodels/pokemon_profile_view_model.dart';
 
@@ -26,6 +28,7 @@ class App extends StatelessWidget {
   PokemonProfileViewModel _buildPokemonProfileViewModel() {
     PokemonProfilePresenter presenter = PokemonProfilePresenter();
 
+//    presenter.present(_gengarResponseModel());
     presenter.present(_eveeResponseModel());
 
     return presenter.viewModel;
@@ -40,19 +43,85 @@ class App extends StatelessWidget {
         Chain(
           isBaby: false,
           species: Species(id: 134, name: 'vaporeon'),
-          evolutionDetails: [],
+          evolutionDetails: [
+            EvolutionDetail(
+              trigger: Trigger.USE_ITEM,
+              item: Item(id: 'water-stone', name: 'Water Stone'),
+            ),
+          ],
           evolvesTo: [],
         ),
         Chain(
           isBaby: false,
           species: Species(id: 135, name: 'jolteon'),
-          evolutionDetails: [],
+          evolutionDetails: [
+            EvolutionDetail(
+              trigger: Trigger.USE_ITEM,
+              item: Item(id: 'thunder-stone', name: 'Thunder Stone'),
+            ),
+          ],
           evolvesTo: [],
         ),
         Chain(
           isBaby: false,
           species: Species(id: 136, name: 'flareon'),
-          evolutionDetails: [],
+          evolutionDetails: [
+            EvolutionDetail(
+              trigger: Trigger.USE_ITEM,
+              item: Item(id: 'fire-stone', name: 'Fire Stone'),
+            ),
+          ],
+          evolvesTo: [],
+        ),
+        Chain(
+          isBaby: false,
+          species: Species(id: 196, name: 'espeon'),
+          evolutionDetails: [
+            EvolutionDetail(
+                trigger: Trigger.LEVEL_UP,
+                minHappiness: 220,
+                timeOfDay: prefix0.TimeOfDay.DAY),
+          ],
+          evolvesTo: [],
+        ),
+        Chain(
+          isBaby: false,
+          species: Species(id: 197, name: 'umbreon'),
+          evolutionDetails: [
+            EvolutionDetail(
+              trigger: Trigger.LEVEL_UP,
+              minHappiness: 220,
+              timeOfDay: prefix0.TimeOfDay.NIGHT,
+            ),
+          ],
+          evolvesTo: [],
+        ),
+        Chain(
+          isBaby: false,
+          species: Species(id: 470, name: 'leafeon'),
+          evolutionDetails: [
+            EvolutionDetail(
+              trigger: Trigger.LEVEL_UP,
+              location: Location(
+                id: 'mossy-rock',
+                name: 'Mossy Rock',
+              ),
+            ),
+          ],
+          evolvesTo: [],
+        ),
+        Chain(
+          isBaby: false,
+          species: Species(id: 471, name: 'glaceon'),
+          evolutionDetails: [
+            EvolutionDetail(
+              trigger: Trigger.LEVEL_UP,
+              location: Location(
+                id: 'icy-rock',
+                name: 'Icy Rock',
+              ),
+            ),
+          ],
           evolvesTo: [],
         ),
       ],

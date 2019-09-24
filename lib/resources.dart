@@ -8,10 +8,23 @@ String itemImage(String itemId) => 'images/items/$itemId.png';
 String getTriggerIconAsset(EvolutionDetailViewModel evolutionDetailVm) {
   switch (evolutionDetailVm.trigger) {
     case Trigger.LEVEL_UP:
-      return 'l${evolutionDetailVm.minLevel}.png';
+      if (evolutionDetailVm.minHappiness != null) {
+        switch (evolutionDetailVm.timeOfDay) {
+          case TimeOfDay.DAY:
+            return 'images/evolution_icons/happiness_daytime.png';
+          case TimeOfDay.NIGHT:
+            return 'images/evolution_icons/happiness_nighttime.png';
+        }
+        break;
+      } else if (evolutionDetailVm.location != null) {
+        return 'images/evolution_icons/lvl_${evolutionDetailVm.location.id}.png';
+      }
+      return 'images/evolution_icons/l${evolutionDetailVm.minLevel}.png';
     case Trigger.TRADE:
-      return 'trade.png';
+      return 'images/evolution_icons/trade.png';
+    case Trigger.USE_ITEM:
+      return itemImage(evolutionDetailVm.item.id);
     default:
-      return '';
+      return 'No asset yet!!';
   }
 }
