@@ -146,7 +146,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             splashColor: kGhostTypeColor4,
                             icon: Image(
                               image: AssetImage(
-                                itemImage(_profileViewModel.id),
+                                itemImage('${_profileViewModel.id}_megastone'),
                               ),
                             ),
                             onPressed: _toggleMegaEvolution,

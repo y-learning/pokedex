@@ -3,7 +3,7 @@ import 'package:pokedex/viewmodels/chain_view_model.dart';
 
 String pokemonImage(String id) => 'images/pokemons/$id.gif';
 
-String itemImage(int pokemonId) => 'images/items/${pokemonId}_megastone.png';
+String itemImage(String itemId) => 'images/items/$itemId.png';
 
 String getTriggerIconAsset(EvolutionDetailViewModel evolutionDetailVm) {
   switch (evolutionDetailVm.trigger) {
