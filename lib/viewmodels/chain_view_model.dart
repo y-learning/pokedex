@@ -6,7 +6,7 @@ class ChainViewModel {
   final String formattedId;
   final String name;
   final List<EvolutionDetailViewModel> evolutionDetails;
-  final List<ChainViewModel> evolvesTo;
+  final List<List<ChainViewModel>> evolvesTo;
 
   ChainViewModel({
     this.isBaby,

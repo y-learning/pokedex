@@ -84,9 +84,7 @@ class PokemonProfilePresenter {
         formattedId: formatId(chain.species.id),
         name: formatText(chain.species.name),
         evolutionDetails: _toEvolutionDetailsViewModels(chain.evolutionDetails),
-        evolvesTo: chain.evolvesTo
-            .map((Chain chain) => toChainViewModel(chain))
-            .toList(),
+        evolvesTo: groupBy(chain),
       );
 
   List<EvolutionDetailViewModel> _toEvolutionDetailsViewModels(
@@ -206,5 +204,76 @@ class PokemonProfilePresenter {
     }
 
     return formatted;
+  }
+
+  List<List<ChainViewModel>> groupBy(Chain chain) {
+    var evolvesTo = chain.evolvesTo;
+    List<List<ChainViewModel>> groups = [];
+
+    if (evolvesTo.isEmpty) return groups;
+
+    if (evolvesTo.length <= 3) {
+      groups.add([for (var chain in evolvesTo) toChainViewModel(chain)]);
+
+      return groups;
+    }
+
+    for (var i = 0; i < evolvesTo.length; i++) {
+      var evolution = evolvesTo[i];
+
+      if (!_contains(groups, evolution)) {
+        List<ChainViewModel> list = [toChainViewModel(evolution)];
+        for (var j = i + 1; j < evolvesTo.length; j++) {
+          if (_areSameGroup(evolution, evolvesTo[j])) {
+            list.add(toChainViewModel(evolvesTo[j]));
+          }
+        }
+        if (list.isNotEmpty) groups.add(list);
+      }
+    }
+
+    return groups;
+  }
+
+  bool _areSameGroup(Chain evolution1, Chain evolution2) {
+    var evolutionDetail1 = evolution1.evolutionDetails[0];
+    var evolutionDetail2 = evolution2.evolutionDetails[0];
+
+    if (evolutionDetail1.trigger != evolutionDetail2.trigger) return false;
+
+    if ((evolutionDetail1.location == null ||
+            evolutionDetail2.location == null) &&
+        (evolutionDetail1.location != null ||
+            evolutionDetail2.location != null)) return false;
+
+    if ((evolutionDetail1.item == null || evolutionDetail2.item == null) &&
+        (evolutionDetail1.item != null || evolutionDetail2.item != null))
+      return false;
+
+    if ((evolutionDetail1.minHappiness == null ||
+            evolutionDetail2.minHappiness == null) &&
+        (evolutionDetail1.minHappiness != null ||
+            evolutionDetail2.minHappiness != null)) return false;
+
+    if ((evolutionDetail1.timeOfDay == null ||
+            evolutionDetail2.timeOfDay == null) &&
+        (evolutionDetail1.timeOfDay != null ||
+            evolutionDetail2.timeOfDay != null)) return false;
+
+    if ((evolutionDetail1.minLevel == null ||
+            evolutionDetail2.minLevel == null) &&
+        (evolutionDetail1.minLevel != null ||
+            evolutionDetail2.minLevel != null)) return false;
+
+    return true;
+  }
+
+  bool _contains(List<List<ChainViewModel>> groups, Chain evolution) {
+    if (groups.isEmpty) return false;
+
+    for (var group in groups)
+      for (var e in group) if (e.id == evolution.species.id) return true;
+
+    return false;
   }
 }

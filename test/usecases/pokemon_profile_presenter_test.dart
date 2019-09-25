@@ -3,6 +3,7 @@ import 'package:pokedex/usecases/pokemon_types.dart';
 import 'package:pokedex/usecases/pokemon_profile_presenter.dart';
 import 'package:pokedex/usecases/pokemon_profile_response_model.dart';
 import 'package:pokedex/viewmodels/base_stat_view_model.dart';
+import 'package:pokedex/viewmodels/chain_view_model.dart';
 import 'package:pokedex/viewmodels/pokemon_profile_view_model.dart';
 
 void main() {
@@ -61,8 +62,8 @@ void main() {
     test("Validate a Chain of level 3", () {
       var chainViewModel1 = _presenter.toChainViewModel(_chain1);
 
-      var chainViewModel2 = chainViewModel1.evolvesTo[0];
-      var chainViewModel3 = chainViewModel2.evolvesTo[0];
+      ChainViewModel chainViewModel2 = chainViewModel1.evolvesTo.first.first;
+      ChainViewModel chainViewModel3 = chainViewModel2.evolvesTo.first.first;
       var evolutionDetailVm2 = chainViewModel2.evolutionDetails[0];
       var evolutionDetailVm3 = chainViewModel3.evolutionDetails[0];
       expect(chainViewModel1.isBaby, equals(_chain1.isBaby));
@@ -93,11 +94,199 @@ void main() {
       );
 
       var chainViewModel = _presenter.toChainViewModel(chain);
+      var evolutions = chainViewModel.evolvesTo[0];
 
-      expect(chainViewModel.evolvesTo.length, equals(chain.evolvesTo.length));
-      expect(chainViewModel.evolvesTo[0].formattedId, equals('#001'));
-      expect(chainViewModel.evolvesTo[1].formattedId, equals('#002'));
-      expect(chainViewModel.evolvesTo[2].formattedId, equals('#003'));
+      expect(evolutions.length, equals(chain.evolvesTo.length));
+      expect(evolutions[0].formattedId, equals('#001'));
+      expect(evolutions[1].formattedId, equals('#002'));
+      expect(evolutions[2].formattedId, equals('#003'));
+    });
+
+    group('Group by triggers', () {
+      test("when a chain has no evolutions, return empty list", () {
+        List<List<ChainViewModel>> groups = _presenter.groupBy(_chain3);
+
+        expect(groups.isEmpty, equals(true));
+      });
+
+      test("when a chain has 1 evolution, return one group", () {
+        List<List<ChainViewModel>> groups = _presenter.groupBy(_chain1);
+
+        expect(groups.length, equals(1));
+        expect(groups[0].length, equals(1));
+      });
+
+      test("when a chain has 2 evolutions, return one group", () {
+        var chain = Chain(
+          isBaby: true,
+          species: Species(id: 1, name: 'pokemon'),
+          evolutionDetails: [],
+          evolvesTo: [_chain1, _chain2],
+        );
+
+        List<List<ChainViewModel>> groups = _presenter.groupBy(chain);
+
+        expect(groups.length, equals(1));
+      });
+
+      test(
+        "when a chain has 3 evolutions, return one group",
+        () {
+          var chain = Chain(
+            isBaby: true,
+            species: Species(id: 1, name: 'pokemon'),
+            evolutionDetails: [],
+            evolvesTo: [_chain1, _chain2, _chain3],
+          );
+
+          List<List<ChainViewModel>> groups = _presenter.groupBy(chain);
+
+          expect(groups.length, equals(1));
+        },
+      );
+
+      test(
+        "when a chain has more than 3 evolutions, group them by trigger",
+        () {
+          var evolution1 = Chain(
+            isBaby: false,
+            species: Species(id: 2, name: 'evolution 1'),
+            evolutionDetails: [
+              EvolutionDetail(
+                trigger: Trigger.USE_ITEM,
+                item: Item(id: 'item-1', name: ''),
+              ),
+            ],
+            evolvesTo: [],
+          );
+
+          var evolution2 = Chain(
+            isBaby: false,
+            species: Species(id: 3, name: 'evolution 2'),
+            evolutionDetails: [
+              EvolutionDetail(
+                trigger: Trigger.USE_ITEM,
+                item: Item(id: 'item-2', name: ''),
+              ),
+            ],
+            evolvesTo: [],
+          );
+          var evolution3 = Chain(
+            isBaby: false,
+            species: Species(id: 4, name: 'evolution 3'),
+            evolutionDetails: [
+              EvolutionDetail(
+                trigger: Trigger.USE_ITEM,
+                item: Item(id: 'item-3', name: ''),
+              ),
+            ],
+            evolvesTo: [],
+          );
+          var evolution4 = Chain(
+            isBaby: false,
+            species: Species(id: 5, name: 'evolution 4'),
+            evolutionDetails: [
+              EvolutionDetail(
+                trigger: Trigger.LEVEL_UP,
+              ),
+            ],
+            evolvesTo: [],
+          );
+          var chain = Chain(
+            isBaby: true,
+            species: Species(id: 1, name: 'pokemon'),
+            evolutionDetails: [],
+            evolvesTo: [evolution1, evolution2, evolution3, evolution4],
+          );
+
+          List<List<ChainViewModel>> groups = _presenter.groupBy(chain);
+          var group1 = groups[0];
+          var group2 = groups[1];
+
+          expect(groups.length, equals(2));
+          expect(group1.length, equals(3));
+          expect(group2.length, equals(1));
+          expect(group1[0].id, equals(2));
+          expect(group1[1].id, equals(3));
+          expect(group1[2].id, equals(4));
+          expect(group2[0].id, equals(5));
+        },
+      );
+
+      test(
+        "when a chain has more than 3 evolutions with the same trigger, "
+        "group them by other evolution details",
+        () {
+          var chain = Chain(
+            isBaby: true,
+            species: Species(id: 1, name: 'pokemon'),
+            evolutionDetails: [],
+            evolvesTo: [
+              Chain(
+                isBaby: false,
+                species: Species(id: 196, name: 'espeon'),
+                evolutionDetails: [
+                  EvolutionDetail(
+                      trigger: Trigger.LEVEL_UP,
+                      minHappiness: 220,
+                      timeOfDay: TimeOfDay.DAY),
+                ],
+                evolvesTo: [],
+              ),
+              Chain(
+                isBaby: false,
+                species: Species(id: 197, name: 'umbreon'),
+                evolutionDetails: [
+                  EvolutionDetail(
+                    trigger: Trigger.LEVEL_UP,
+                    minHappiness: 220,
+                    timeOfDay: TimeOfDay.NIGHT,
+                  ),
+                ],
+                evolvesTo: [],
+              ),
+              Chain(
+                isBaby: false,
+                species: Species(id: 470, name: 'leafeon'),
+                evolutionDetails: [
+                  EvolutionDetail(
+                    trigger: Trigger.LEVEL_UP,
+                    location: Location(
+                      id: 'mossy-rock',
+                      name: 'Mossy Rock',
+                    ),
+                  ),
+                ],
+                evolvesTo: [],
+              ),
+              Chain(
+                isBaby: false,
+                species: Species(id: 471, name: 'glaceon'),
+                evolutionDetails: [
+                  EvolutionDetail(
+                    trigger: Trigger.LEVEL_UP,
+                    location: Location(
+                      id: 'icy-rock',
+                      name: 'Icy Rock',
+                    ),
+                  ),
+                ],
+                evolvesTo: [],
+              ),
+            ],
+          );
+
+          List<List<ChainViewModel>> groups = _presenter.groupBy(chain);
+          var group1 = groups[0];
+          var group2 = groups[1];
+
+          expect(groups.length, equals(2));
+          expect(group1[0].id, equals(196));
+          expect(group1[1].id, equals(197));
+          expect(group2[0].id, equals(470));
+          expect(group2[1].id, equals(471));
+        },
+      );
     });
 
     group('Validate evolution details', () {
@@ -123,16 +312,16 @@ void main() {
         var chainViewModel = _presenter.toChainViewModel(chain);
 
         expect(
-          chainViewModel.evolvesTo[0].evolutionDetails[0].desc,
+          chainViewModel.evolvesTo[0][0].evolutionDetails[0].desc,
           equals('Some Stone'),
         );
         expect(
-          chainViewModel.evolvesTo[0].evolutionDetails[0].item.id,
+          chainViewModel.evolvesTo[0][0].evolutionDetails[0].item.id,
           equals('some_stone'),
         );
 
         expect(
-          chainViewModel.evolvesTo[0].evolutionDetails[0].item.name,
+          chainViewModel.evolvesTo[0][0].evolutionDetails[0].item.name,
           equals('Some Stone'),
         );
       });
@@ -157,7 +346,8 @@ void main() {
         );
 
         var chainViewModel = _presenter.toChainViewModel(chain);
-        var evolutionDetail = chainViewModel.evolvesTo[0].evolutionDetails[0];
+        var evolutionDetail =
+            chainViewModel.evolvesTo[0][0].evolutionDetails[0];
 
         expect(evolutionDetail.desc, equals('High Friendship'));
         expect(evolutionDetail.trigger, equals(Trigger.LEVEL_UP));
@@ -185,7 +375,8 @@ void main() {
         );
 
         var chainViewModel = _presenter.toChainViewModel(chain);
-        var evolutionDetail = chainViewModel.evolvesTo[0].evolutionDetails[0];
+        var evolutionDetail =
+            chainViewModel.evolvesTo[0][0].evolutionDetails[0];
 
         expect(evolutionDetail.desc, equals('High Friendship, Daytime'));
         expect(evolutionDetail.trigger, equals(Trigger.LEVEL_UP));
@@ -214,7 +405,8 @@ void main() {
         );
 
         var chainViewModel = _presenter.toChainViewModel(chain);
-        var evolutionDetail = chainViewModel.evolvesTo[0].evolutionDetails[0];
+        var evolutionDetail =
+            chainViewModel.evolvesTo[0][0].evolutionDetails[0];
 
         expect(evolutionDetail.desc, equals('High Friendship, Nighttime'));
         expect(evolutionDetail.trigger, equals(Trigger.LEVEL_UP));
@@ -242,7 +434,8 @@ void main() {
         );
 
         var chainViewModel = _presenter.toChainViewModel(chain);
-        var evolutionDetail = chainViewModel.evolvesTo[0].evolutionDetails[0];
+        var evolutionDetail =
+            chainViewModel.evolvesTo[0][0].evolutionDetails[0];
 
         expect(evolutionDetail.desc, equals('Level up near Icy Rock'));
         expect(evolutionDetail.trigger, equals(Trigger.LEVEL_UP));
@@ -329,8 +522,8 @@ void main() {
 
     PokemonProfileViewModel vm = _presenter.viewModel;
     var chainViewModel1 = vm.chainViewModel;
-    var chainViewModel2 = chainViewModel1.evolvesTo[0];
-    var chainViewModel3 = chainViewModel2.evolvesTo[0];
+    var chainViewModel2 = chainViewModel1.evolvesTo[0][0];
+    var chainViewModel3 = chainViewModel2.evolvesTo[0][0];
     var evolutionDetailVm2 = chainViewModel2.evolutionDetails[0];
     var evolutionDetailVm3 = chainViewModel3.evolutionDetails[0];
     expect(vm.pokemonName, equals('Pokemon'));

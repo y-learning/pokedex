@@ -38,7 +38,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   String _mainPokemonAsset;
   bool _isMega;
 
-  int _evolutionsCount = 1;
+  int _evolutionsStages = 1;
 
   final _nullWidget = Container(width: 0, height: 0);
 
@@ -236,10 +236,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       Row(
                         children: [
                           Expanded(
-                            child: Column(
-                              children: _buildEvolutionTree(
-                                _profileViewModel.chainViewModel,
-                              ),
+                            child: _buildEvolutionTree(
+                              _profileViewModel.chainViewModel,
                             ),
                           ),
                         ],
@@ -335,43 +333,51 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  List<Widget> _buildEvolutionTree(ChainViewModel chainViewModel) {
-    _calcEvolutionsCount(chainViewModel.evolvesTo);
+  Widget _buildEvolutionTree(ChainViewModel chainViewModel) {
+    _calcEvolutionStages(chainViewModel.evolvesTo);
 
-    return [
-      Row(
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          Expanded(
-            child: PokemonEvolutionWidget(
-              chainViewModel: chainViewModel,
-              profileTheme: _profileTheme,
-            ),
+    var column = Column(
+      children: [
+        for (var group in chainViewModel.evolvesTo)
+          Row(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Expanded(
+                child: PokemonEvolutionWidget(
+                  chainViewModel: chainViewModel,
+                  profileTheme: _profileTheme,
+                ),
+              ),
+              _nextEvolutions(group),
+            ],
           ),
-          _nextEvolutions(chainViewModel.evolvesTo),
-        ],
-      ),
-    ];
+      ],
+    );
+
+    _evolutionsStages = 1;
+
+    return column;
   }
 
-  void _calcEvolutionsCount(List<ChainViewModel> chainViewModels) {
-    if (chainViewModels.isNotEmpty) {
-      _evolutionsCount++;
-      for (var vm in chainViewModels) _calcEvolutionsCount(vm.evolvesTo);
+  void _calcEvolutionStages(List<List<ChainViewModel>> groups) {
+    if (groups.isNotEmpty) {
+      _evolutionsStages++;
+      for (var group in groups)
+        for (var chainVm in group) _calcEvolutionStages(chainVm.evolvesTo);
     }
   }
 
-  Widget _nextEvolutions(List<ChainViewModel> list) {
-    return list.isEmpty
+  Widget _nextEvolutions(List<ChainViewModel> group) {
+    return group.isEmpty
         ? _nullWidget
         : Expanded(
-            flex: _evolutionsCount,
+            flex: _evolutionsStages,
             child: Column(
-              children: list.map<Widget>((chainViewModel) {
+              children: group.map<Widget>((chainViewModel) {
                 var evolutionDetail = chainViewModel.evolutionDetails[0];
                 List<Widget> children = [
                   Expanded(
-                    flex: _evolutionsCount,
+                    flex: _evolutionsStages,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
@@ -388,11 +394,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                   )
                 ];
+                for (var group in chainViewModel.evolvesTo)
+                  if (group.isNotEmpty) children.add(_nextEvolutions(group));
 
-                if (chainViewModel.evolvesTo.isNotEmpty)
-                  children.add(_nextEvolutions(chainViewModel.evolvesTo));
-
-                _evolutionsCount = 1;
                 return Row(children: children);
               }).toList(),
             ),
