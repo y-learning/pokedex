@@ -7,13 +7,13 @@ import 'package:pokedex/viewmodels/pokemon_profile_view_model.dart';
 import 'package:pokedex/widgets/effectiveness_text.dart';
 import 'package:pokedex/widgets/gender_row.dart';
 import 'package:pokedex/widgets/hidden_ability_text.dart';
+import 'package:pokedex/widgets/pokemon_evolution_widget.dart';
 import 'package:pokedex/widgets/type_effectiveness_grid.dart';
 import 'package:pokedex/widgets/vertical_separator.dart';
 import 'package:pokedex/widgets/arc_dlipper.dart';
 import 'package:pokedex/widgets/base_stat_row.dart';
 import 'package:pokedex/widgets/data_box.dart';
 import 'package:pokedex/widgets/evolution_condition_box.dart';
-import 'package:pokedex/widgets/evolution_image.dart';
 import 'package:pokedex/widgets/glow_free_listView.dart';
 import 'package:pokedex/widgets/section_title_text.dart';
 import 'package:pokedex/widgets/type_label.dart';
@@ -397,7 +397,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 for (var group in chainViewModel.evolvesTo)
                   if (group.isNotEmpty) children.add(_nextEvolutions(group));
 
-                return Row(children: children);
+                return Padding(
+                  padding: EdgeInsets.symmetric(
+                    vertical: ScreenUtil.getInstance().setHeight(18),
+                  ),
+                  child: Row(children: children),
+                );
               }).toList(),
             ),
           );
@@ -534,32 +539,5 @@ class _ProfileScreenState extends State<ProfileScreen> {
       list.insert(1, SizedBox(width: 40));
 
     return list;
-  }
-}
-
-class PokemonEvolutionWidget extends StatelessWidget {
-  final ChainViewModel chainViewModel;
-  final ProfileTheme profileTheme;
-
-  const PokemonEvolutionWidget({this.chainViewModel, this.profileTheme});
-
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        EvolutionImage(pokemonImage('${chainViewModel.id}')),
-        SizedBox(height: ScreenUtil.getInstance().setHeight(8)),
-        DataBox(
-          subtitle: chainViewModel.formattedId,
-          widgets: [
-            DataBoxTitle(
-              chainViewModel.name,
-              color: profileTheme.dataBoxTitleColor,
-            )
-          ],
-        ),
-      ],
-    );
   }
 }
