@@ -47,11 +47,12 @@ class TypeLabel extends StatelessWidget {
       ),
       child: Row(
         children: [
-          Container(
-            width: ScreenUtil.getInstance().setWidth(typeIconSize),
-            height: ScreenUtil.getInstance().setWidth(typeIconSize),
-            child: SvgPicture.asset(typeIcon),
-          ),
+          if (typeIcon != null)
+            Container(
+              width: ScreenUtil.getInstance().setWidth(typeIconSize),
+              height: ScreenUtil.getInstance().setWidth(typeIconSize),
+              child: SvgPicture.asset(typeIcon),
+            ),
           Expanded(
             child: Text(
               type,

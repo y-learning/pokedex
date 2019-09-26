@@ -37,10 +37,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
   PokemonProfileViewModel _profileViewModel;
   String _mainPokemonAsset;
   bool _isMega;
+  final Map<EffectivenessCategory, String> _effectivenessCategory = {
+    EffectivenessCategory.WEAK_TO: 'Weak to',
+    EffectivenessCategory.IMMUNE_TO: 'Immune to',
+    EffectivenessCategory.RESISTANT_TO: 'Resistant to',
+    EffectivenessCategory.DAMAGED_NORMALLY_BY: 'Damaged normally by',
+  };
 
   int _evolutionsStages = 1;
-
-  final _nullWidget = Container(width: 0, height: 0);
 
   _ProfileScreenState(this._profileViewModel) {
     _setRegularEvolution();
@@ -255,62 +259,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         textColor: _profileTheme.dataBoxTitleColor,
                       ),
                       SizedBox(height: 10),
-                      Row(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          EffectivenessText(
-                            text: 'Weak to',
-                            color: _profileTheme.dataBoxTitleColor,
-                          ),
-                          Expanded(
-                            child: buildTypeEffectivenessGrid(
-                              _profileViewModel.weakTo,
-                            ),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          EffectivenessText(
-                            text: 'Immune to',
-                            color: _profileTheme.dataBoxTitleColor,
-                          ),
-                          Expanded(
-                            child: buildTypeEffectivenessGrid(
-                              _profileViewModel.immuneTo,
-                            ),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          EffectivenessText(
-                            text: 'Resistant to',
-                            color: _profileTheme.dataBoxTitleColor,
-                          ),
-                          Expanded(
-                            child: buildTypeEffectivenessGrid(
-                              _profileViewModel.resistantTo,
-                            ),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          EffectivenessText(
-                            text: 'Damaged normally by',
-                            color: _profileTheme.dataBoxTitleColor,
-                          ),
-                          Expanded(
-                            child: buildTypeEffectivenessGrid(
-                              _profileViewModel.damagedNormallyBy,
-                            ),
-                          ),
-                        ],
-                      ),
+                      for (var row in _buildEffectivenessCategories()) row,
                     ],
                   ),
                 ),
@@ -369,7 +318,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   Widget _nextEvolutions(List<ChainViewModel> group) {
     return group.isEmpty
-        ? _nullWidget
+        ? kNullWidget
         : Expanded(
             flex: _evolutionsStages,
             child: Column(
@@ -497,7 +446,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   TypeEffectivenessGrid buildTypeEffectivenessGrid(List<TypeViewModel> types) {
     return TypeEffectivenessGrid(
-      types: types.map((vm) => vm.type).toList(),
+      types: types,
       effectivenessValues: types.map((vm) => vm.effectiveness).toList(),
       separatorColor: _profileTheme.appBarBackgroundColor,
     );
@@ -522,22 +471,76 @@ class _ProfileScreenState extends State<ProfileScreen> {
       return Flexible(
         child: TypeLabel(
           typeViewModel.title,
-          width: ScreenUtil.getInstance().setWidth(350),
+          width: ScreenUtil.getInstance().setWidth(320),
           color: typeLabelAssets.color,
           typeIcon: typeLabelAssets.icon,
           padding: EdgeInsets.symmetric(
-            vertical: ScreenUtil.getInstance().setHeight(10),
+            vertical: ScreenUtil.getInstance().setHeight(6),
             horizontal: ScreenUtil.getInstance().setWidth(34),
           ),
-          typeIconSize: 34,
-          titleSize: 32,
+          typeIconSize: ScreenUtil.getInstance().setWidth(54),
+          titleSize: ScreenUtil.getInstance().setSp(48),
         ),
       );
     }).toList();
 
     if (_profileViewModel.types.length == 2)
-      list.insert(1, SizedBox(width: 40));
+      list.insert(1, SizedBox(width: ScreenUtil.getInstance().setWidth(70)));
 
     return list;
   }
+
+  List<Row> _buildEffectivenessCategories() {
+    List<Row> list = [];
+
+    _effectivenessCategory.forEach((typeEffectiveness, title) {
+      list.add(
+        Row(
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            EffectivenessText(
+              text: title,
+              color: _profileTheme.dataBoxTitleColor,
+            ),
+            Expanded(
+              child: buildTypeEffectivenessGrid(
+                _getTypeEffectivenessViewModels(typeEffectiveness),
+              ),
+            ),
+          ],
+        ),
+      );
+    });
+
+    return list;
+  }
+
+  List<TypeViewModel> _getTypeEffectivenessViewModels(
+    EffectivenessCategory key,
+  ) {
+    List<TypeViewModel> list;
+    switch (key) {
+      case EffectivenessCategory.WEAK_TO:
+        list = _profileViewModel.weakTo;
+        break;
+      case EffectivenessCategory.IMMUNE_TO:
+        list = _profileViewModel.immuneTo;
+        break;
+      case EffectivenessCategory.RESISTANT_TO:
+        list = _profileViewModel.resistantTo;
+        break;
+      case EffectivenessCategory.DAMAGED_NORMALLY_BY:
+        list = _profileViewModel.damagedNormallyBy;
+        break;
+    }
+
+    return list;
+  }
+}
+
+enum EffectivenessCategory {
+  WEAK_TO,
+  IMMUNE_TO,
+  RESISTANT_TO,
+  DAMAGED_NORMALLY_BY,
 }

@@ -1,4 +1,3 @@
-import 'package:pokedex/usecases/pokemon_types.dart';
 import 'package:pokedex/viewmodels/pokemon_profile_view_model.dart';
 
 import '../usecases/pokemon_profile_response_model.dart';

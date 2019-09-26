@@ -85,6 +85,13 @@ class Utils {
 
     return TypeLabelAssets(color: color, icon: icon);
   }
+
+  static bool isPortrait(BuildContext context) =>
+      MediaQuery.of(context).orientation == Orientation.portrait;
+
+  static width(BuildContext context) => MediaQuery.of(context).size.width;
+
+  static height(BuildContext context) => MediaQuery.of(context).size.height;
 }
 
 class TypeLabelAssets {

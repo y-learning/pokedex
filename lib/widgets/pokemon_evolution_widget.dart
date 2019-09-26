@@ -52,7 +52,7 @@ class PokemonEvolutionWidget extends StatelessWidget {
           horizontal: ScreenUtil.getInstance().setWidth(16),
         ),
         typeIconSize: ScreenUtil.getInstance().setWidth(32),
-        titleSize: ScreenUtil.getInstance().setSp(32),
+        titleSize: ScreenUtil.getInstance().setSp(30),
         shadowSpreadRadius: 0,
         shadowBlurRadius: 0,
       );

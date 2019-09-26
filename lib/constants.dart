@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+final kNullWidget = Container(width: 0, height: 0);
+
 //region Gender
 const kMaleColor = Color(0xFF008FFF);
 const kFemaleColor = Color(0xFFFF0159);
