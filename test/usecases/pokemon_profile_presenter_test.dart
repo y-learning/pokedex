@@ -21,19 +21,31 @@ void main() {
     _presenter = PokemonProfilePresenter();
     _chain3 = Chain(
       isBaby: false,
-      species: Species(id: 3, name: 'pokemon3'),
+      species: Species(
+        id: 3,
+        name: 'pokemon3',
+        types: [PokemonType.GHOST, PokemonType.POISON],
+      ),
       evolutionDetails: [_evolutionDetail3],
       evolvesTo: [],
     );
     _chain2 = Chain(
       isBaby: false,
-      species: Species(id: 2, name: 'pokemon2'),
+      species: Species(
+        id: 2,
+        name: 'pokemon2',
+        types: [PokemonType.GHOST, PokemonType.POISON],
+      ),
       evolutionDetails: [_evolutionDetail2],
       evolvesTo: [_chain3],
     );
     _chain1 = Chain(
       isBaby: true,
-      species: Species(id: 1, name: 'pokemon1'),
+      species: Species(
+        id: 1,
+        name: 'pokemon1',
+        types: [PokemonType.GHOST, PokemonType.POISON],
+      ),
       evolutionDetails: [],
       evolvesTo: [_chain2],
     );
@@ -70,12 +82,17 @@ void main() {
       expect(chainViewModel1.name, equals('Pokemon1'));
       expect(chainViewModel1.formattedId, equals('#001'));
       expect(chainViewModel1.evolutionDetails, []);
+      expect(chainViewModel1.evolutionDetails, []);
+      expect(chainViewModel1.types[0].title, equals('GHOST'));
+      expect(chainViewModel1.types[1].title, equals('POISON'));
+
       expect(chainViewModel2.formattedId, equals('#002'));
       expect(chainViewModel2.name, equals('Pokemon2'));
       expect(chainViewModel2.isBaby, equals(_chain2.isBaby));
       expect(evolutionDetailVm2.desc, equals('Level'));
       expect(evolutionDetailVm2.minLevel, equals(_evolutionDetail2.minLevel));
       expect(evolutionDetailVm2.trigger, equals(_evolutionDetail2.trigger));
+
       expect(chainViewModel3.formattedId, equals('#003'));
       expect(chainViewModel3.name, equals('Pokemon3'));
       expect(chainViewModel3.isBaby, equals(_chain3.isBaby));
@@ -88,7 +105,7 @@ void main() {
     test("Validate a Chain of level 2 with multi evolutions", () {
       var chain = Chain(
         isBaby: true,
-        species: Species(id: 1, name: 'pokemon'),
+        species: Species(id: 1, name: 'pokemon', types: [PokemonType.GHOST]),
         evolutionDetails: [],
         evolvesTo: [_chain1, _chain2, _chain3],
       );
@@ -150,7 +167,11 @@ void main() {
         () {
           var evolution1 = Chain(
             isBaby: false,
-            species: Species(id: 2, name: 'evolution 1'),
+            species: Species(
+              id: 2,
+              name: 'evolution 1',
+              types: [],
+            ),
             evolutionDetails: [
               EvolutionDetail(
                 trigger: Trigger.USE_ITEM,
@@ -162,7 +183,11 @@ void main() {
 
           var evolution2 = Chain(
             isBaby: false,
-            species: Species(id: 3, name: 'evolution 2'),
+            species: Species(
+              id: 3,
+              name: 'evolution 2',
+              types: [],
+            ),
             evolutionDetails: [
               EvolutionDetail(
                 trigger: Trigger.USE_ITEM,
@@ -173,7 +198,11 @@ void main() {
           );
           var evolution3 = Chain(
             isBaby: false,
-            species: Species(id: 4, name: 'evolution 3'),
+            species: Species(
+              id: 4,
+              name: 'evolution 3',
+              types: [],
+            ),
             evolutionDetails: [
               EvolutionDetail(
                 trigger: Trigger.USE_ITEM,
@@ -184,7 +213,11 @@ void main() {
           );
           var evolution4 = Chain(
             isBaby: false,
-            species: Species(id: 5, name: 'evolution 4'),
+            species: Species(
+              id: 5,
+              name: 'evolution 4',
+              types: [],
+            ),
             evolutionDetails: [
               EvolutionDetail(
                 trigger: Trigger.LEVEL_UP,
@@ -194,7 +227,11 @@ void main() {
           );
           var chain = Chain(
             isBaby: true,
-            species: Species(id: 1, name: 'pokemon'),
+            species: Species(
+              id: 1,
+              name: 'pokemon',
+              types: [],
+            ),
             evolutionDetails: [],
             evolvesTo: [evolution1, evolution2, evolution3, evolution4],
           );
@@ -219,23 +256,36 @@ void main() {
         () {
           var chain = Chain(
             isBaby: true,
-            species: Species(id: 1, name: 'pokemon'),
+            species: Species(
+              id: 1,
+              name: 'pokemon',
+              types: [],
+            ),
             evolutionDetails: [],
             evolvesTo: [
               Chain(
                 isBaby: false,
-                species: Species(id: 196, name: 'espeon'),
+                species: Species(
+                  id: 196,
+                  name: 'espeon',
+                  types: [],
+                ),
                 evolutionDetails: [
                   EvolutionDetail(
-                      trigger: Trigger.LEVEL_UP,
-                      minHappiness: 220,
-                      timeOfDay: TimeOfDay.DAY),
+                    trigger: Trigger.LEVEL_UP,
+                    minHappiness: 220,
+                    timeOfDay: TimeOfDay.DAY,
+                  ),
                 ],
                 evolvesTo: [],
               ),
               Chain(
                 isBaby: false,
-                species: Species(id: 197, name: 'umbreon'),
+                species: Species(
+                  id: 197,
+                  name: 'umbreon',
+                  types: [],
+                ),
                 evolutionDetails: [
                   EvolutionDetail(
                     trigger: Trigger.LEVEL_UP,
@@ -247,7 +297,11 @@ void main() {
               ),
               Chain(
                 isBaby: false,
-                species: Species(id: 470, name: 'leafeon'),
+                species: Species(
+                  id: 470,
+                  name: 'leafeon',
+                  types: [],
+                ),
                 evolutionDetails: [
                   EvolutionDetail(
                     trigger: Trigger.LEVEL_UP,
@@ -261,7 +315,11 @@ void main() {
               ),
               Chain(
                 isBaby: false,
-                species: Species(id: 471, name: 'glaceon'),
+                species: Species(
+                  id: 471,
+                  name: 'glaceon',
+                  types: [],
+                ),
                 evolutionDetails: [
                   EvolutionDetail(
                     trigger: Trigger.LEVEL_UP,
@@ -293,11 +351,19 @@ void main() {
       test("Evolution by using an item", () {
         var chain = Chain(
           isBaby: true,
-          species: Species(id: 1, name: 'pokemon'),
+          species: Species(
+            id: 1,
+            name: 'pokemon',
+            types: [],
+          ),
           evolutionDetails: [],
           evolvesTo: [
             Chain(
-              species: Species(id: 2, name: 'pokemon2'),
+              species: Species(
+                id: 2,
+                name: 'pokemon2',
+                types: [],
+              ),
               evolutionDetails: [
                 EvolutionDetail(
                   trigger: Trigger.USE_ITEM,
@@ -329,11 +395,19 @@ void main() {
       test("Evolution by friendship only", () {
         var chain = Chain(
           isBaby: true,
-          species: Species(id: 1, name: 'pokemon'),
+          species: Species(
+            id: 1,
+            name: 'pokemon',
+            types: [],
+          ),
           evolutionDetails: [],
           evolvesTo: [
             Chain(
-              species: Species(id: 2, name: 'pokemon2'),
+              species: Species(
+                id: 2,
+                name: 'pokemon2',
+                types: [],
+              ),
               evolutionDetails: [
                 EvolutionDetail(
                   minHappiness: 220,
@@ -357,11 +431,19 @@ void main() {
       test("Evolution by friendship and time of day", () {
         var chain = Chain(
           isBaby: true,
-          species: Species(id: 1, name: 'pokemon'),
+          species: Species(
+            id: 1,
+            name: 'pokemon',
+            types: [],
+          ),
           evolutionDetails: [],
           evolvesTo: [
             Chain(
-              species: Species(id: 2, name: 'pokemon2'),
+              species: Species(
+                id: 2,
+                name: 'pokemon2',
+                types: [],
+              ),
               evolutionDetails: [
                 EvolutionDetail(
                   minHappiness: 220,
@@ -387,11 +469,19 @@ void main() {
       test("Evolution by friendship and time of night", () {
         var chain = Chain(
           isBaby: true,
-          species: Species(id: 1, name: 'pokemon'),
+          species: Species(
+            id: 1,
+            name: 'pokemon',
+            types: [],
+          ),
           evolutionDetails: [],
           evolvesTo: [
             Chain(
-              species: Species(id: 2, name: 'pokemon2'),
+              species: Species(
+                id: 2,
+                name: 'pokemon2',
+                types: [],
+              ),
               evolutionDetails: [
                 EvolutionDetail(
                   minHappiness: 220,
@@ -417,11 +507,19 @@ void main() {
       test("Evolution by Level and location", () {
         var chain = Chain(
           isBaby: true,
-          species: Species(id: 1, name: 'pokemon'),
+          species: Species(
+            id: 1,
+            name: 'pokemon',
+            types: [],
+          ),
           evolutionDetails: [],
           evolvesTo: [
             Chain(
-              species: Species(id: 2, name: 'pokemon2'),
+              species: Species(
+                id: 2,
+                name: 'pokemon2',
+                types: [],
+              ),
               evolutionDetails: [
                 EvolutionDetail(
                   location: Location(id: 'icy-rock', name: 'Icy Rock'),

@@ -54,8 +54,9 @@ class Chain {
 class Species {
   int id;
   String name;
+  List<PokemonType> types;
 
-  Species({this.id, this.name});
+  Species({this.id, this.name, this.types});
 }
 
 class EvolutionDetail {

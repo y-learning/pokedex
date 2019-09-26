@@ -1,3 +1,6 @@
+import 'package:pokedex/usecases/pokemon_types.dart';
+import 'package:pokedex/viewmodels/pokemon_profile_view_model.dart';
+
 import '../usecases/pokemon_profile_response_model.dart';
 
 class ChainViewModel {
@@ -7,6 +10,7 @@ class ChainViewModel {
   final String name;
   final List<EvolutionDetailViewModel> evolutionDetails;
   final List<List<ChainViewModel>> evolvesTo;
+  final List<TypeViewModel> types;
 
   ChainViewModel({
     this.isBaby,
@@ -15,6 +19,7 @@ class ChainViewModel {
     this.name,
     this.evolvesTo,
     this.evolutionDetails,
+    this.types,
   });
 }
 

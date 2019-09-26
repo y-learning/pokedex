@@ -85,6 +85,7 @@ class PokemonProfilePresenter {
         name: formatText(chain.species.name),
         evolutionDetails: _toEvolutionDetailsViewModels(chain.evolutionDetails),
         evolvesTo: groupBy(chain),
+        types: _typesToTypeViewModels(chain.species.types),
       );
 
   List<EvolutionDetailViewModel> _toEvolutionDetailsViewModels(

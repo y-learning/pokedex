@@ -37,12 +37,16 @@ class App extends StatelessWidget {
   PokemonProfileResponseModel _eveeResponseModel() {
     var chain = Chain(
       isBaby: true,
-      species: Species(id: 133, name: 'evee'),
+      species: Species(id: 133, name: 'evee', types: [PokemonType.NORMAL]),
       evolutionDetails: [],
       evolvesTo: [
         Chain(
           isBaby: false,
-          species: Species(id: 134, name: 'vaporeon'),
+          species: Species(
+            id: 134,
+            name: 'vaporeon',
+            types: [PokemonType.WATER],
+          ),
           evolutionDetails: [
             EvolutionDetail(
               trigger: Trigger.USE_ITEM,
@@ -53,7 +57,11 @@ class App extends StatelessWidget {
         ),
         Chain(
           isBaby: false,
-          species: Species(id: 135, name: 'jolteon'),
+          species: Species(
+            id: 135,
+            name: 'jolteon',
+            types: [PokemonType.ELECTRIC],
+          ),
           evolutionDetails: [
             EvolutionDetail(
               trigger: Trigger.USE_ITEM,
@@ -64,7 +72,11 @@ class App extends StatelessWidget {
         ),
         Chain(
           isBaby: false,
-          species: Species(id: 136, name: 'flareon'),
+          species: Species(
+            id: 136,
+            name: 'flareon',
+            types: [PokemonType.FIRE],
+          ),
           evolutionDetails: [
             EvolutionDetail(
               trigger: Trigger.USE_ITEM,
@@ -75,7 +87,11 @@ class App extends StatelessWidget {
         ),
         Chain(
           isBaby: false,
-          species: Species(id: 196, name: 'espeon'),
+          species: Species(
+            id: 196,
+            name: 'espeon',
+            types: [PokemonType.PSYCHIC],
+          ),
           evolutionDetails: [
             EvolutionDetail(
                 trigger: Trigger.LEVEL_UP,
@@ -86,7 +102,11 @@ class App extends StatelessWidget {
         ),
         Chain(
           isBaby: false,
-          species: Species(id: 197, name: 'umbreon'),
+          species: Species(
+            id: 197,
+            name: 'umbreon',
+            types: [PokemonType.DARK],
+          ),
           evolutionDetails: [
             EvolutionDetail(
               trigger: Trigger.LEVEL_UP,
@@ -98,7 +118,11 @@ class App extends StatelessWidget {
         ),
         Chain(
           isBaby: false,
-          species: Species(id: 470, name: 'leafeon'),
+          species: Species(
+            id: 470,
+            name: 'leafeon',
+            types: [PokemonType.GRASS],
+          ),
           evolutionDetails: [
             EvolutionDetail(
               trigger: Trigger.LEVEL_UP,
@@ -112,7 +136,11 @@ class App extends StatelessWidget {
         ),
         Chain(
           isBaby: false,
-          species: Species(id: 471, name: 'glaceon'),
+          species: Species(
+            id: 471,
+            name: 'glaceon',
+            types: [PokemonType.ICE],
+          ),
           evolutionDetails: [
             EvolutionDetail(
               trigger: Trigger.LEVEL_UP,
@@ -184,13 +212,21 @@ class App extends StatelessWidget {
   PokemonProfileResponseModel _gengarResponseModel() {
     var chain3 = Chain(
       isBaby: false,
-      species: Species(id: 94, name: 'Gengar'),
+      species: Species(
+        id: 94,
+        name: 'Gengar',
+        types: [PokemonType.GHOST, PokemonType.POISON],
+      ),
       evolutionDetails: [EvolutionDetail(trigger: Trigger.TRADE)],
       evolvesTo: [],
     );
     var chain2 = Chain(
       isBaby: false,
-      species: Species(id: 93, name: 'Haunter'),
+      species: Species(
+        id: 93,
+        name: 'Haunter',
+        types: [PokemonType.GHOST, PokemonType.POISON],
+      ),
       evolutionDetails: [
         EvolutionDetail(trigger: Trigger.LEVEL_UP, minLevel: 25)
       ],
@@ -198,7 +234,11 @@ class App extends StatelessWidget {
     );
     var chain1 = Chain(
       isBaby: true,
-      species: Species(id: 92, name: 'Gastly'),
+      species: Species(
+        id: 92,
+        name: 'Gastly',
+        types: [PokemonType.GHOST, PokemonType.POISON],
+      ),
       evolutionDetails: [],
       evolvesTo: [chain2],
     );
