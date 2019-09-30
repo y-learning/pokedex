@@ -268,15 +268,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
           Container(
             width: double.infinity,
-            margin: EdgeInsets.only(
-              top: MediaQuery.of(context).size.height * .05,
+            child: FractionallySizedBox(
+              alignment: Alignment.center,
+              heightFactor: .4,
+              widthFactor: .5,
+              child: Image(
+                image: AssetImage(_mainPokemonAsset),
+              ),
             ),
-            child: Image(
-              height: MediaQuery.of(context).size.height * .24,
-              width: MediaQuery.of(context).size.height * .24,
-              image: AssetImage(_mainPokemonAsset),
-            ),
-          )
+          ),
         ],
       ),
     );
