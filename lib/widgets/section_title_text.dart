@@ -8,14 +8,17 @@ class SectionTitleText extends StatelessWidget {
   const SectionTitleText(this.data, {this.textColor});
 
   Widget build(BuildContext context) {
-    return Text(
-      data,
-      style: TextStyle(
-        color: textColor,
-        fontSize: ScreenUtil.getInstance().setSp(39),
-        fontWeight: FontWeight.w800,
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 10.0),
+      child: Text(
+        data,
+        style: TextStyle(
+          color: textColor,
+          fontSize: ScreenUtil.getInstance().setSp(39),
+          fontWeight: FontWeight.w800,
+        ),
+        textAlign: TextAlign.center,
       ),
-      textAlign: TextAlign.center,
     );
   }
 }

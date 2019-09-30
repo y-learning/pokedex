@@ -231,12 +231,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ),
                         ],
                       ),
-                      SizedBox(height: 24),
                       SectionTitleText(
                         'Evolution',
                         textColor: _profileTheme.dataBoxTitleColor,
                       ),
-                      SizedBox(height: 6),
                       Row(
                         children: [
                           Expanded(
@@ -246,19 +244,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ),
                         ],
                       ),
-                      SizedBox(height: 24),
                       SectionTitleText(
                         'Base Stats',
                         textColor: _profileTheme.dataBoxTitleColor,
                       ),
-                      SizedBox(height: 6),
                       Column(children: _buildStatsChart()),
-                      SizedBox(height: 6),
                       SectionTitleText(
                         'Type effectiveness',
                         textColor: _profileTheme.dataBoxTitleColor,
                       ),
-                      SizedBox(height: 10),
                       for (var row in _buildEffectivenessCategories()) row,
                     ],
                   ),
