@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:pokedex/viewmodels/chain_view_model.dart';
 import 'package:pokedex/viewmodels/pokemon_profile_view_model.dart';
+import 'package:pokedex/widgets/decorated_tab_bar.dart';
 import 'package:pokedex/widgets/effectiveness_text.dart';
 import 'package:pokedex/widgets/gender_row.dart';
 import 'package:pokedex/widgets/hidden_ability_text.dart';
@@ -51,9 +52,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
     _profileTheme = ProfileTheme(_profileViewModel.types[0].type);
   }
 
-  List<Widget> tree = [];
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         elevation: 0,
         automaticallyImplyLeading: true,
@@ -254,6 +255,97 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         textColor: _profileTheme.dataBoxTitleColor,
                       ),
                       for (var row in _buildEffectivenessCategories()) row,
+                      SectionTitleText(
+                        'Moves',
+                        textColor: _profileTheme.dataBoxTitleColor,
+                      ),
+                      Container(
+                        height: 400,
+                        child: DefaultTabController(
+                          length: 2,
+                          child: Scaffold(
+                            backgroundColor: Colors.white,
+                            appBar: DecoratedTabBar(
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                border: Border(
+                                  bottom: BorderSide(
+                                    color: Color(0xFFdbdbdb),
+                                  ),
+                                ),
+                              ),
+                              tabBar: TabBar(
+                                isScrollable: true,
+                                labelColor: Color(0xFF404040),
+                                unselectedLabelColor: Color(0xFF737373),
+                                labelPadding: EdgeInsets.symmetric(
+                                  horizontal: 2.0,
+                                ),
+                                indicatorSize: TabBarIndicatorSize.label,
+                                indicator: BoxDecoration(color: Colors.white),
+                                tabs: [
+                                  Container(
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal: 16,
+                                      vertical: 6,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      border: Border(
+                                        top: BorderSide(
+                                          color: Color(0xFFdbdbdb),
+                                        ),
+                                        left: BorderSide(
+                                          color: Color(0xFFdbdbdb),
+                                        ),
+                                        right: BorderSide(
+                                          color: Color(0xFFdbdbdb),
+                                        ),
+                                      ),
+                                    ),
+                                    child: Text("Let's Go Pikachu/Evee"),
+                                  ),
+                                  Container(
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal: 16,
+                                      vertical: 6,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      color: _profileTheme.appBarBackgroundColor
+                                          .withAlpha(80),
+                                      border: Border(
+                                        top: BorderSide(
+                                          color: Color(0xFFdbdbdb),
+                                        ),
+                                        left: BorderSide(
+                                          color: Color(0xFFdbdbdb),
+                                        ),
+                                        right: BorderSide(
+                                          color: Color(0xFFdbdbdb),
+                                        ),
+                                      ),
+                                    ),
+                                    child: Text("Ultra Sun/Ultra Moon"),
+                                  ),
+                                ],
+                                onTap: (int index) {
+                                  switch (index) {
+                                    case 0:
+                                      break;
+                                    case 1:
+                                      break;
+                                  }
+                                },
+                              ),
+                            ),
+                            body: TabBarView(
+                              children: [
+                                Icon(Icons.directions_car),
+                                Icon(Icons.directions_transit),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),
