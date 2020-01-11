@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:pokedex/viewmodels/stat_slider_view_model.dart';
+import 'package:pokedex/viewmodels/pokemon_stat_slider_viewmodel.dart';
 
 class BaseStatSlider extends StatelessWidget {
   final double stat;
@@ -25,7 +25,7 @@ class BaseStatSlider extends StatelessWidget {
       child: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
           return Container(
-            width: StatSliderViewModel.calculateActiveSliderWidth(
+            width: PokemonStatSliderViewModel.calculateActiveSliderWidth(
               stat,
               constraints.maxWidth,
             ),
