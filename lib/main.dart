@@ -5,7 +5,7 @@ import 'package:pokedex/usecases/pokemon_profile_response_model.dart';
 import 'package:pokedex/usecases/pokemon_profile_response_model.dart'
     as prefix0;
 import 'package:pokedex/usecases/pokemon_types.dart';
-import 'package:pokedex/viewmodels/pokemon_profile_view_model.dart';
+import 'package:pokedex/viewmodels/pokemon_profile_viewmodel.dart';
 
 import 'screens/profile_screen.dart';
 

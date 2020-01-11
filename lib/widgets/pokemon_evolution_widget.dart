@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:pokedex/viewmodels/chain_view_model.dart';
+import 'package:pokedex/viewmodels/chain_viewmodel.dart';
 import 'package:pokedex/widgets/type_label.dart';
 
 import '../profile_theme.dart';

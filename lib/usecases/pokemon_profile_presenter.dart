@@ -1,7 +1,7 @@
 import 'package:pokedex/usecases/pokemon_profile_response_model.dart';
-import 'package:pokedex/viewmodels/base_stat_view_model.dart';
-import 'package:pokedex/viewmodels/chain_view_model.dart';
-import 'package:pokedex/viewmodels/pokemon_profile_view_model.dart';
+import 'package:pokedex/viewmodels/base_stat_viewmodel.dart';
+import 'package:pokedex/viewmodels/chain_viewmodel.dart';
+import 'package:pokedex/viewmodels/pokemon_profile_viewmodel.dart';
 
 import 'pokemon_types.dart';
 

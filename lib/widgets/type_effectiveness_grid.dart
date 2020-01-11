@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:pokedex/viewmodels/pokemon_profile_view_model.dart';
+import 'package:pokedex/viewmodels/pokemon_profile_viewmodel.dart';
 import 'package:pokedex/widgets/type_label.dart';
 import '../utils.dart';
 import 'effectiveness_value.dart';

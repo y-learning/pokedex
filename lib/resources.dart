@@ -1,5 +1,5 @@
 import 'package:pokedex/usecases/pokemon_profile_response_model.dart';
-import 'package:pokedex/viewmodels/chain_view_model.dart';
+import 'package:pokedex/viewmodels/chain_viewmodel.dart';
 
 String pokemonImage(String id) => 'images/pokemons/$id.gif';
 

@@ -1,4 +1,4 @@
-import 'package:pokedex/viewmodels/pokemon_profile_view_model.dart';
+import 'package:pokedex/viewmodels/pokemon_profile_viewmodel.dart';
 
 import '../usecases/pokemon_profile_response_model.dart';
 

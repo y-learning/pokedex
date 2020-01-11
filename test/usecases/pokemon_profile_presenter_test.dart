@@ -2,9 +2,9 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:pokedex/usecases/pokemon_types.dart';
 import 'package:pokedex/usecases/pokemon_profile_presenter.dart';
 import 'package:pokedex/usecases/pokemon_profile_response_model.dart';
-import 'package:pokedex/viewmodels/base_stat_view_model.dart';
-import 'package:pokedex/viewmodels/chain_view_model.dart';
-import 'package:pokedex/viewmodels/pokemon_profile_view_model.dart';
+import 'package:pokedex/viewmodels/base_stat_viewmodel.dart';
+import 'package:pokedex/viewmodels/chain_viewmodel.dart';
+import 'package:pokedex/viewmodels/pokemon_profile_viewmodel.dart';
 
 void main() {
   PokemonProfilePresenter _presenter;

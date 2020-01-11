@@ -1,8 +1,8 @@
 import 'package:pokedex/usecases/pokemon_profile_response_model.dart';
 import 'package:pokedex/usecases/pokemon_types.dart';
 
-import 'base_stat_view_model.dart';
-import 'chain_view_model.dart';
+import 'base_stat_viewmodel.dart';
+import 'chain_viewmodel.dart';
 
 class PokemonProfileViewModel {
   final String pokemonName;
