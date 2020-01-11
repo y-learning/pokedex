@@ -2,26 +2,44 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:pokedex/viewmodels/stat_slider_view_model.dart';
 
 void main() {
-  group("Fixed tests", () {
+  group("Assertions", () {
     test(
-      "Testing for 60.0 stat points and width 200.0",
+      "When zero stat points, active slider width is zero",
       () => expect(
-        StatSliderViewModel.calculateActiveSliderWidth(60.0, 200.0),
-        equals(60.0),
+        StatSliderViewModel.calculateActiveSliderWidth(0.0, 300.0),
+        equals(0.0),
       ),
     );
+
     test(
-      "Testing for 60.0 stat points and width 300.0",
+      "When max stat points, Active slider width equals full width",
       () => expect(
-        StatSliderViewModel.calculateActiveSliderWidth(60.0, 300.0),
+        StatSliderViewModel.calculateActiveSliderWidth(200, 300.0),
+        equals(300.0),
+      ),
+    );
+
+    test(
+      "When stat points bigger than max, Active slider width equals full width",
+      () => expect(
+        StatSliderViewModel.calculateActiveSliderWidth(600, 300.0),
+        equals(300.0),
+      ),
+    );
+
+    test(
+      "When stat points 100 and full width 300, Active slider width equals 150",
+      () => expect(
+        StatSliderViewModel.calculateActiveSliderWidth(100, 300.0),
+        equals(150.0),
+      ),
+    );
+
+    test(
+      "When stat points 60 and full width 300 Active slider width equals 90",
+      () => expect(
+        StatSliderViewModel.calculateActiveSliderWidth(60, 300.0),
         equals(90.0),
-      ),
-    );
-    test(
-      "Testing for 60.0 stat points and width 699.0",
-      () => expect(
-        StatSliderViewModel.calculateActiveSliderWidth(60.0, 699.0),
-        equals(209.7),
       ),
     );
   });
